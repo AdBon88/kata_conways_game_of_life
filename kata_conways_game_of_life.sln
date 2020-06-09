@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kata_conways_game_of_life", "kata_conways_game_of_life\kata_conways_game_of_life.csproj", "{9674833D-551B-4827-866C-AF2C4C11C855}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kata_conways_game_of_life.tests", "kata_conways_game_of_life.tests\kata_conways_game_of_life.tests.csproj", "{CDD66F37-E2D3-4F6A-8609-B27F6DAE9FED}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9674833D-551B-4827-866C-AF2C4C11C855}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9674833D-551B-4827-866C-AF2C4C11C855}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9674833D-551B-4827-866C-AF2C4C11C855}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9674833D-551B-4827-866C-AF2C4C11C855}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CDD66F37-E2D3-4F6A-8609-B27F6DAE9FED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDD66F37-E2D3-4F6A-8609-B27F6DAE9FED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDD66F37-E2D3-4F6A-8609-B27F6DAE9FED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDD66F37-E2D3-4F6A-8609-B27F6DAE9FED}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
