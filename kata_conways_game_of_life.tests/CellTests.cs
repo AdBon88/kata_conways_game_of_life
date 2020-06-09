@@ -23,9 +23,8 @@ namespace kata_conways_game_of_life.tests
         [Fact]
         public void DisplayAsFilledSquareIfAlive()
         {
-            var sut = new Cell();
-            sut.State = State.Alive;
-            
+            var sut = new Cell {State = State.Alive};
+
             Assert.Equal('◼', sut.GetDisplay());
         }
     }
