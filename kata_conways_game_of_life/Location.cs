@@ -24,14 +24,11 @@ namespace kata_conways_game_of_life
         {
             var liveNeighbours = Neighbours.Count(n => n.State == State.Alive);
             State nextState;
-            if ((liveNeighbours == 2 || liveNeighbours == 3) && _cell.State == State.Alive)
+            if (liveNeighbours == 3) 
             {
                 nextState = State.Alive;
-            } else if ((liveNeighbours < 2 || liveNeighbours > 3) && _cell.State ==State.Alive)
-            {
-                nextState = State.Dead;
             }
-            else if (_cell.State == State.Dead && liveNeighbours == 3)
+            else if (_cell.State == State.Alive && liveNeighbours == 2)
             {
                 nextState = State.Alive;
             }
