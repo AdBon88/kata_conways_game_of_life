@@ -15,10 +15,8 @@ namespace kata_conways_game_of_life.tests
                 new Cell() {State = State.Alive},
                 new Cell(), new Cell(), new Cell(), new Cell(), new Cell(), new Cell()
             };
-
-            sut.Neighbours = neighbours;
             
-            Assert.Equal(State.Alive, sut.GetNextCellState());
+            Assert.Equal(State.Alive, sut.GetNextCellState(neighbours));
         }
 
         [Fact]
@@ -32,10 +30,8 @@ namespace kata_conways_game_of_life.tests
                 new Cell() {State = State.Alive},
                 new Cell(), new Cell(), new Cell(), new Cell(), new Cell()
             };
-
-            sut.Neighbours = neighbours;
             
-            Assert.Equal(State.Alive, sut.GetNextCellState());
+            Assert.Equal(State.Alive, sut.GetNextCellState(neighbours));
         }
         [Fact]
         public void HaveADeadCellNextIfCurrentlyHasDeadCellAndNot3LiveNeighbours()
@@ -47,10 +43,8 @@ namespace kata_conways_game_of_life.tests
                 new Cell() {State = State.Alive},
                 new Cell(), new Cell(), new Cell(), new Cell(), new Cell()
             };
-
-            sut.Neighbours = neighbours;
             
-            Assert.Equal(State.Dead, sut.GetNextCellState());
+            Assert.Equal(State.Dead, sut.GetNextCellState(neighbours));
         }
 
         [Fact]
@@ -62,10 +56,8 @@ namespace kata_conways_game_of_life.tests
                 new Cell() {State = State.Alive},
                 new Cell(), new Cell(), new Cell(), new Cell(), new Cell(), new Cell(), new Cell()
             };
-
-            sut.Neighbours = neighbours;
             
-            Assert.Equal(State.Dead, sut.GetNextCellState());
+            Assert.Equal(State.Dead, sut.GetNextCellState(neighbours));
 
         }
 
@@ -81,10 +73,8 @@ namespace kata_conways_game_of_life.tests
                 new Cell() {State = State.Alive},
                 new Cell(), new Cell(), new Cell()
             };
-
-            sut.Neighbours = neighbours;
             
-            Assert.Equal(State.Dead, sut.GetNextCellState());
+            Assert.Equal(State.Dead, sut.GetNextCellState(neighbours));
 
             
         }
