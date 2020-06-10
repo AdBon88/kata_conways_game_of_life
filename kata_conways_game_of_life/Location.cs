@@ -9,13 +9,13 @@ namespace kata_conways_game_of_life
     {
         public Location(int rowNumber, int columnNumber, Cell cell)
         {
-            _rowNumber = rowNumber;
-            _columnNumber = columnNumber;
+            RowNumber = rowNumber;
+            ColumnNumber = columnNumber;
             _cell = cell;
         }
         
-        private readonly int _rowNumber;
-        private readonly int _columnNumber;
+        public int RowNumber { get; }
+        public int ColumnNumber { get; }
         private readonly Cell _cell;
         public IEnumerable<Cell> Neighbours { get; set; }
 
@@ -25,7 +25,9 @@ namespace kata_conways_game_of_life
             var liveNeighbours = Neighbours.Count(neighbour => neighbour.State == State.Alive);
 
             if (liveNeighbours == 3) return State.Alive;
+            
             if (_cell.State == State.Alive && liveNeighbours == 2) return State.Alive;
+            
             return State.Dead;
 
         }
