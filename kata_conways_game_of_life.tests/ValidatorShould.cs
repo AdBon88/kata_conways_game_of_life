@@ -16,6 +16,23 @@ namespace kata_conways_game_of_life.tests
             Assert.True(actual1);
             Assert.False(actual2);
         }
+
+        [Fact]
+        public void IndicateIfCoordinatesAreWithinGridBoundaries()
+        {
+            var coordinates1 = new int[] {2, 3};
+            var coordinates2 = new int[] {1, 4};
+            const int maxGridRow = 3;
+            const int maxGridColumn = 3;
+
+            var actual1 = Validator.AreCoordinatesWithinGridBoundaries(coordinates1, maxGridRow, maxGridColumn);
+            var actual2 = Validator.AreCoordinatesWithinGridBoundaries(coordinates2, maxGridRow, maxGridColumn);
+
+            Assert.True(actual1);
+            Assert.False(actual2);
+            
+        }
+        
  
         
     }
