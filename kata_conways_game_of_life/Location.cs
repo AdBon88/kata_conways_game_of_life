@@ -22,22 +22,11 @@ namespace kata_conways_game_of_life
 
         public State GetNextCellState()
         {
-            var liveNeighbours = Neighbours.Count(n => n.State == State.Alive);
-            State nextState;
-            if (liveNeighbours == 3) 
-            {
-                nextState = State.Alive;
-            }
-            else if (_cell.State == State.Alive && liveNeighbours == 2)
-            {
-                nextState = State.Alive;
-            }
-            else
-            {
-                nextState = State.Dead;
-            }
+            var liveNeighbours = Neighbours.Count(neighbour => neighbour.State == State.Alive);
 
-            return nextState;
+            if (liveNeighbours == 3) return State.Alive;
+            if (_cell.State == State.Alive && liveNeighbours == 2) return State.Alive;
+            return State.Dead;
 
         }
         

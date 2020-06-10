@@ -37,7 +37,7 @@ namespace kata_conways_game_of_life.tests
             
             Assert.Equal(State.Alive, sut.GetNextCellState());
         }
-        
+        [Fact]
         public void HaveADeadCellNextIfCurrentlyHasDeadCellAndNot3LiveNeighbours()
         {
             var sut = new Location(2, 2, new Cell());
