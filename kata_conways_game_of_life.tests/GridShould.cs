@@ -272,7 +272,8 @@ namespace kata_conways_game_of_life.tests
         [Fact]
         public void UpdateLocationCellStatesWhenGivenStartingLiveCells()
         {
-            
+            var sut = new Grid(5, 5);
+            sut.AddCellsToLocations();
         }
     }
 }

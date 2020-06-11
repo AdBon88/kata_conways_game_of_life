@@ -12,7 +12,7 @@ namespace kata_conways_game_of_life
         public State State { get; set; }
         public string GetDisplay()
         {
-            return State == State.Dead ? "[ ]" : "[#]";
+            return State == State.Dead ? "[ ]" : "[#]"; //todo: maybe use enums to print out the display
         }
 
 

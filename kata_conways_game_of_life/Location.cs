@@ -22,9 +22,9 @@ namespace kata_conways_game_of_life
            _cell = cell;
         }
         
-        public State GetNextCellState(IEnumerable<Cell> neighbours)
+        public State GetNextCellState(IEnumerable<Location> neighbours)
         {
-            var liveNeighbours = neighbours.Count(neighbour => neighbour.State == State.Alive);
+            var liveNeighbours = neighbours.Count(neighbour => neighbour.GetCellState() == State.Alive);
 
             if (liveNeighbours == 3) return State.Alive;
             
@@ -34,14 +34,20 @@ namespace kata_conways_game_of_life
 
         }
 
-        public State ChangeCellStateTo(State newState)
+        public void ChangeCellStateTo(State newState)
+            //remove state geter/setter from outside the cell class, make a kil/revive status instead
         {
-            return _cell.State = newState;
+            _cell.State = newState;
         }
 
         public string GetDisplay()
         {
             return _cell.GetDisplay();
+        }
+
+        public State GetCellState()
+        {
+            return _cell.State;
         }
         
     }

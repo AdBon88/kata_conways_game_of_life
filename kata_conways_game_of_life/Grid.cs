@@ -87,6 +87,12 @@ namespace kata_conways_game_of_life
         {
             var targetLocation = GetLocationAt(row, column);
             return targetLocation.ChangeCellStateTo(newState);
+            
+   
         }
     }
+    
+    //TODO: make query functions to return a list of cells that will go from dead and alive and vice versa
+    //then use the query results to make a command function to change the state of those cells
+    // set up interfaces to test behaviour of interaction for the related classes
 }
