@@ -9,9 +9,7 @@ namespace kata_conways_game_of_life
         {
             State = State.Dead;
         }
-        
         public State State { get; set; }
-
         public string GetDisplay()
         {
             return State == State.Dead ? "[ ]" : "[#]";
