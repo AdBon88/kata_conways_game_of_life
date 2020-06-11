@@ -6,7 +6,8 @@ namespace kata_conways_game_of_life
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var grid = new Grid(3, 3);
+            Console.WriteLine(grid.Display());
         }
     }
 }

@@ -13,7 +13,7 @@ namespace kata_conways_game_of_life.tests
             var expectedDisplay = 
                 "[ ][ ][ ]" + Environment.NewLine +
                 "[ ][ ][ ]" + Environment.NewLine +
-                "[ ][ ][ ]";
+                "[ ][ ][ ]" + Environment.NewLine;
             
             Assert.Equal(expectedDisplay, sut.Display());
         }
