@@ -50,19 +50,19 @@ namespace kata_conways_game_of_life.tests
         public void Set8NeighboursToBoundaryLeftColumnLocation()
         {
             var sut = new Grid(5, 5);
-            var actual = sut.GetNeighboursFor(1, 3);
+            var actual = sut.GetNeighboursFor(3, 1);
 
             
             var expectedNeighbours = new List<Location>()
             {
+                new Location(2, 5, new Cell()),
                 new Location(2, 1, new Cell()),
-                new Location(4, 1, new Cell()),
                 new Location(2, 2, new Cell()),
+                new Location(3, 5, new Cell()),
                 new Location(3, 2, new Cell()),
-                new Location(4, 2, new Cell()),
-                new Location(5, 2, new Cell()),
-                new Location(5, 3, new Cell()),
-                new Location(5, 4, new Cell()),
+                new Location(4, 5, new Cell()),
+                new Location(4, 1, new Cell()),
+                new Location(4, 2, new Cell())
             };
             
             for (var i = 0; i < 8; i++)
