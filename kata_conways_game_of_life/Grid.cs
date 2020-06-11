@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Data.Common;
 using System.Linq;
 using System.Text;
 
@@ -48,6 +47,32 @@ namespace kata_conways_game_of_life
             }
 
             return gridDisplay.ToString();
+        }
+
+        public IEnumerable<Location> GetNeighboursFor(int row, int column)
+        {
+            var leftColumn = column - 1;
+            var rightColumn = column + 1;
+            var aboveRow = row - 1;
+            var belowRow = row + 1;
+            return new List<Location>()
+            {
+                GetLocationAt(aboveRow, leftColumn),
+                GetLocationAt(aboveRow, column),
+                GetLocationAt(aboveRow, rightColumn),
+                GetLocationAt(row, leftColumn),
+                GetLocationAt(row, rightColumn),
+                GetLocationAt(belowRow, leftColumn),
+                GetLocationAt(belowRow, column),
+                GetLocationAt(belowRow, rightColumn)
+            };
+
+        }
+        
+        private Location GetLocationAt(int rowNumber, int columnNumber)
+        {
+            return _locations.FirstOrDefault(location =>
+                location.RowNumber == rowNumber && location.ColumnNumber == columnNumber);
         }
     }
 }

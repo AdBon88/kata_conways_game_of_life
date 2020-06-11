@@ -6,7 +6,11 @@ namespace kata_conways_game_of_life
     {
         static void Main(string[] args)
         {
-            var grid = new Grid(3, 3);
+            Console.WriteLine("Enter number of rows");
+            var numOfRows = int.Parse(Console.ReadLine());
+            Console.WriteLine("Enter number of columns");
+            var numOfColumns = int.Parse(Console.ReadLine());
+            var grid = new Grid(numOfRows, numOfColumns);
             Console.WriteLine(grid.Display());
         }
     }
