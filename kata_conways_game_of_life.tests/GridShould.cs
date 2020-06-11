@@ -127,5 +127,32 @@ namespace kata_conways_game_of_life.tests
 
         }
         
+        [Fact]
+        public void Set8NeighboursToBoundaryBottomRowLocation()
+        {
+            var sut = new Grid(5, 5);
+            var actual = sut.GetNeighboursFor(5, 2);
+
+            
+            var expectedNeighbours = new List<Location>()
+            {
+                new Location(4, 1, new Cell()),
+                new Location(4, 2, new Cell()),
+                new Location(4, 3, new Cell()),
+                new Location(5, 1, new Cell()),
+                new Location(5, 3, new Cell()),
+                new Location(1, 1, new Cell()),
+                new Location(1, 2, new Cell()),
+                new Location(1, 3, new Cell())
+            };
+            
+            for (var i = 0; i < 8; i++)
+            {
+                Assert.Equal( expectedNeighbours.ElementAt(i).RowNumber,actual.ElementAt(i).RowNumber);
+                Assert.Equal( expectedNeighbours.ElementAt(i).ColumnNumber,actual.ElementAt(i).ColumnNumber);
+            }
+
+        }
+        
     }
 }
