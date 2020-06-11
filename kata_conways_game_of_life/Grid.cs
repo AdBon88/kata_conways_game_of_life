@@ -83,10 +83,10 @@ namespace kata_conways_game_of_life
                 location.RowNumber == rowNumber && location.ColumnNumber == columnNumber);
         }
 
-        public State SetLiveCellAtLocation(int row, int column)
+        public State ChangeLocationCellState(int row, int column, State newState)
         {
             var targetLocation = GetLocationAt(row, column);
-            return targetLocation.ChangeCellStateTo(State.Alive);
+            return targetLocation.ChangeCellStateTo(newState);
         }
     }
 }

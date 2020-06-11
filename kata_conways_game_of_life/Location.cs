@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.NetworkInformation;
+
 
 namespace kata_conways_game_of_life
 {
