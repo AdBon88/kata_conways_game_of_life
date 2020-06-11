@@ -33,6 +33,7 @@ namespace kata_conways_game_of_life.tests
             
             Assert.Equal(State.Alive, sut.GetNextCellState(neighbours));
         }
+        
         [Fact]
         public void HaveADeadCellNextIfCurrentlyHasDeadCellAndNot3LiveNeighbours()
         {
@@ -58,7 +59,6 @@ namespace kata_conways_game_of_life.tests
             };
             
             Assert.Equal(State.Dead, sut.GetNextCellState(neighbours));
-
         }
 
         [Fact]
@@ -75,7 +75,6 @@ namespace kata_conways_game_of_life.tests
             };
             
             Assert.Equal(State.Dead, sut.GetNextCellState(neighbours));
-
             
         }
         

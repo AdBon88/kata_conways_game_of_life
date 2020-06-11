@@ -12,6 +12,7 @@ namespace kata_conways_game_of_life.tests
         {
             var sut = new Grid(3, 3);
             sut.AddCellsToLocations();
+            
             var expectedDisplay = 
                 "[ ][ ][ ]" + Environment.NewLine +
                 "[ ][ ][ ]" + Environment.NewLine +
