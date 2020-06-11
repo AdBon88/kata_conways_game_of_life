@@ -86,7 +86,7 @@ namespace kata_conways_game_of_life
         public State SetLiveCellAtLocation(int row, int column)
         {
             var targetLocation = GetLocationAt(row, column);
-            return targetLocation.ChangeCellState(State.Alive);
+            return targetLocation.ChangeCellStateTo(State.Alive);
         }
     }
 }

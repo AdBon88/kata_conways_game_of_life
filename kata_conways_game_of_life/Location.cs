@@ -17,9 +17,9 @@ namespace kata_conways_game_of_life
         public int ColumnNumber { get; }
         private Cell _cell;
 
-        public Cell SetCell(Cell cell)
+        public void SetCell(Cell cell)
         {
-            return _cell = cell;
+           _cell = cell;
         }
         
         public State GetNextCellState(IEnumerable<Cell> neighbours)
@@ -34,7 +34,7 @@ namespace kata_conways_game_of_life
 
         }
 
-        public State ChangeCellState(State newState)
+        public State ChangeCellStateTo(State newState)
         {
             return _cell.State = newState;
         }
