@@ -231,5 +231,31 @@ namespace kata_conways_game_of_life.tests
                 Assert.Equal( expectedNeighbours.ElementAt(i).ColumnNumber,actual.ElementAt(i).ColumnNumber);
             }
         }
+        
+        [Fact]
+        public void Set8NeighboursToBoundaryBottomRightCornerLocation()
+        {
+            var sut = new Grid(5, 5);
+            var actual = sut.GetNeighboursFor(5, 5);
+
+            
+            var expectedNeighbours = new List<Location>()
+            {
+                new Location(4, 4, new Cell()),
+                new Location(4, 5, new Cell()),
+                new Location(4, 1, new Cell()),
+                new Location(5, 4, new Cell()),
+                new Location(5, 1, new Cell()),
+                new Location(1, 4, new Cell()),
+                new Location(1, 5, new Cell()),
+                new Location(1, 1, new Cell())
+            };
+            
+            for (var i = 0; i < 8; i++)
+            {
+                Assert.Equal( expectedNeighbours.ElementAt(i).RowNumber,actual.ElementAt(i).RowNumber);
+                Assert.Equal( expectedNeighbours.ElementAt(i).ColumnNumber,actual.ElementAt(i).ColumnNumber);
+            }
+        }
     }
 }
