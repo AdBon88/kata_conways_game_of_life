@@ -11,7 +11,7 @@ namespace kata_conways_game_of_life.tests
         public void ContainCorrectNumberOfSquares()
         {
             var sut = new Grid(3, 3);
-            sut.AddCellsToGrid();
+            sut.AddCellsToLocations();
             var expectedDisplay = 
                 "[ ][ ][ ]" + Environment.NewLine +
                 "[ ][ ][ ]" + Environment.NewLine +

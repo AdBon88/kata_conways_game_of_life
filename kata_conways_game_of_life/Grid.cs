@@ -18,7 +18,7 @@ namespace kata_conways_game_of_life
         private readonly int _numberOfColumns;
         private readonly IEnumerable<Location> _locations;
         
-        public void AddCellsToGrid()
+        public void AddCellsToLocations()
         {
             foreach (var location in _locations)
             {
