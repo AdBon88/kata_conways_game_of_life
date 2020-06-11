@@ -8,7 +8,7 @@ namespace kata_conways_game_of_life.tests
         [Fact]
         public void HaveALiveCellNextIfHaveTwoToThreeLiveNeighboursAndCurrentLiveCell()
         {
-            var sut = new Location(2, 2, new Cell() {State = State.Alive});
+            var sut = new Location(2, 2) {Cell = new Cell() {State = State.Alive}};
             var neighbours = new List<Cell>()
             {
                 new Cell() {State = State.Alive},
@@ -22,7 +22,7 @@ namespace kata_conways_game_of_life.tests
         [Fact]
         public void HaveALiveCellNextIfCurrentlyHasDeadCellAndExactly3LiveNeighbours()
         {
-            var sut = new Location(2, 2, new Cell());
+            var sut = new Location(2, 2) {Cell = new Cell()};
             var neighbours = new List<Cell>()
             {
                 new Cell() {State = State.Alive},
@@ -36,7 +36,7 @@ namespace kata_conways_game_of_life.tests
         [Fact]
         public void HaveADeadCellNextIfCurrentlyHasDeadCellAndNot3LiveNeighbours()
         {
-            var sut = new Location(2, 2, new Cell());
+            var sut = new Location(2, 2){Cell = new Cell()};
             var neighbours = new List<Cell>()
             {
                 new Cell() {State = State.Alive},
@@ -50,7 +50,7 @@ namespace kata_conways_game_of_life.tests
         [Fact]
         public void HaveADeadCellNextIfCurrentlyHasLiveCellAndLessThan2LiveNeighbours()
         {
-            var sut = new Location(2, 2, new Cell() {State = State.Alive});
+            var sut = new Location(2, 2) {Cell =  new Cell() {State = State.Alive}};
             var neighbours = new List<Cell>()
             {
                 new Cell() {State = State.Alive},
@@ -64,7 +64,7 @@ namespace kata_conways_game_of_life.tests
         [Fact]
         public void HaveADeadCellNextIfCurrentlyHasLiveCellAndMoreThan3LiveNeighbours()
         {
-            var sut = new Location(2, 2, new Cell() {State = State.Alive});
+            var sut = new Location(2, 2){Cell = new Cell() {State = State.Alive}};
             var neighbours = new List<Cell>()
             {
                 new Cell() {State = State.Alive},

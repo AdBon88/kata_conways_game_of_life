@@ -11,7 +11,7 @@ namespace kata_conways_game_of_life.tests
         public void ContainCorrectNumberOfSquares()
         {
             var sut = new Grid(3, 3);
-
+            sut.AddCellsToGrid();
             var expectedDisplay = 
                 "[ ][ ][ ]" + Environment.NewLine +
                 "[ ][ ][ ]" + Environment.NewLine +
@@ -28,14 +28,14 @@ namespace kata_conways_game_of_life.tests
             
             var expectedNeighbours = new List<Location>()
             {
-                new Location(2, 2, new Cell()),
-                new Location(2, 3, new Cell()),
-                new Location(2, 4, new Cell()),
-                new Location(3, 2, new Cell()),
-                new Location(3, 4, new Cell()),
-                new Location(4, 2, new Cell()),
-                new Location(4, 3, new Cell()),
-                new Location(4, 4, new Cell()),
+                new Location(2, 2),
+                new Location(2, 3),
+                new Location(2, 4),
+                new Location(3, 2),
+                new Location(3, 4),
+                new Location(4, 2),
+                new Location(4, 3),
+                new Location(4, 4),
             };
 
             for (var i = 0; i < 8; i++)
@@ -55,14 +55,14 @@ namespace kata_conways_game_of_life.tests
             
             var expectedNeighbours = new List<Location>()
             {
-                new Location(2, 5, new Cell()),
-                new Location(2, 1, new Cell()),
-                new Location(2, 2, new Cell()),
-                new Location(3, 5, new Cell()),
-                new Location(3, 2, new Cell()),
-                new Location(4, 5, new Cell()),
-                new Location(4, 1, new Cell()),
-                new Location(4, 2, new Cell())
+                new Location(2, 5),
+                new Location(2, 1),
+                new Location(2, 2),
+                new Location(3, 5),
+                new Location(3, 2),
+                new Location(4, 5),
+                new Location(4, 1),
+                new Location(4, 2)
             };
             
             for (var i = 0; i < 8; i++)
@@ -82,14 +82,14 @@ namespace kata_conways_game_of_life.tests
             
             var expectedNeighbours = new List<Location>()
             {
-                new Location(2, 4, new Cell()),
-                new Location(2, 5, new Cell()),
-                new Location(2, 1, new Cell()),
-                new Location(3, 4, new Cell()),
-                new Location(3, 1, new Cell()),
-                new Location(4, 4, new Cell()),
-                new Location(4, 5, new Cell()),
-                new Location(4, 1, new Cell())
+                new Location(2, 4),
+                new Location(2, 5),
+                new Location(2, 1),
+                new Location(3, 4),
+                new Location(3, 1),
+                new Location(4, 4),
+                new Location(4, 5),
+                new Location(4, 1)
             };
             
             for (var i = 0; i < 8; i++)
@@ -109,14 +109,14 @@ namespace kata_conways_game_of_life.tests
             
             var expectedNeighbours = new List<Location>()
             {
-                new Location(5, 2, new Cell()),
-                new Location(5, 3, new Cell()),
-                new Location(5, 4, new Cell()),
-                new Location(1, 2, new Cell()),
-                new Location(1, 4, new Cell()),
-                new Location(2, 2, new Cell()),
-                new Location(2, 3, new Cell()),
-                new Location(2, 4, new Cell())
+                new Location(5, 2),
+                new Location(5, 3),
+                new Location(5, 4),
+                new Location(1, 2),
+                new Location(1, 4),
+                new Location(2, 2),
+                new Location(2, 3),
+                new Location(2, 4)
             };
             
             for (var i = 0; i < 8; i++)
@@ -136,14 +136,14 @@ namespace kata_conways_game_of_life.tests
             
             var expectedNeighbours = new List<Location>()
             {
-                new Location(4, 1, new Cell()),
-                new Location(4, 2, new Cell()),
-                new Location(4, 3, new Cell()),
-                new Location(5, 1, new Cell()),
-                new Location(5, 3, new Cell()),
-                new Location(1, 1, new Cell()),
-                new Location(1, 2, new Cell()),
-                new Location(1, 3, new Cell())
+                new Location(4, 1),
+                new Location(4, 2),
+                new Location(4, 3),
+                new Location(5, 1),
+                new Location(5, 3),
+                new Location(1, 1),
+                new Location(1, 2),
+                new Location(1, 3)
             };
             
             for (var i = 0; i < 8; i++)
@@ -163,14 +163,14 @@ namespace kata_conways_game_of_life.tests
             
             var expectedNeighbours = new List<Location>()
             {
-                new Location(5, 5, new Cell()),
-                new Location(5, 1, new Cell()),
-                new Location(5, 2, new Cell()),
-                new Location(1, 5, new Cell()),
-                new Location(1, 2, new Cell()),
-                new Location(2, 5, new Cell()),
-                new Location(2, 1, new Cell()),
-                new Location(2, 2, new Cell())
+                new Location(5, 5),
+                new Location(5, 1),
+                new Location(5, 2),
+                new Location(1, 5),
+                new Location(1, 2),
+                new Location(2, 5),
+                new Location(2, 1),
+                new Location(2, 2)
             };
             
             for (var i = 0; i < 8; i++)
@@ -190,14 +190,14 @@ namespace kata_conways_game_of_life.tests
             
             var expectedNeighbours = new List<Location>()
             {
-                new Location(5, 4, new Cell()),
-                new Location(5, 5, new Cell()),
-                new Location(5, 1, new Cell()),
-                new Location(1, 4, new Cell()),
-                new Location(1, 1, new Cell()),
-                new Location(2, 4, new Cell()),
-                new Location(2, 5, new Cell()),
-                new Location(2, 1, new Cell())
+                new Location(5, 4),
+                new Location(5, 5),
+                new Location(5, 1),
+                new Location(1, 4),
+                new Location(1, 1),
+                new Location(2, 4),
+                new Location(2, 5),
+                new Location(2, 1)
             };
             
             for (var i = 0; i < 8; i++)
@@ -215,14 +215,14 @@ namespace kata_conways_game_of_life.tests
             
             var expectedNeighbours = new List<Location>()
             {
-                new Location(4, 5, new Cell()),
-                new Location(4, 1, new Cell()),
-                new Location(4, 2, new Cell()),
-                new Location(5, 5, new Cell()),
-                new Location(5, 2, new Cell()),
-                new Location(1, 5, new Cell()),
-                new Location(1, 1, new Cell()),
-                new Location(1, 2, new Cell())
+                new Location(4, 5),
+                new Location(4, 1),
+                new Location(4, 2),
+                new Location(5, 5),
+                new Location(5, 2),
+                new Location(1, 5),
+                new Location(1, 1),
+                new Location(1, 2)
             };
             
             for (var i = 0; i < 8; i++)
@@ -241,14 +241,14 @@ namespace kata_conways_game_of_life.tests
             
             var expectedNeighbours = new List<Location>()
             {
-                new Location(4, 4, new Cell()),
-                new Location(4, 5, new Cell()),
-                new Location(4, 1, new Cell()),
-                new Location(5, 4, new Cell()),
-                new Location(5, 1, new Cell()),
-                new Location(1, 4, new Cell()),
-                new Location(1, 5, new Cell()),
-                new Location(1, 1, new Cell())
+                new Location(4, 4),
+                new Location(4, 5),
+                new Location(4, 1),
+                new Location(5, 4),
+                new Location(5, 1),
+                new Location(1, 4),
+                new Location(1, 5),
+                new Location(1, 1)
             };
             
             for (var i = 0; i < 8; i++)

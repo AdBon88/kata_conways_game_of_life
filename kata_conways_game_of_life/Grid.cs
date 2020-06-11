@@ -17,20 +17,13 @@ namespace kata_conways_game_of_life
         private readonly int _numberOfRows;
         private readonly int _numberOfColumns;
         private readonly IEnumerable<Location> _locations;
-
-
-        private IEnumerable<Location> GenerateGrid()
+        
+        public void AddCellsToGrid()
         {
-            var gridLocations = new List<Location>();
-            for (var i = 1; i <= _numberOfRows; i++)
+            foreach (var location in _locations)
             {
-                for (var j = 1; j <= _numberOfColumns; j++)
-                {
-                    gridLocations.Add(new Location(i, j, new Cell()));
-                }
+                location.Cell = new Cell();
             }
-
-            return gridLocations;
         }
 
         public string Display()
@@ -70,10 +63,25 @@ namespace kata_conways_game_of_life
 
         }
         
+        private IEnumerable<Location> GenerateGrid()
+        {
+            var gridLocations = new List<Location>();
+            for (var i = 1; i <= _numberOfRows; i++)
+            {
+                for (var j = 1; j <= _numberOfColumns; j++)
+                {
+                    gridLocations.Add(new Location(i, j));
+                }
+            }
+
+            return gridLocations;
+        }
+        
         private Location GetLocationAt(int rowNumber, int columnNumber)
         {
             return _locations.FirstOrDefault(location =>
                 location.RowNumber == rowNumber && location.ColumnNumber == columnNumber);
         }
+        
     }
 }

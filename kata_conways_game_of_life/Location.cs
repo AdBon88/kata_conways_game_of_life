@@ -7,16 +7,15 @@ namespace kata_conways_game_of_life
 {
     public class Location
     {
-        public Location(int rowNumber, int columnNumber, Cell cell)
+        public Location(int rowNumber, int columnNumber)
         {
             RowNumber = rowNumber;
             ColumnNumber = columnNumber;
-            Cell = cell;
         }
         
         public int RowNumber { get; }
         public int ColumnNumber { get; }
-        public Cell Cell { get; }
+        public Cell Cell { get; set; }
 
         
         public State GetNextCellState(IEnumerable<Cell> neighbours)
