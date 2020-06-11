@@ -258,5 +258,15 @@ namespace kata_conways_game_of_life.tests
                 Assert.Equal( expectedNeighbours.ElementAt(i).ColumnNumber,actual.ElementAt(i).ColumnNumber);
             }
         }
+
+        [Fact]
+        public void UpdateTheNextCellStateForEachLocation()
+        {
+            var sut = new Grid(3, 3);
+            sut.AddCellsToLocations();
+            
+            Assert.Equal(State.Alive, sut.SetLiveCellAtLocation(1, 1));
+            
+        }
     }
 }

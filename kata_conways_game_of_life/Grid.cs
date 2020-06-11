@@ -22,7 +22,7 @@ namespace kata_conways_game_of_life
         {
             foreach (var location in _locations)
             {
-                location.Cell = new Cell();
+                location.SetCell(new Cell());
             }
         }
 
@@ -34,7 +34,7 @@ namespace kata_conways_game_of_life
                 var locationsInRow = _locations.Where(location => location.RowNumber == rowNumber);
                 foreach (var location in locationsInRow)
                 {
-                    gridDisplay.Append(location.Cell.GetDisplay());
+                    gridDisplay.Append(location.GetDisplay());
                 }
 
                 gridDisplay.AppendLine();
@@ -82,6 +82,11 @@ namespace kata_conways_game_of_life
             return _locations.FirstOrDefault(location =>
                 location.RowNumber == rowNumber && location.ColumnNumber == columnNumber);
         }
-        
+
+        public State SetLiveCellAtLocation(int row, int column)
+        {
+            var targetLocation = GetLocationAt(row, column);
+            return targetLocation.ChangeCellState(State.Alive);
+        }
     }
 }

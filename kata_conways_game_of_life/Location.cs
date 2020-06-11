@@ -15,8 +15,12 @@ namespace kata_conways_game_of_life
         
         public int RowNumber { get; }
         public int ColumnNumber { get; }
-        public Cell Cell { get; set; }
+        private Cell _cell;
 
+        public Cell SetCell(Cell cell)
+        {
+            return _cell = cell;
+        }
         
         public State GetNextCellState(IEnumerable<Cell> neighbours)
         {
@@ -24,10 +28,20 @@ namespace kata_conways_game_of_life
 
             if (liveNeighbours == 3) return State.Alive;
             
-            if (Cell.State == State.Alive && liveNeighbours == 2) return State.Alive;
+            if (_cell.State == State.Alive && liveNeighbours == 2) return State.Alive;
             
             return State.Dead;
 
+        }
+
+        public State ChangeCellState(State newState)
+        {
+            return _cell.State = newState;
+        }
+
+        public string GetDisplay()
+        {
+            return _cell.GetDisplay();
         }
         
     }

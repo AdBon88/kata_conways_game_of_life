@@ -10,7 +10,7 @@ namespace kata_conways_game_of_life
             State = State.Dead;
         }
         
-        public State State;
+        public State State { get; set; }
 
         public string GetDisplay()
         {
