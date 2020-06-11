@@ -18,8 +18,7 @@ namespace kata_conways_game_of_life
         public int ColumnNumber { get; }
         public Cell Cell { get; }
 
-
-
+        
         public State GetNextCellState(IEnumerable<Cell> neighbours)
         {
             var liveNeighbours = neighbours.Count(neighbour => neighbour.State == State.Alive);

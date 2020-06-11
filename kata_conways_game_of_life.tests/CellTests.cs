@@ -17,7 +17,7 @@ namespace kata_conways_game_of_life.tests
         public void DisplayAsABlankSquareIfDead()
         {
             var sut = new Cell();
-            Assert.Equal('◻', sut.GetDisplay());
+            Assert.Equal("[ ]", sut.GetDisplay());
         }
 
         [Fact]
@@ -25,7 +25,7 @@ namespace kata_conways_game_of_life.tests
         {
             var sut = new Cell {State = State.Alive};
 
-            Assert.Equal('◼', sut.GetDisplay());
+            Assert.Equal("[#]", sut.GetDisplay());
         }
     }
 }
