@@ -8,7 +8,7 @@ namespace kata_conways_game_of_life
 
         string Display();
 
-        IEnumerable<ILocation> GetNeighboursFor(int row, int column);
-        
+        int GetLiveNeighboursCountFor(int row, int column);
+
     }
 }
