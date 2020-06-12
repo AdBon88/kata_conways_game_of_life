@@ -270,13 +270,19 @@ namespace kata_conways_game_of_life.tests
         {
             var sut = new Grid(5, 5);
             sut.AddCellsToLocations();
-            var liveLocation1 = sut.GetLocationAt(1, 1);
-            liveLocation1.AddCell(Mock.Of<ICell>(c => c.State == State.Alive));
-            var liveLocation2 = sut.GetLocationAt(3, 2);
-            liveLocation2.AddCell(Mock.Of<ICell>(c => c.State == State.Alive));
+            AddLiveCellTo(sut, 1, 1);
+            AddLiveCellTo(sut, 3, 2);
+            AddLiveCellTo(sut, 5, 5);
+
 
             Assert.Equal(2, sut.GetLiveNeighboursCountFor(2, 2));
 
+        }
+
+        private static void AddLiveCellTo(Grid grid, int row, int column)
+        {
+            var liveLocation = grid.GetLocationAt(row, column);
+            liveLocation.AddCell(Mock.Of<ICell>(c => c.State == State.Alive));
         }
 
         
