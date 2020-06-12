@@ -12,6 +12,7 @@ namespace kata_conways_game_of_life.tests
             var sut = new Location(2, 2);
             var mockCell = Mock.Of<ICell>(c => c.State == State.Alive);
             sut.AddCell(mockCell);
+            
             Assert.Equal(State.Alive, sut.GetNextCellState(2));
             Assert.Equal(State.Alive, sut.GetNextCellState(3));
 
@@ -22,6 +23,7 @@ namespace kata_conways_game_of_life.tests
         {
             var sut = new Location(2, 2);
             sut.AddCell(new Cell());
+            
             Assert.Equal(State.Alive, sut.GetNextCellState(3));
         }
         

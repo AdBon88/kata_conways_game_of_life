@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace kata_conways_game_of_life
 {
-    public class Location
+    public class Location : ILocation
     {
         public Location(int rowNumber, int columnNumber)
         {

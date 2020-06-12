@@ -7,6 +7,7 @@ namespace kata_conways_game_of_life.tests
 {
     public class GridShould
     {
+        //TODO: add location interface and refactor these tests to test live neighbour count method instead
         [Fact]
         public void ContainCorrectNumberOfSquares()
         {
@@ -22,7 +23,8 @@ namespace kata_conways_game_of_life.tests
         }
 
         [Fact]
-        public void Set8SurroundingNeighboursForNonBoundaryLocation()
+        public void Set8SurroundingNeighboursForNonBoundaryLocation() 
+    
         {
             var sut = new Grid(5, 5);
             var actual = sut.GetNeighboursFor(3, 3);
@@ -259,21 +261,22 @@ namespace kata_conways_game_of_life.tests
             }
         }
 
-        [Fact]
-        public void UpdateTheNextCellStateForEachLocation()
-        {
-            var sut = new Grid(3, 3);
-            sut.AddCellsToLocations();
-            
-            //Assert.Equal(State.Alive, sut.ChangeLocationCellState(1, 1, State.Alive));
-            
-        }
-
-        [Fact]
-        public void UpdateLocationCellStatesWhenGivenStartingLiveCells()
-        {
-            var sut = new Grid(5, 5);
-            sut.AddCellsToLocations();
-        }
+        // [Fact]
+        // public void UpdateTheNextCellStateForEachLocation()
+        // {
+        //     var sut = new Grid(3, 3);
+        //     sut.AddCellsToLocations();
+        //     sut.ChangeLocationCellState(1, 1, State.Alive);
+        //     
+        //     Assert.Equal(State.Alive, );
+        //     
+        // }
+        //
+        // [Fact]
+        // public void UpdateLocationCellStatesWhenGivenStartingLiveCells()
+        // {
+        //     var sut = new Grid(5, 5);
+        //     sut.AddCellsToLocations();
+        // }
     }
 }
