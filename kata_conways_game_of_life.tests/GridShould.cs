@@ -8,301 +8,184 @@ namespace kata_conways_game_of_life.tests
 {
     public class GridShould
     {
-        //TODO: add location interface and refactor these tests to test live neighbour count method instead
+        public GridShould()
+        {
+            _sut = new Grid(5, 5);
+            _sut.AddCellsToLocations();
+        }
+
+        private readonly Grid _sut;
+        
         [Fact]
         public void ContainCorrectNumberOfSquares()
         {
-            var sut = new Grid(3, 3);
-            sut.AddCellsToLocations();
+            _sut.AddCellsToLocations();
             
             var expectedDisplay = 
-                "[ ][ ][ ]" + Environment.NewLine +
-                "[ ][ ][ ]" + Environment.NewLine +
-                "[ ][ ][ ]" + Environment.NewLine;
+                "[ ][ ][ ][ ][ ]" + Environment.NewLine +
+                "[ ][ ][ ][ ][ ]" + Environment.NewLine +
+                "[ ][ ][ ][ ][ ]" + Environment.NewLine +
+                "[ ][ ][ ][ ][ ]" + Environment.NewLine +
+                "[ ][ ][ ][ ][ ]" + Environment.NewLine;
             
-            Assert.Equal(expectedDisplay, sut.Display());
+            Assert.Equal(expectedDisplay, _sut.Display());
         }
 
         [Fact]
-        public void CalculateCorrectLiveNeighbourCountForNonBoundaryLocation() 
-    
+        public void CalculateCorrectLiveNeighbourCountForNonBoundaryLocation()
         {
-            var sut = new Grid(5, 5);
-            var actual = sut.GetLiveNeighboursCountFor(3, 3);
+
+            AddLiveCellTo(2, 2);
+            AddLiveCellTo(5, 5);
             
-            var expectedNeighbours = new List<ILocation>()
-            {
-                Mock.Of<ILocation>(l => l.GetCellState() == State.Alive 
-                                        && l.RowNumber == 2
-                                        && l.ColumnNumber == 2),
-                new Location(2, 3),
-                new Location(2, 4),
-                new Location(3, 2),
-                new Location(3, 4),
-                new Location(4, 2),
-                new Location(4, 3),
-                new Location(4, 4),
-            };
-            //
-            // for (var i = 0; i < 8; i++)
-            // {
-            //     Assert.Equal( expectedNeighbours.ElementAt(i).RowNumber,actual.ElementAt(i).RowNumber);
-            //     Assert.Equal( expectedNeighbours.ElementAt(i).ColumnNumber,actual.ElementAt(i).ColumnNumber);
-            // }
+            var actual = _sut.GetLiveNeighboursCountFor(3, 3);
+            
             Assert.Equal(1, actual);
-            
         }
 
         [Fact]
-        public void Set8NeighboursToBoundaryLeftColumnLocation()
+        public void CalculateCorrectLiveNeighboursForBoundaryLeftColumnLocation()
         {
-            var sut = new Grid(5, 5);
-            var actual = sut.GetLiveNeighboursCountFor(3, 1);
+            AddLiveCellTo(2, 5);
+            AddLiveCellTo(4, 1);
+            AddLiveCellTo(3, 5);
+            AddLiveCellTo(1, 1);
+            
+            var actual = _sut.GetLiveNeighboursCountFor(3, 1);
+            
+            Assert.Equal(3, actual);
+        }
+        
+        [Fact]
+        public void CalculateCorrectLiveNeighboursForBoundaryRightColumnLocation()
+        {
+            AddLiveCellTo(2, 4);
+            AddLiveCellTo(2, 5);
+            AddLiveCellTo(2, 1);
+            AddLiveCellTo(3, 4);
+            AddLiveCellTo(3, 1);
+            AddLiveCellTo(4, 4);
+            AddLiveCellTo(4, 5);
+            AddLiveCellTo(4, 1);
+            
+            AddLiveCellTo(1, 1);
 
+            var actual = _sut.GetLiveNeighboursCountFor(3, 5);
             
-            var expectedNeighbours = new List<Location>()
-            {
-                new Location(2, 5),
-                new Location(2, 1),
-                new Location(2, 2),
-                new Location(3, 5),
-                new Location(3, 2),
-                new Location(4, 5),
-                new Location(4, 1),
-                new Location(4, 2)
-            };
-            
-            // for (var i = 0; i < 8; i++)
-            // {
-            //     Assert.Equal( expectedNeighbours.ElementAt(i).RowNumber,actual.ElementAt(i).RowNumber);
-            //     Assert.Equal( expectedNeighbours.ElementAt(i).ColumnNumber,actual.ElementAt(i).ColumnNumber);
-            // }
+            Assert.Equal(8, actual);
 
         }
         
         [Fact]
-        public void Set8NeighboursToBoundaryRightColumnLocation()
+        public void CalculateCorrectLiveNeighboursForBoundaryTopRowLocation()
         {
-            var sut = new Grid(5, 5);
-            var actual = sut.GetLiveNeighboursCountFor(3, 5);
+            AddLiveCellTo(5, 2);
+            AddLiveCellTo(5, 3);
+            AddLiveCellTo(5, 4);
+            AddLiveCellTo(1, 2);
+            AddLiveCellTo(1, 4);
+            AddLiveCellTo(2, 2);
+            AddLiveCellTo(2, 3);
 
             
-            var expectedNeighbours = new List<Location>()
-            {
-                new Location(2, 4),
-                new Location(2, 5),
-                new Location(2, 1),
-                new Location(3, 4),
-                new Location(3, 1),
-                new Location(4, 4),
-                new Location(4, 5),
-                new Location(4, 1)
-            };
+            var actual = _sut.GetLiveNeighboursCountFor(1, 3);
             
-            // for (var i = 0; i < 8; i++)
-            // {
-            //     Assert.Equal( expectedNeighbours.ElementAt(i).RowNumber,actual.ElementAt(i).RowNumber);
-            //     Assert.Equal( expectedNeighbours.ElementAt(i).ColumnNumber,actual.ElementAt(i).ColumnNumber);
-            // }
+            Assert.Equal(7, actual);
 
         }
         
         [Fact]
-        public void Set8NeighboursToBoundaryTopRowLocation()
+        public void CalculateCorrectLiveNeighboursForBoundaryBottomRowLocation()
         {
-            var sut = new Grid(5, 5);
-            var actual = sut.GetLiveNeighboursCountFor(1, 3);
+            AddLiveCellTo(4, 1);
+            AddLiveCellTo(4, 2);
+            AddLiveCellTo(4, 3);
+            AddLiveCellTo(5, 1);
+            AddLiveCellTo(5, 3);
+            AddLiveCellTo(1, 1);
+            AddLiveCellTo(1, 2);
+            AddLiveCellTo(1, 3);
 
+            var actual = _sut.GetLiveNeighboursCountFor(5, 2);
             
-            var expectedNeighbours = new List<Location>()
-            {
-                new Location(5, 2),
-                new Location(5, 3),
-                new Location(5, 4),
-                new Location(1, 2),
-                new Location(1, 4),
-                new Location(2, 2),
-                new Location(2, 3),
-                new Location(2, 4)
-            };
+            Assert.Equal(8, actual);
+        }
+        
+        [Fact]
+        public void CalculateCorrectLiveNeighboursForBoundaryTopLeftCornerLocation()
+        {
+            AddLiveCellTo(5, 5);
+            AddLiveCellTo(5, 1);
+            AddLiveCellTo(5, 2);
+            AddLiveCellTo(1, 5);
+            AddLiveCellTo(1, 2);
+            AddLiveCellTo(2, 5);
+            AddLiveCellTo(2, 1);
+            AddLiveCellTo(2, 2);
+
+            var actual = _sut.GetLiveNeighboursCountFor(1, 1);
             
-            // for (var i = 0; i < 8; i++)
-            // {
-            //     Assert.Equal( expectedNeighbours.ElementAt(i).RowNumber,actual.ElementAt(i).RowNumber);
-            //     Assert.Equal( expectedNeighbours.ElementAt(i).ColumnNumber,actual.ElementAt(i).ColumnNumber);
-            // }
+            Assert.Equal(8, actual);
+        }
+
+        [Fact]
+        public void CalculateCorrectLiveNeighboursForBoundaryTopRightCornerLocation()
+        {
+            AddLiveCellTo(5, 4);
+            AddLiveCellTo(5, 5);
+            AddLiveCellTo(5, 1);
+            AddLiveCellTo(1, 4);
+            AddLiveCellTo(1, 1);
+            AddLiveCellTo(2, 4);
+            AddLiveCellTo(2, 5);
+            AddLiveCellTo(2, 1);
+
+            var actual = _sut.GetLiveNeighboursCountFor(1, 5);
+
+            Assert.Equal(8, actual);
+        }
+
+        [Fact]
+        public void CalculateCorrectLiveNeighboursForBoundaryBottomLeftCornerLocation()
+        {
+            AddLiveCellTo(4, 5);
+            AddLiveCellTo(4, 1);
+            AddLiveCellTo(4, 2);
+            AddLiveCellTo(5, 5);
+            AddLiveCellTo(5, 2);
+            AddLiveCellTo(1, 5);
+            AddLiveCellTo(1, 1);
+            AddLiveCellTo(1, 2);
+
+            var actual = _sut.GetLiveNeighboursCountFor(5, 1);
+            
+            Assert.Equal(8, actual);
 
         }
         
         [Fact]
-        public void Set8NeighboursToBoundaryBottomRowLocation()
+        public void CalculateCorrectLiveNeighboursForBoundaryBottomRightCornerLocation()
         {
-            var sut = new Grid(5, 5);
-            var actual = sut.GetLiveNeighboursCountFor(5, 2);
+            AddLiveCellTo(4, 4);
+            AddLiveCellTo(4, 5);
+            AddLiveCellTo(4, 1);
+            AddLiveCellTo(5, 4);
+            AddLiveCellTo(5, 1);
+            AddLiveCellTo(1, 4);
+            AddLiveCellTo(1, 5);
+            AddLiveCellTo(1, 1);
 
+            var actual = _sut.GetLiveNeighboursCountFor(5, 5);
             
-            var expectedNeighbours = new List<Location>()
-            {
-                new Location(4, 1),
-                new Location(4, 2),
-                new Location(4, 3),
-                new Location(5, 1),
-                new Location(5, 3),
-                new Location(1, 1),
-                new Location(1, 2),
-                new Location(1, 3)
-            };
-            
-            // for (var i = 0; i < 8; i++)
-            // {
-            //     Assert.Equal( expectedNeighbours.ElementAt(i).RowNumber,actual.ElementAt(i).RowNumber);
-            //     Assert.Equal( expectedNeighbours.ElementAt(i).ColumnNumber,actual.ElementAt(i).ColumnNumber);
-            // }
+            Assert.Equal(8, actual);
 
         }
         
-        [Fact]
-        public void Set8NeighboursToBoundaryTopLeftCornerLocation()
+        private void AddLiveCellTo(int row, int column)
         {
-            var sut = new Grid(5, 5);
-            var actual = sut.GetLiveNeighboursCountFor(1, 1);
-
-            
-            var expectedNeighbours = new List<Location>()
-            {
-                new Location(5, 5),
-                new Location(5, 1),
-                new Location(5, 2),
-                new Location(1, 5),
-                new Location(1, 2),
-                new Location(2, 5),
-                new Location(2, 1),
-                new Location(2, 2)
-            };
-            
-            // for (var i = 0; i < 8; i++)
-            // {
-            //     Assert.Equal( expectedNeighbours.ElementAt(i).RowNumber,actual.ElementAt(i).RowNumber);
-            //     Assert.Equal( expectedNeighbours.ElementAt(i).ColumnNumber,actual.ElementAt(i).ColumnNumber);
-            // }
-
-        }
-        
-        [Fact]
-        public void Set8NeighboursToBoundaryTopRightCornerLocation()
-        {
-            var sut = new Grid(5, 5);
-            var actual = sut.GetLiveNeighboursCountFor(1, 5);
-
-            
-            var expectedNeighbours = new List<Location>()
-            {
-                new Location(5, 4),
-                new Location(5, 5),
-                new Location(5, 1),
-                new Location(1, 4),
-                new Location(1, 1),
-                new Location(2, 4),
-                new Location(2, 5),
-                new Location(2, 1)
-            };
-            
-            // for (var i = 0; i < 8; i++)
-            // {
-            //     Assert.Equal( expectedNeighbours.ElementAt(i).RowNumber,actual.ElementAt(i).RowNumber);
-            //     Assert.Equal( expectedNeighbours.ElementAt(i).ColumnNumber,actual.ElementAt(i).ColumnNumber);
-            // }
-        }
-        [Fact]
-        public void Set8NeighboursToBoundaryBottomLeftCornerLocation()
-        {
-            var sut = new Grid(5, 5);
-            var actual = sut.GetLiveNeighboursCountFor(5, 1);
-
-            
-            var expectedNeighbours = new List<Location>()
-            {
-                new Location(4, 5),
-                new Location(4, 1),
-                new Location(4, 2),
-                new Location(5, 5),
-                new Location(5, 2),
-                new Location(1, 5),
-                new Location(1, 1),
-                new Location(1, 2)
-            };
-            
-            // for (var i = 0; i < 8; i++)
-            // {
-            //     Assert.Equal( expectedNeighbours.ElementAt(i).RowNumber,actual.ElementAt(i).RowNumber);
-            //     Assert.Equal( expectedNeighbours.ElementAt(i).ColumnNumber,actual.ElementAt(i).ColumnNumber);
-            // }
-        }
-        
-        [Fact]
-        public void Set8NeighboursToBoundaryBottomRightCornerLocation()
-        {
-            var sut = new Grid(5, 5);
-            var actual = sut.GetLiveNeighboursCountFor(5, 5);
-
-            
-            var expectedNeighbours = new List<Location>()
-            {
-                new Location(4, 4),
-                new Location(4, 5),
-                new Location(4, 1),
-                new Location(5, 4),
-                new Location(5, 1),
-                new Location(1, 4),
-                new Location(1, 5),
-                new Location(1, 1)
-            };
-            
-            // for (var i = 0; i < 8; i++)
-            // {
-            //     Assert.Equal( expectedNeighbours.ElementAt(i).RowNumber,actual.ElementAt(i).RowNumber);
-            //     Assert.Equal( expectedNeighbours.ElementAt(i).ColumnNumber,actual.ElementAt(i).ColumnNumber);
-            // }
-        }
-        
-        [Fact]
-        public void CalculateNumberOfLiveNeighboursForAGivenLocation()
-        {
-            var sut = new Grid(5, 5);
-            sut.AddCellsToLocations();
-            AddLiveCellTo(sut, 1, 1);
-            AddLiveCellTo(sut, 3, 2);
-            AddLiveCellTo(sut, 5, 5);
-
-
-            Assert.Equal(2, sut.GetLiveNeighboursCountFor(2, 2));
-
-        }
-
-        private static void AddLiveCellTo(Grid grid, int row, int column)
-        {
-            var liveLocation = grid.GetLocationAt(row, column);
+            var liveLocation = _sut.GetLocationAt(row, column);
             liveLocation.AddCell(Mock.Of<ICell>(c => c.State == State.Alive));
         }
 
-        
-
-        // [Fact]
-        // public void UpdateTheNextCellStateForEachLocation()
-        // {
-        //     var sut = new Grid(3, 3);
-        //     sut.AddCellsToLocations();
-        //     sut.ChangeLocationCellState(1, 1, State.Alive);
-        //     
-        //     Assert.Equal(State.Alive, );
-        //     
-        // }
-        //
-        // [Fact]
-        // public void UpdateLocationCellStatesWhenGivenStartingLiveCells()
-        // {
-        //     var sut = new Grid(5, 5);
-        //     sut.AddCellsToLocations();
-        // }
     }
 }
