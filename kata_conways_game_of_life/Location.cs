@@ -15,29 +15,32 @@ namespace kata_conways_game_of_life
         
         public int RowNumber { get; }
         public int ColumnNumber { get; }
-        private Cell _cell;
+        private ICell _cell;
 
-        public void SetCell(Cell cell)
+        public void AddCell(ICell cell)
         {
            _cell = cell;
         }
         
-        public State GetNextCellState(IEnumerable<Location> neighbours)
+        public State GetNextCellState(int liveNeighboursCount)
         {
-            var liveNeighbours = neighbours.Count(neighbour => neighbour.GetCellState() == State.Alive);
-
-            if (liveNeighbours == 3) return State.Alive;
+            if (liveNeighboursCount == 3) return State.Alive;
             
-            if (_cell.State == State.Alive && liveNeighbours == 2) return State.Alive;
+            if (_cell.State == State.Alive && liveNeighboursCount == 2) return State.Alive;
             
             return State.Dead;
-
         }
 
         public void ChangeCellStateTo(State newState)
-            //remove state geter/setter from outside the cell class, make a kil/revive status instead
         {
-            _cell.State = newState;
+            if (newState == State.Alive)
+            {
+                _cell.Revive();
+            }
+            else
+            {
+                _cell.Die();
+            }
         }
 
         public string GetDisplay()

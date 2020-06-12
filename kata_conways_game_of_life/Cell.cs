@@ -3,18 +3,28 @@ using System.Collections.Generic;
 
 namespace kata_conways_game_of_life
 {
-    public class Cell
+    public class Cell : ICell
     {
         public Cell()
         {
             State = State.Dead;
         }
-        public State State { get; set; }
+
+        public State State { get; private set; }
         public string GetDisplay()
         {
-            return State == State.Dead ? "[ ]" : "[#]"; //todo: maybe use enums to print out the display
+            return State == State.Dead ? "[ ]" : "[#]";
         }
 
+        public void Die()
+        {
+            State = State.Dead;
+        }
 
+        public void Revive()
+        {
+            State = State.Alive;
+        }
+        
     }
 }
