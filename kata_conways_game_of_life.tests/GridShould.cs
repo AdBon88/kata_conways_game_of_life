@@ -260,6 +260,16 @@ namespace kata_conways_game_of_life.tests
                 Assert.Equal( expectedNeighbours.ElementAt(i).ColumnNumber,actual.ElementAt(i).ColumnNumber);
             }
         }
+        
+        [Fact]
+        public void CalculateNumberOfLiveNeighboursForAGivenLocation()
+        {
+            var sut = new Grid(5, 5);
+            
+            
+        }
+
+        
 
         // [Fact]
         // public void UpdateTheNextCellStateForEachLocation()

@@ -43,14 +43,14 @@ namespace kata_conways_game_of_life
             return gridDisplay.ToString();
         }
 
-        public IEnumerable<Location> GetNeighboursFor(int row, int column) 
+        public IEnumerable<ILocation> GetNeighboursFor(int row, int column) 
             //todo: make this privatre and make method to return live neighbours count
         {
             var leftColumn = column == 1 ? _numberOfColumns : column - 1;
             var rightColumn = column == _numberOfColumns ?  1 : column + 1;
             var aboveRow = row == 1 ? _numberOfRows : row - 1;
             var belowRow = row == _numberOfRows ? 1 : row + 1;
-            return new List<Location>()
+            return new List<ILocation>()
             {
                 GetLocationAt(aboveRow, leftColumn),
                 GetLocationAt(aboveRow, column),
@@ -64,7 +64,7 @@ namespace kata_conways_game_of_life
 
         }
         
-        private IEnumerable<Location> GenerateGrid()
+        private IEnumerable<ILocation> GenerateGrid()
         {
             var gridLocations = new List<ILocation>();
             for (var i = 1; i <= _numberOfRows; i++)

@@ -56,5 +56,13 @@ namespace kata_conways_game_of_life.tests
             
         }
 
+        [Fact]
+        public void CalculateTheNumberOfLiveNeighbours()
+        {
+            var sut = new Location(2, 2);
+            
+            
+        }
+
     }
 }
