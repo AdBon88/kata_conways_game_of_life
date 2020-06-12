@@ -42,6 +42,18 @@ namespace kata_conways_game_of_life
 
             return gridDisplay.ToString();
         }
+        
+        public ILocation GetLocationAt(int rowNumber, int columnNumber)
+        {
+            return _locations.FirstOrDefault(location =>
+                location.RowNumber == rowNumber && location.ColumnNumber == columnNumber);
+        }
+
+        public int GetLiveNeighboursCountFor(int row, int column)
+        {
+            var neighbours = GetNeighboursFor(row, column);
+            return neighbours.Count(neighbour => neighbour.GetCellState() == State.Alive);
+        }
 
         public IEnumerable<ILocation> GetNeighboursFor(int row, int column) 
             //todo: make this privatre and make method to return live neighbours count
@@ -78,17 +90,7 @@ namespace kata_conways_game_of_life
             return gridLocations;
         }
         
-        private ILocation GetLocationAt(int rowNumber, int columnNumber)
-        {
-            return _locations.FirstOrDefault(location =>
-                location.RowNumber == rowNumber && location.ColumnNumber == columnNumber);
-        }
 
-        public void ChangeLocationCellState(int row, int column, State newState)
-        {
-            var targetLocation = GetLocationAt(row, column);
-            targetLocation.ChangeCellStateTo(newState);
-        }
     }
     
     //TODO: make query functions to return a list of cells that will go from dead and alive and vice versa

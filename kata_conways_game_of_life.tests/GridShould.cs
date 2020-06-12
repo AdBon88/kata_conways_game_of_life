@@ -265,8 +265,14 @@ namespace kata_conways_game_of_life.tests
         public void CalculateNumberOfLiveNeighboursForAGivenLocation()
         {
             var sut = new Grid(5, 5);
+            sut.AddCellsToLocations();
+            var liveLocation1 = sut.GetLocationAt(1, 1);
+            liveLocation1.ChangeCellStateTo(State.Alive);
+            var liveLocation2 = sut.GetLocationAt(3, 2);
+            liveLocation2.ChangeCellStateTo(State.Alive);
             
-            
+            Assert.Equal(2, sut.GetLiveNeighboursCountFor(2, 2));
+
         }
 
         
