@@ -55,8 +55,7 @@ namespace kata_conways_game_of_life
             return neighbours.Count(neighbour => neighbour.GetCellState() == State.Alive);
         }
 
-        public IEnumerable<ILocation> GetNeighboursFor(int row, int column) 
-            //todo: make this privatre and make method to return live neighbours count
+        private IEnumerable<ILocation> GetNeighboursFor(int row, int column) 
         {
             var leftColumn = column == 1 ? _numberOfColumns : column - 1;
             var rightColumn = column == _numberOfColumns ?  1 : column + 1;
