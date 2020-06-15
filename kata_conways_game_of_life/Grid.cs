@@ -106,6 +106,7 @@ namespace kata_conways_game_of_life
                 l.GetNextCellState(GetLiveNeighboursCountFor(l)) == State.Alive);
             return cellReviveLocations;
         }
+
     }
     
     //TODO: make query functions to return a list of cells that will go from dead and alive and vice versa

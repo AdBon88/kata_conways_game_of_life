@@ -188,23 +188,9 @@ namespace kata_conways_game_of_life.tests
             Assert.Equal(8, actual);
 
         }
-
-        [Fact]
-        public void GetAListOfLocationsWhereCellsGoFromAliveToDead()
-        {
-            var targetLocation = _sut.GetLocationAt(3, 3);
-            AddLiveCellTo(targetLocation.RowNumber, targetLocation.ColumnNumber);
-            
-            AddLiveCellTo(2, 2);
-            AddLiveCellTo(2, 3);
-            AddLiveCellTo(3, 4);
-            AddLiveCellTo(3, 5);
-            
-            Assert.Equal(State.Dead, targetLocation.GetNextCellState(4));
-            
-        }
         
-        [Fact]
+        
+        [Fact(Skip = "not required at the moment" )]
         public void GetAListOfLocationsWhereCellStateChangesFromAliveToDead()
         {
             var targetLocation1 = _sut.GetLocationAt(3, 3);
