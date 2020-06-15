@@ -189,43 +189,6 @@ namespace kata_conways_game_of_life.tests
 
         }
         
-        [Fact(Skip = "not required at the moment" )]
-        public void GetAListOfLocationsWhereCellStateChangesFromAliveToDead()
-        {
-            var targetLocation1 = _sut.GetLocationAt(3, 3);
-            targetLocation1 = Mock.Of<ILocation>(l
-                => l.GetCellState() == State.Alive
-                   && l.GetNextCellState(It.IsAny<int>()) == State.Dead);
-            
-            var targetLocation2 = _sut.GetLocationAt(4, 1);
-            targetLocation2 = Mock.Of<ILocation>(l 
-            => l.GetCellState() == State.Alive &&
-               l.GetNextCellState(It.IsAny<int>()) == State.Dead);
-            
-            
-            Assert.Contains(targetLocation1, _sut.GetLocationsToKillCells());
-            Assert.Contains(targetLocation2, _sut.GetLocationsToKillCells());
-        }
-        
-        [Fact(Skip = "not required at the moment" )]
-        public void GetAListOfLocationsWhereCellStateChangesFromDeadToAlive()
-        {
-            var targetLocation1 = _sut.GetLocationAt(1, 1);
-            targetLocation1 = Mock.Of<ILocation>(l
-                => l.GetCellState() == State.Dead
-                   && l.GetNextCellState(It.IsAny<int>()) == State.Alive);
-
-            
-            var targetLocation2 = _sut.GetLocationAt(2,5);
-            targetLocation2 = Mock.Of<ILocation>(l 
-                => l.GetCellState() == State.Dead &&
-                   l.GetNextCellState(It.IsAny<int>()) == State.Alive);
-            
-            Assert.Contains(targetLocation1, _sut.GetLocationsToReviveCells());
-            Assert.Contains(targetLocation2, _sut.GetLocationsToReviveCells());
-            
-        }
-
         [Fact]
         public void KillAllLiveCellsWithLessThanTwoLiveNeighbours()
         {
