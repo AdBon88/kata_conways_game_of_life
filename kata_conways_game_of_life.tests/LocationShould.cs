@@ -7,6 +7,23 @@ namespace kata_conways_game_of_life.tests
     public class LocationShould
     {
         [Fact]
+        public void DisplayAsABlankSquareIfContainsDeadCell()
+        {
+            var sut = new Location(2, 5);
+            sut.AddCell(Mock.Of<ICell>(c => c.State == State.Dead));
+            
+            Assert.Equal("[ ]", sut.GetDisplay());
+        }
+
+        [Fact]
+        public void DisplayAsFilledSquareIfContainsLiveCell()
+        {
+            var sut = new Location(2, 5);
+            sut.AddCell(Mock.Of<ICell>(c => c.State == State.Alive));
+
+            Assert.Equal("[#]", sut.GetDisplay());
+        }
+        [Fact]
         public void HaveALiveCellNextIfHaveTwoToThreeLiveNeighboursAndCurrentLiveCell()
         {
             var sut = new Location(2, 2);

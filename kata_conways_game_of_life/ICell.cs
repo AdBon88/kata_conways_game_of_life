@@ -4,8 +4,6 @@ namespace kata_conways_game_of_life
     {
         State State { get;}
         
-        string GetDisplay();
-
         void Die();
 
         void Revive();

@@ -45,7 +45,7 @@ namespace kata_conways_game_of_life
 
         public string GetDisplay()
         {
-            return _cell.GetDisplay();
+            return  _cell.State == State.Dead ? "[ ]" : "[#]";
         }
 
         public State GetCellState()
