@@ -22,8 +22,7 @@ namespace kata_conways_game_of_life.tests
         public void HaveALiveCellNextIfCurrentlyHasDeadCellAndExactly3LiveNeighbours()
         {
             var sut = new Location(2, 2);
-            var mockCell = Mock.Of<ICell>(c => c.State == State.Dead);
-            sut.AddCell(mockCell);
+            sut.AddCell(new Cell());
             
             Assert.Equal(State.Alive, sut.GetNextCellState(3));
             Assert.Equal(State.Dead, sut.GetNextCellState(2));
@@ -33,8 +32,7 @@ namespace kata_conways_game_of_life.tests
         public void HaveADeadCellNextIfCurrentlyHasDeadCellAndNot3LiveNeighbours()
         {
             var sut = new Location(2, 2);
-            var mockCell = Mock.Of<ICell>(c => c.State == State.Dead);
-            sut.AddCell(mockCell);
+            sut.AddCell(new Cell());
             Assert.Equal(State.Dead, sut.GetNextCellState(2));
         }
 
