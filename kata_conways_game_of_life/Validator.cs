@@ -20,5 +20,11 @@ namespace kata_conways_game_of_life
             var isYCoordinateValid = (coordinates[1] > 0) && (coordinates[1] <= maxGridColumn);
             return isXCoordinateValid && isYCoordinateValid;
         }
+
+        public static bool IsGridDimensionValid(string dimension)
+        {
+            var isDimensionValid = int.TryParse(dimension, out int intDimension);
+            return isDimensionValid && intDimension >= 5;
+        }
     }
 }
