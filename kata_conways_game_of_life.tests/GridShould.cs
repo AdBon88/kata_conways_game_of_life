@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using Xunit;
 using Moq;
 
@@ -37,8 +38,9 @@ namespace kata_conways_game_of_life.tests
 
             AddLiveCellTo(2, 2);
             AddLiveCellTo(5, 5);
-            
-            var actual = _sut.GetLiveNeighboursCountFor(3, 3);
+
+            var targetLocation = _sut.GetLocationAt(3, 3);
+            var actual = _sut.GetLiveNeighboursCountFor(targetLocation);
             
             Assert.Equal(1, actual);
         }
@@ -51,7 +53,8 @@ namespace kata_conways_game_of_life.tests
             AddLiveCellTo(3, 5);
             AddLiveCellTo(1, 1);
             
-            var actual = _sut.GetLiveNeighboursCountFor(3, 1);
+            var targetLocation = _sut.GetLocationAt(3, 1);
+            var actual = _sut.GetLiveNeighboursCountFor(targetLocation);
             
             Assert.Equal(3, actual);
         }
@@ -67,10 +70,10 @@ namespace kata_conways_game_of_life.tests
             AddLiveCellTo(4, 4);
             AddLiveCellTo(4, 5);
             AddLiveCellTo(4, 1);
-            
             AddLiveCellTo(1, 1);
-
-            var actual = _sut.GetLiveNeighboursCountFor(3, 5);
+            
+            var targetLocation = _sut.GetLocationAt(3, 5);
+            var actual = _sut.GetLiveNeighboursCountFor(targetLocation);
             
             Assert.Equal(8, actual);
 
@@ -87,8 +90,8 @@ namespace kata_conways_game_of_life.tests
             AddLiveCellTo(2, 2);
             AddLiveCellTo(2, 3);
 
-            
-            var actual = _sut.GetLiveNeighboursCountFor(1, 3);
+            var targetLocation = _sut.GetLocationAt(1, 3);
+            var actual = _sut.GetLiveNeighboursCountFor(targetLocation);
             
             Assert.Equal(7, actual);
 
@@ -105,8 +108,9 @@ namespace kata_conways_game_of_life.tests
             AddLiveCellTo(1, 1);
             AddLiveCellTo(1, 2);
             AddLiveCellTo(1, 3);
-
-            var actual = _sut.GetLiveNeighboursCountFor(5, 2);
+            
+            var targetLocation = _sut.GetLocationAt(5, 2);
+            var actual = _sut.GetLiveNeighboursCountFor(targetLocation);
             
             Assert.Equal(8, actual);
         }
@@ -122,8 +126,9 @@ namespace kata_conways_game_of_life.tests
             AddLiveCellTo(2, 5);
             AddLiveCellTo(2, 1);
             AddLiveCellTo(2, 2);
-
-            var actual = _sut.GetLiveNeighboursCountFor(1, 1);
+            
+            var targetLocation = _sut.GetLocationAt(1, 1);
+            var actual = _sut.GetLiveNeighboursCountFor(targetLocation);
             
             Assert.Equal(8, actual);
         }
@@ -140,7 +145,8 @@ namespace kata_conways_game_of_life.tests
             AddLiveCellTo(2, 5);
             AddLiveCellTo(2, 1);
 
-            var actual = _sut.GetLiveNeighboursCountFor(1, 5);
+            var targetLocation = _sut.GetLocationAt(1, 5);
+            var actual = _sut.GetLiveNeighboursCountFor(targetLocation);
 
             Assert.Equal(8, actual);
         }
@@ -157,7 +163,8 @@ namespace kata_conways_game_of_life.tests
             AddLiveCellTo(1, 1);
             AddLiveCellTo(1, 2);
 
-            var actual = _sut.GetLiveNeighboursCountFor(5, 1);
+            var targetLocation = _sut.GetLocationAt(5, 1);
+            var actual = _sut.GetLiveNeighboursCountFor(targetLocation);
             
             Assert.Equal(8, actual);
 
@@ -175,11 +182,64 @@ namespace kata_conways_game_of_life.tests
             AddLiveCellTo(1, 5);
             AddLiveCellTo(1, 1);
 
-            var actual = _sut.GetLiveNeighboursCountFor(5, 5);
+            var targetLocation = _sut.GetLocationAt(5, 5);
+            var actual = _sut.GetLiveNeighboursCountFor(targetLocation);
             
             Assert.Equal(8, actual);
 
         }
+
+        [Fact]
+        public void GetAListOfLocationsWhereCellsGoFromAliveToDead()
+        {
+            var targetLocation = _sut.GetLocationAt(3, 3);
+            AddLiveCellTo(targetLocation.RowNumber, targetLocation.ColumnNumber);
+            
+            AddLiveCellTo(2, 2);
+            AddLiveCellTo(2, 3);
+            AddLiveCellTo(3, 4);
+            AddLiveCellTo(3, 5);
+            
+            Assert.Equal(State.Dead, targetLocation.GetNextCellState(4));
+            
+        }
+        
+        [Fact]
+        public void GetAListOfLocationsWhereCellStateChangesFromAliveToDead()
+        {
+            var targetLocation1 = _sut.GetLocationAt(3, 3);
+            targetLocation1 = Mock.Of<ILocation>(l
+                => l.GetCellState() == State.Alive
+                   && l.GetNextCellState(It.IsAny<int>()) == State.Dead);
+            
+            var targetLocation2 = _sut.GetLocationAt(4, 1);
+            targetLocation2 = Mock.Of<ILocation>(l 
+            => l.GetCellState() == State.Alive &&
+               l.GetNextCellState(It.IsAny<int>()) == State.Dead);
+            
+            
+            Assert.Contains(targetLocation1, _sut.GetCellsToDieNext());
+            Assert.Contains(targetLocation2, _sut.GetCellsToDieNext());
+        }
+        
+        [Fact]
+        public void GetAListOfLocationsWhereCellStateChangesFromDeadToAlive()
+        {
+            var targetLocation1 = _sut.GetLocationAt(1, 1);
+            targetLocation1 = Mock.Of<ILocation>(l
+                => l.GetCellState() == State.Dead
+                   && l.GetNextCellState(It.IsAny<int>()) == State.Alive);
+            
+            var targetLocation2 = _sut.GetLocationAt(2,5);
+            targetLocation2 = Mock.Of<ILocation>(l 
+                => l.GetCellState() == State.Dead &&
+                   l.GetNextCellState(It.IsAny<int>()) == State.Alive);
+            
+            Assert.Contains(targetLocation1, _sut.GetCellsToReviveNext());
+            Assert.Contains(targetLocation2, _sut.GetCellsToReviveNext());
+            
+        }
+
         
         private void AddLiveCellTo(int row, int column)
         {

@@ -49,14 +49,30 @@ namespace kata_conways_game_of_life
                 location.RowNumber == rowNumber && location.ColumnNumber == columnNumber);
         }
 
-        public int GetLiveNeighboursCountFor(int row, int column)
+        public int GetLiveNeighboursCountFor(ILocation location)
         {
-            var neighbours = GetNeighboursFor(row, column);
+            var neighbours = GetNeighboursFor(location);
             return neighbours.Count(neighbour => neighbour.GetCellState() == State.Alive);
         }
-
-        private IEnumerable<ILocation> GetNeighboursFor(int row, int column) 
+        
+        private IEnumerable<ILocation> GenerateGrid()
         {
+            var gridLocations = new List<ILocation>();
+            for (var i = 1; i <= _numberOfRows; i++)
+            {
+                for (var j = 1; j <= _numberOfColumns; j++)
+                {
+                    gridLocations.Add(new Location(i, j));
+                }
+            }
+
+            return gridLocations;
+        }
+
+        private IEnumerable<ILocation> GetNeighboursFor(ILocation location)
+        {
+            var row = location.RowNumber;
+            var column = location.ColumnNumber;
             var leftColumn = column == 1 ? _numberOfColumns : column - 1;
             var rightColumn = column == _numberOfColumns ?  1 : column + 1;
             var aboveRow = row == 1 ? _numberOfRows : row - 1;
@@ -74,22 +90,22 @@ namespace kata_conways_game_of_life
             };
 
         }
-        
-        private IEnumerable<ILocation> GenerateGrid()
+
+        public IEnumerable<ILocation> GetCellsToDieNext()
         {
-            var gridLocations = new List<ILocation>();
-            for (var i = 1; i <= _numberOfRows; i++)
-            {
-                for (var j = 1; j <= _numberOfColumns; j++)
-                {
-                    gridLocations.Add(new Location(i, j));
-                }
-            }
-
-            return gridLocations;
+            var cellDeathLocations = _locations.Where(l =>
+                l.GetCellState() == State.Alive &&
+                l.GetNextCellState(GetLiveNeighboursCountFor(l)) == State.Dead);
+            return cellDeathLocations;
         }
-        
 
+        public IEnumerable<ILocation> GetCellsToReviveNext()
+        {
+            var cellReviveLocations = _locations.Where(l =>
+                l.GetCellState() == State.Dead &&
+                l.GetNextCellState(GetLiveNeighboursCountFor(l)) == State.Alive);
+            return cellReviveLocations;
+        }
     }
     
     //TODO: make query functions to return a list of cells that will go from dead and alive and vice versa
