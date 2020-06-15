@@ -4,15 +4,15 @@ namespace kata_conways_game_of_life
 {
     public class InputParser
     {
-        private readonly IInput _input;
+        private readonly IInput _prompt;
 
-        public InputParser(IInput input)
+        public InputParser(IInput prompt)
         {
-            _input = input;
+            _prompt = prompt;
         }
         public int ParseGridDimension(string dimension)
         {
-            var input = _input.GetGridDimension(dimension);
+            var input = _prompt.GetGridDimension(dimension);
             var isInputValid = Validator.IsGridDimensionValid(input);
             if (isInputValid) return int.Parse(input);
             Console.WriteLine("Error: Invalid dimension!");
