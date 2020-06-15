@@ -266,7 +266,15 @@ namespace kata_conways_game_of_life.tests
             
             mockCell1.Verify(c => c.Revive(), Times.Once);
             mockCell2.Verify(c => c.Revive(), Times.Never);
-            
+        }
+
+        [Fact]
+        public void CheckIfAllLocationsContainDeadCellsNext()
+        {
+            AddLiveCellTo(1, 1);
+            AddLiveCellTo(4, 5);
+
+            Assert.True(_sut.WillAllCellsDieNext());
         }
 
         

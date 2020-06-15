@@ -55,6 +55,38 @@ namespace kata_conways_game_of_life
             return neighbours.Count(neighbour => neighbour.GetCellState() == State.Alive);
         }
         
+        public IEnumerable<ILocation> GetLocationsToKillCells()
+        {
+            var cellDeathLocations = _locations.Where(l =>
+                l.GetCellState() == State.Alive &&
+                l.GetNextCellState(GetLiveNeighboursCountFor(l)) == State.Dead);
+            return cellDeathLocations;
+        }
+
+        public IEnumerable<ILocation> GetLocationsToReviveCells()
+        {
+            var cellReviveLocations = _locations.Where(l =>
+                l.GetCellState() == State.Dead &&
+                l.GetNextCellState(GetLiveNeighboursCountFor(l)) == State.Alive);
+            return cellReviveLocations;
+        }
+
+        public void KillCells(IEnumerable<ILocation> locationsForCellDeath)
+        {
+            foreach (var location in locationsForCellDeath)
+            {
+                location.ChangeCellStateTo(State.Dead);
+            }
+        }
+
+        public void ReviveCells(IEnumerable<ILocation> locationsToReviveCells)
+        {
+            foreach (var location in locationsToReviveCells)
+            {
+                location.ChangeCellStateTo(State.Alive);
+            }
+        }
+        
         private IEnumerable<ILocation> GenerateGrid()
         {
             var gridLocations = new List<ILocation>();
@@ -91,36 +123,10 @@ namespace kata_conways_game_of_life
 
         }
 
-        public IEnumerable<ILocation> GetLocationsToKillCells()
+        public bool WillAllCellsDieNext()
         {
-            var cellDeathLocations = _locations.Where(l =>
-                l.GetCellState() == State.Alive &&
-                l.GetNextCellState(GetLiveNeighboursCountFor(l)) == State.Dead);
-            return cellDeathLocations;
-        }
-
-        public IEnumerable<ILocation> GetLocationsToReviveCells()
-        {
-            var cellReviveLocations = _locations.Where(l =>
-                l.GetCellState() == State.Dead &&
-                l.GetNextCellState(GetLiveNeighboursCountFor(l)) == State.Alive);
-            return cellReviveLocations;
-        }
-
-        public void KillCells(IEnumerable<ILocation> locationsForCellDeath)
-        {
-            foreach (var location in locationsForCellDeath)
-            {
-                location.ChangeCellStateTo(State.Dead);
-            }
-        }
-
-        public void ReviveCells(IEnumerable<ILocation> locationsToReviveCells)
-        {
-            foreach (var location in locationsToReviveCells)
-            {
-                location.ChangeCellStateTo(State.Alive);
-            }
+            return _locations.All(location =>
+                location.GetNextCellState(GetLiveNeighboursCountFor(location)) == State.Dead);
         }
     }
     
