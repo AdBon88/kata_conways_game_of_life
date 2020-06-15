@@ -214,6 +214,7 @@ namespace kata_conways_game_of_life.tests
             targetLocation1 = Mock.Of<ILocation>(l
                 => l.GetCellState() == State.Dead
                    && l.GetNextCellState(It.IsAny<int>()) == State.Alive);
+
             
             var targetLocation2 = _sut.GetLocationAt(2,5);
             targetLocation2 = Mock.Of<ILocation>(l 
