@@ -20,6 +20,19 @@ namespace kata_conways_game_of_life.tests
             
         }
 
+        [Fact]
+        public void ConvertStringLocationToIntegerArrayIfValidNumbersWithinGridBoundaries()
+        {
+            var mockUserInput = new Mock<IInput>();
+            mockUserInput.SetupSequence(i => i.GetStartingLiveLocation())
+                .Returns("a, 4")
+                .Returns("7, 3")
+                .Returns("4, 5");
+            var sut = new InputParser(mockUserInput.Object);
+            
+            Assert.Equal(new int[] {4, 5}, sut.GetStartingLiveLocation(5, 5));
+        }
+
         
     }
 }

@@ -1,4 +1,6 @@
 using System;
+using System.Linq;
+using System.Reflection.PortableExecutable;
 
 namespace kata_conways_game_of_life
 {
@@ -19,9 +21,27 @@ namespace kata_conways_game_of_life
             return ParseGridDimension(dimension);
         }
 
-        public int[] GetStartingLiveLocation()
+        public int[] GetStartingLiveLocation(int maxRow, int maxColumn)
         {
-            throw new System.NotImplementedException();
+            var input = _prompt.GetStartingLiveLocation();
+            var isInputValid = Validator.AreCoordinatesValidNumbers(input);
+            if (isInputValid)
+            {
+                var coordinates = input.Split(",", StringSplitOptions.RemoveEmptyEntries)
+                    .Select(int.Parse)
+                    .ToArray();
+                var isInputWithinGridBoundaries =
+                    Validator.AreCoordinatesWithinGridBoundaries(coordinates, maxRow, maxColumn);
+                if (isInputWithinGridBoundaries) return coordinates;
+                Console.WriteLine("Error! Coordinates are not within grid boundaries");
+            }
+            else
+            {
+                Console.WriteLine("Error! Coordinates are not valid numbers");
+            }
+
+            return GetStartingLiveLocation(maxRow, maxColumn);
+            
         }
     }
 }
