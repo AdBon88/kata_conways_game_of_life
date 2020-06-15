@@ -91,7 +91,7 @@ namespace kata_conways_game_of_life
 
         }
 
-        public IEnumerable<ILocation> GetCellsToDieNext()
+        public IEnumerable<ILocation> GetLocationsToKillCells()
         {
             var cellDeathLocations = _locations.Where(l =>
                 l.GetCellState() == State.Alive &&
@@ -99,7 +99,7 @@ namespace kata_conways_game_of_life
             return cellDeathLocations;
         }
 
-        public IEnumerable<ILocation> GetCellsToReviveNext()
+        public IEnumerable<ILocation> GetLocationsToReviveCells()
         {
             var cellReviveLocations = _locations.Where(l =>
                 l.GetCellState() == State.Dead &&
@@ -107,6 +107,21 @@ namespace kata_conways_game_of_life
             return cellReviveLocations;
         }
 
+        public void KillCells(IEnumerable<ILocation> locationsForCellDeath)
+        {
+            foreach (var location in locationsForCellDeath)
+            {
+                location.ChangeCellStateTo(State.Dead);
+            }
+        }
+
+        public void ReviveCells(IEnumerable<ILocation> locationsToReviveCells)
+        {
+            foreach (var location in locationsToReviveCells)
+            {
+                location.ChangeCellStateTo(State.Alive);
+            }
+        }
     }
     
     //TODO: make query functions to return a list of cells that will go from dead and alive and vice versa
