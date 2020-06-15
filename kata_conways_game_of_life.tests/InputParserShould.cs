@@ -33,6 +33,17 @@ namespace kata_conways_game_of_life.tests
             Assert.Equal(new int[] {4, 5}, sut.GetStartingLiveLocation(5, 5));
         }
 
+        [Fact]
+        public void ReturnABooleanToIndicateIfUserWantsToEnterMoreStartingLocations()
+        {
+            var mockUserInput = new Mock<IInput>();
+            mockUserInput.Setup(i => i.GetAdditionalStartingLocations()).Returns("n");
+            var sut = new InputParser(mockUserInput.Object);
+            
+            Assert.False(sut.GetAdditionalLocations());
+            
+        }
+
         
     }
 }

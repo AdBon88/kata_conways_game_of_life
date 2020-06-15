@@ -19,7 +19,9 @@ namespace kata_conways_game_of_life
 
         public string GetAdditionalStartingLocations()
         {
-            Console.WriteLine("Would you like to enter more starting locations?");
+            Console.WriteLine("Would you like to enter more starting locations?"
+            + Environment.NewLine
+            + "Enter Y to enter another location or any other key to start the game");
             return Console.ReadLine();
         }
     }

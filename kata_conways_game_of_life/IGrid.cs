@@ -10,5 +10,7 @@ namespace kata_conways_game_of_life
 
         int GetLiveNeighboursCountFor(int row, int column);
 
+        bool WillAllCellsDieNext();
+
     }
 }
