@@ -26,6 +26,7 @@ namespace kata_conways_game_of_life.tests
             sut.AddCell(mockCell);
             
             Assert.Equal(State.Alive, sut.GetNextCellState(3));
+            Assert.Equal(State.Dead, sut.GetNextCellState(2));
         }
         
         [Fact]
