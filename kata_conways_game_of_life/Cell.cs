@@ -12,9 +12,9 @@ namespace kata_conways_game_of_life
         
         public State State;
 
-        public char GetDisplay()
+        public string GetDisplay()
         {
-            return State == State.Dead ? '◻' : '◼';
+            return State == State.Dead ? "[ ]" : "[#]";
         }
 
 
