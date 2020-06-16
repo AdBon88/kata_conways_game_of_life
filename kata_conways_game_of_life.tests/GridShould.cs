@@ -168,6 +168,34 @@ namespace kata_conways_game_of_life.tests
             var liveLocation = _sut.GetLocationAt(row, column);
             liveLocation.AddCell(Mock.Of<ICell>(c => c.State == State.Alive));
         }
+        
+        [Fact]
+        public void GetAListOfLocationsWhereCellStateChangesFromAliveToDead()
+        {
+            var targetLocation1 = _sut.GetLocationAt(3, 3);
+            targetLocation1.AddCell(Mock.Of<ICell>(c => c.State == State.Alive));
+            targetLocation1.SetNextCellState(4);
+            var targetLocation2 = _sut.GetLocationAt(4, 1);
+            targetLocation2.AddCell(Mock.Of<ICell>(c => c.State == State.Alive));
+            targetLocation2.SetNextCellState(1);
+            
+            Assert.Contains(targetLocation1, _sut.GetLocationsToKillCells());
+            Assert.Contains(targetLocation2, _sut.GetLocationsToKillCells());
+        }
+        
+        [Fact]
+        public void GetAListOfLocationsWhereCellStateChangesFromDeadToAlive()
+        {
+            var targetLocation1 = _sut.GetLocationAt(3, 3);
+            targetLocation1.AddCell(Mock.Of<ICell>(c => c.State == State.Dead));
+            targetLocation1.SetNextCellState(3);
+            var targetLocation2 = _sut.GetLocationAt(4, 1);
+            targetLocation2.AddCell(Mock.Of<ICell>(c => c.State == State.Dead));
+            targetLocation2.SetNextCellState(3);
+            
+            Assert.Contains(targetLocation1, _sut.GetLocationsToReviveCells());
+            Assert.Contains(targetLocation2, _sut.GetLocationsToReviveCells());
+        }
 
     }
 }
