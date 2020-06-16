@@ -49,7 +49,7 @@ namespace kata_conways_game_of_life
                 location.RowNumber == rowNumber && location.ColumnNumber == columnNumber);
         }
 
-        public int GetLiveNeighboursCountFor(ILocation location)
+        private int GetLiveNeighboursCountFor(ILocation location)
         {
             var neighbours = GetNeighboursFor(location);
             return neighbours.Count(neighbour => neighbour.GetCellState() == State.Alive);

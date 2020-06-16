@@ -33,20 +33,22 @@ namespace kata_conways_game_of_life.tests
         }
 
         [Fact]
-        public void CalculateCorrectLiveNeighbourCountForNonBoundaryLocation()
+        public void UseCorrectNeighboursToGetNextCellStateForNonBoundaryLocation()
         {
 
             AddLiveCellTo(2, 2);
+            AddLiveCellTo(2,4);
+            AddLiveCellTo(4, 3);
             AddLiveCellTo(5, 5);
 
             var targetLocation = _sut.GetLocationAt(3, 3);
-            var actual = _sut.GetLiveNeighboursCountFor(targetLocation);
+           _sut.SetNextCellStateForAllLocations();
             
-            Assert.Equal(1, actual);
+            Assert.Equal(State.Alive, targetLocation.NextCellState);
         }
 
         [Fact]
-        public void CalculateCorrectLiveNeighboursForBoundaryLeftColumnLocation()
+        public void UseCorrectNeighboursToGetNextCellStateForBoundaryLeftColumnLocation()
         {
             AddLiveCellTo(2, 5);
             AddLiveCellTo(4, 1);
@@ -54,138 +56,104 @@ namespace kata_conways_game_of_life.tests
             AddLiveCellTo(1, 1);
             
             var targetLocation = _sut.GetLocationAt(3, 1);
-            var actual = _sut.GetLiveNeighboursCountFor(targetLocation);
+            _sut.SetNextCellStateForAllLocations();
             
-            Assert.Equal(3, actual);
+            Assert.Equal(State.Alive, targetLocation.NextCellState);
         }
         
         [Fact]
-        public void CalculateCorrectLiveNeighboursForBoundaryRightColumnLocation()
+        public void UseCorrectNeighboursToGetNextCellStateForBoundaryRightColumnLocation()
         {
-            AddLiveCellTo(2, 4);
-            AddLiveCellTo(2, 5);
             AddLiveCellTo(2, 1);
             AddLiveCellTo(3, 4);
-            AddLiveCellTo(3, 1);
-            AddLiveCellTo(4, 4);
-            AddLiveCellTo(4, 5);
             AddLiveCellTo(4, 1);
             AddLiveCellTo(1, 1);
             
             var targetLocation = _sut.GetLocationAt(3, 5);
-            var actual = _sut.GetLiveNeighboursCountFor(targetLocation);
+            _sut.SetNextCellStateForAllLocations();
             
-            Assert.Equal(8, actual);
+            Assert.Equal(State.Alive, targetLocation.NextCellState);
 
         }
         
         [Fact]
-        public void CalculateCorrectLiveNeighboursForBoundaryTopRowLocation()
+        public void UseCorrectNeighboursToGetNextCellStateForBoundaryTopRowLocation()
         {
-            AddLiveCellTo(5, 2);
             AddLiveCellTo(5, 3);
-            AddLiveCellTo(5, 4);
             AddLiveCellTo(1, 2);
-            AddLiveCellTo(1, 4);
             AddLiveCellTo(2, 2);
-            AddLiveCellTo(2, 3);
 
             var targetLocation = _sut.GetLocationAt(1, 3);
-            var actual = _sut.GetLiveNeighboursCountFor(targetLocation);
+            _sut.SetNextCellStateForAllLocations();
             
-            Assert.Equal(7, actual);
+            Assert.Equal(State.Alive, targetLocation.NextCellState);
 
         }
         
         [Fact]
-        public void CalculateCorrectLiveNeighboursForBoundaryBottomRowLocation()
+        public void UseCorrectNeighboursToGetNextCellStateForBoundaryBottomRowLocation()
         {
             AddLiveCellTo(4, 1);
-            AddLiveCellTo(4, 2);
-            AddLiveCellTo(4, 3);
-            AddLiveCellTo(5, 1);
             AddLiveCellTo(5, 3);
             AddLiveCellTo(1, 1);
-            AddLiveCellTo(1, 2);
-            AddLiveCellTo(1, 3);
             
             var targetLocation = _sut.GetLocationAt(5, 2);
-            var actual = _sut.GetLiveNeighboursCountFor(targetLocation);
+            _sut.SetNextCellStateForAllLocations();
             
-            Assert.Equal(8, actual);
+            Assert.Equal(State.Alive, targetLocation.NextCellState);
         }
         
         [Fact]
-        public void CalculateCorrectLiveNeighboursForBoundaryTopLeftCornerLocation()
+        public void UseCorrectNeighboursToGetNextCellStateForBoundaryTopLeftCornerLocation()
         {
             AddLiveCellTo(5, 5);
-            AddLiveCellTo(5, 1);
-            AddLiveCellTo(5, 2);
-            AddLiveCellTo(1, 5);
             AddLiveCellTo(1, 2);
             AddLiveCellTo(2, 5);
-            AddLiveCellTo(2, 1);
-            AddLiveCellTo(2, 2);
             
             var targetLocation = _sut.GetLocationAt(1, 1);
-            var actual = _sut.GetLiveNeighboursCountFor(targetLocation);
+            _sut.SetNextCellStateForAllLocations();
             
-            Assert.Equal(8, actual);
+            Assert.Equal(State.Alive, targetLocation.NextCellState);
         }
 
         [Fact]
-        public void CalculateCorrectLiveNeighboursForBoundaryTopRightCornerLocation()
+        public void UseCorrectNeighboursToGetNextCellStateForBoundaryTopRightCornerLocation()
         {
             AddLiveCellTo(5, 4);
-            AddLiveCellTo(5, 5);
-            AddLiveCellTo(5, 1);
-            AddLiveCellTo(1, 4);
             AddLiveCellTo(1, 1);
-            AddLiveCellTo(2, 4);
-            AddLiveCellTo(2, 5);
             AddLiveCellTo(2, 1);
 
             var targetLocation = _sut.GetLocationAt(1, 5);
-            var actual = _sut.GetLiveNeighboursCountFor(targetLocation);
-
-            Assert.Equal(8, actual);
+            _sut.SetNextCellStateForAllLocations();
+            
+            Assert.Equal(State.Alive, targetLocation.NextCellState);
         }
 
         [Fact]
-        public void CalculateCorrectLiveNeighboursForBoundaryBottomLeftCornerLocation()
+        public void UseCorrectNeighboursToGetNextCellStateForBoundaryBottomLeftCornerLocation()
         {
             AddLiveCellTo(4, 5);
-            AddLiveCellTo(4, 1);
-            AddLiveCellTo(4, 2);
-            AddLiveCellTo(5, 5);
             AddLiveCellTo(5, 2);
             AddLiveCellTo(1, 5);
-            AddLiveCellTo(1, 1);
-            AddLiveCellTo(1, 2);
 
             var targetLocation = _sut.GetLocationAt(5, 1);
-            var actual = _sut.GetLiveNeighboursCountFor(targetLocation);
+            _sut.SetNextCellStateForAllLocations();
             
-            Assert.Equal(8, actual);
+            Assert.Equal(State.Alive, targetLocation.NextCellState);
 
         }
         
         [Fact]
         public void CalculateCorrectLiveNeighboursForBoundaryBottomRightCornerLocation()
         {
-            AddLiveCellTo(4, 4);
-            AddLiveCellTo(4, 5);
             AddLiveCellTo(4, 1);
-            AddLiveCellTo(5, 4);
-            AddLiveCellTo(5, 1);
             AddLiveCellTo(1, 4);
-            AddLiveCellTo(1, 5);
             AddLiveCellTo(1, 1);
 
             var targetLocation = _sut.GetLocationAt(5, 5);
-            var actual = _sut.GetLiveNeighboursCountFor(targetLocation);
+            _sut.SetNextCellStateForAllLocations();
             
-            Assert.Equal(8, actual);
+            Assert.Equal(State.Alive, targetLocation.NextCellState);
 
         }
 

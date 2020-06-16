@@ -20,9 +20,9 @@ namespace kata_conways_game_of_life
             game.Run();
         }
 
-        private static Grid SetUpGrid(int gridRows, int gridColumns, InputParser userInputParser)
+        private static IGrid SetUpGrid(int gridRows, int gridColumns, InputParser userInputParser)
         {
-            var grid = new Grid(gridRows, gridColumns);
+            IGrid grid = new Grid(gridRows, gridColumns);
             grid.AddCellsToLocations();
             return grid;
         }
