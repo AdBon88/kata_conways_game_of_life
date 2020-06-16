@@ -71,26 +71,26 @@ namespace kata_conways_game_of_life
             return cellReviveLocations;
         }
 
-        public void KillCells(IEnumerable<ILocation> locationsForCellDeath)
-        {
-            foreach (var location in locationsForCellDeath)
-            {
-                location.ChangeCellStateTo(State.Dead);
-            }
-        }
-
-        public void ReviveCells(IEnumerable<ILocation> locationsToReviveCells)
-        {
-            foreach (var location in locationsToReviveCells)
-            {
-                location.ChangeCellStateTo(State.Alive);
-            }
-        }
+        // public void KillCells(IEnumerable<ILocation> locationsForCellDeath)
+        // {
+        //     foreach (var location in locationsForCellDeath)
+        //     {
+        //         location.ChangeCellStateTo(State.Dead);
+        //     }
+        // }
+        //
+        // public void ReviveCells(IEnumerable<ILocation> locationsToReviveCells)
+        // {
+        //     foreach (var location in locationsToReviveCells)
+        //     {
+        //         location.ChangeCellStateTo(State.Alive);
+        //     }
+        // }
         
-        public bool WillAllCellsDieNext()
+        public bool AreAllCellsDead()
         {
             return _locations.All(location =>
-                location.GetNextCellState(GetLiveNeighboursCountFor(location)) == State.Dead);
+                location.GetCellState() == State.Dead);
         }
         
         private IEnumerable<ILocation> GenerateGrid()

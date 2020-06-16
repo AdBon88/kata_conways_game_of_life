@@ -11,11 +11,11 @@ namespace kata_conways_game_of_life
 
         int GetLiveNeighboursCountFor(ILocation location);
 
-        bool WillAllCellsDieNext();
+        bool AreAllCellsDead();
         IEnumerable<ILocation> GetLocationsToKillCells();
         IEnumerable<ILocation> GetLocationsToReviveCells();
-        void KillCells(IEnumerable<ILocation> locationsForCellDeath);
-        void ReviveCells(IEnumerable<ILocation> locationsToReviveCells);
+        // void KillCells(IEnumerable<ILocation> locationsForCellDeath);
+        // void ReviveCells(IEnumerable<ILocation> locationsToReviveCells);
 
     }
 }
