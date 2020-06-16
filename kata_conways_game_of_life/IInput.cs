@@ -5,6 +5,6 @@ namespace kata_conways_game_of_life
         string GetGridDimension(string dimension);
         string GetStartingLiveLocation();
         string GetAdditionalStartingLocations();
-
+        
     }
 }

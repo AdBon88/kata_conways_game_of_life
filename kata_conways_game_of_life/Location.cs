@@ -16,19 +16,27 @@ namespace kata_conways_game_of_life
         public int RowNumber { get; }
         public int ColumnNumber { get; }
         private ICell _cell;
+        public State NextCellState { get; private set; }
 
         public void AddCell(ICell cell)
         {
            _cell = cell;
         }
         
-        public State GetNextCellState(int liveNeighboursCount)
+        public void SetNextCellState(int liveNeighboursCount)
         {
-            if (liveNeighboursCount == 3) return State.Alive;
-            
-            if (_cell.State == State.Alive && liveNeighboursCount == 2) return State.Alive;
-            
-            return State.Dead;
+            if (liveNeighboursCount == 3)
+            {
+                NextCellState = State.Alive;
+            }
+            else if (_cell.State == State.Alive && liveNeighboursCount == 2)
+            {
+                NextCellState = State.Alive;
+            }
+            else
+            {
+                NextCellState = State.Dead;
+            }
         }
 
         public void ChangeCellStateTo(State newState)

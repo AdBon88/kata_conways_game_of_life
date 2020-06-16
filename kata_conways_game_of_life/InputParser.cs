@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using System.Reflection.PortableExecutable;
 
 namespace kata_conways_game_of_life
 {
@@ -41,7 +40,13 @@ namespace kata_conways_game_of_life
             }
 
             return GetStartingLiveLocation(maxRow, maxColumn);
-            
+        }
+
+
+        public bool GetAdditionalLocations()
+        {
+            var input = _prompt.GetAdditionalStartingLocations().ToLower();
+            return input == "y";
         }
     }
 }

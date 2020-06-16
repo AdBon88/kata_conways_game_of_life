@@ -29,9 +29,10 @@ namespace kata_conways_game_of_life.tests
             var sut = new Location(2, 2);
             var cellStub = Mock.Of<ICell>(c => c.State == State.Alive);
             sut.AddCell(cellStub);
-            
-            Assert.Equal(State.Alive, sut.GetNextCellState(2));
-            Assert.Equal(State.Alive, sut.GetNextCellState(3));
+            sut.SetNextCellState(2);
+            Assert.Equal(State.Alive, sut.NextCellState );
+            sut.SetNextCellState(3);
+            Assert.Equal(State.Alive, sut.NextCellState );
 
         }
 
@@ -41,8 +42,9 @@ namespace kata_conways_game_of_life.tests
             var sut = new Location(2, 2);
             var cellStub = Mock.Of<ICell>(c => c.State == State.Dead);
             sut.AddCell(cellStub);
+            sut.SetNextCellState(3);
             
-            Assert.Equal(State.Alive, sut.GetNextCellState(3));
+            Assert.Equal(State.Alive, sut.NextCellState);
         }
         
         [Fact]
@@ -51,7 +53,9 @@ namespace kata_conways_game_of_life.tests
             var sut = new Location(2, 2);
             var cellStub = Mock.Of<ICell>(c => c.State == State.Dead);
             sut.AddCell(cellStub);
-            Assert.Equal(State.Dead, sut.GetNextCellState(2));
+            sut.SetNextCellState(2);
+            
+            Assert.Equal(State.Dead, sut.NextCellState );
         }
 
         [Fact]
@@ -60,8 +64,9 @@ namespace kata_conways_game_of_life.tests
             var sut = new Location(2, 2);
             var cellStub = Mock.Of<ICell>(c => c.State == State.Alive);
             sut.AddCell(cellStub);
+            sut.SetNextCellState(1);
 
-            Assert.Equal(State.Dead, sut.GetNextCellState(1));
+            Assert.Equal(State.Dead, sut.NextCellState);
         }
 
         [Fact]
@@ -70,8 +75,9 @@ namespace kata_conways_game_of_life.tests
             var sut = new Location(2, 2);
             var cellStub = Mock.Of<ICell>(c => c.State == State.Alive);
             sut.AddCell(cellStub);
+            sut.SetNextCellState(4);
             
-            Assert.Equal(State.Dead, sut.GetNextCellState(4));
+            Assert.Equal(State.Dead, sut.NextCellState);
             
         }
         
