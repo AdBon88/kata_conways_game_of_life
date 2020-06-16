@@ -9,17 +9,14 @@ namespace kata_conways_game_of_life.tests
        [Fact]
         public void UpdateGridAtEachGameLoop()
         {
-             var mockInput = new Mock<IInput>();
-            // mockInput.SetupSequence(i => i.GetStartingLiveLocation())
-            //     .Returns("3,3")
-            //     .Returns("2,4");
-            var inputParser = new InputParser(mockInput.Object);
             var testLocation1 = new Mock<ILocation>();
             var testCell1 = Mock.Of<ICell>(c => c.State == State.Alive);
             testLocation1.Setup(l => l.AddCell(testCell1));
+            
             var testLocation2 = new Mock<ILocation>();
             var testCell2 = Mock.Of<ICell>(c => c.State == State.Alive);
             testLocation2.Setup(l => l.AddCell(testCell2));
+            
             var mockGrid = new Mock<IGrid>();
             mockGrid.Setup(g => g.GetLocationAt(3, 3))
                 .Returns(testLocation1.Object);
@@ -30,7 +27,7 @@ namespace kata_conways_game_of_life.tests
                 .Returns(true);
 
 
-            var sut = new Game(inputParser, mockGrid.Object);
+            var sut = new Game(mockGrid.Object);
             sut.Run();
             
             mockGrid.Verify(g => g.GetLocationsToKillCells(), Times.Exactly(2));
