@@ -5,7 +5,7 @@ using System.Text;
 
 namespace kata_conways_game_of_life
 {
-    public class Grid
+    public class Grid : IGrid
     {
         public Grid(int numberOfRows, int numberOfColumns)
         {

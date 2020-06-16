@@ -9,7 +9,7 @@ namespace kata_conways_game_of_life
         string Display();
         ILocation GetLocationAt(int rowNumber, int columnNumber);
 
-        int GetLiveNeighboursCountFor(int row, int column);
+        int GetLiveNeighboursCountFor(ILocation location);
 
         bool WillAllCellsDieNext();
         IEnumerable<ILocation> GetLocationsToKillCells();
