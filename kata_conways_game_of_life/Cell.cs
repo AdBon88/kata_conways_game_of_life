@@ -3,20 +3,24 @@ using System.Collections.Generic;
 
 namespace kata_conways_game_of_life
 {
-    public class Cell
+    public class Cell : ICell
     {
         public Cell()
         {
             State = State.Dead;
         }
-        
-        public State State;
 
-        public string GetDisplay()
+        public State State { get; private set; }
+        
+        public void Die()
         {
-            return State == State.Dead ? "[ ]" : "[#]";
+            State = State.Dead;
         }
 
-
+        public void Revive()
+        {
+            State = State.Alive;
+        }
+        
     }
 }

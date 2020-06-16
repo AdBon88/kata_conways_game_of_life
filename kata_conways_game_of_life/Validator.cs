@@ -14,11 +14,17 @@ namespace kata_conways_game_of_life
             
         }
 
-        public static bool AreCoordinatesWithinGridBoundaries(IEnumerable<int> coordinates, int maxGridRow, int maxGridColumn)
+        public static bool AreCoordinatesWithinGridBoundaries(int[] coordinates, int maxGridRow, int maxGridColumn)
         {
-            var isXCoordinateValid = (coordinates.First() > 0) && (coordinates.First() <= maxGridRow);
-            var isYCoordinateValid = (coordinates.Last() > 0) && (coordinates.Last() <= maxGridColumn);
+            var isXCoordinateValid = (coordinates[0] > 0) && (coordinates[0] <= maxGridRow);
+            var isYCoordinateValid = (coordinates[1] > 0) && (coordinates[1] <= maxGridColumn);
             return isXCoordinateValid && isYCoordinateValid;
+        }
+
+        public static bool IsGridDimensionValid(string dimension)
+        {
+            var isDimensionValid = int.TryParse(dimension, out int intDimension);
+            return isDimensionValid && intDimension >= 5;
         }
     }
 }

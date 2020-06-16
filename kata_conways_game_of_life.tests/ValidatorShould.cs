@@ -32,6 +32,16 @@ namespace kata_conways_game_of_life.tests
             Assert.False(actual2);
             
         }
+
+        [Fact]
+        public void RequireMinimumOf5RowsAndColumnsForGrid()
+        {
+            const string row = "3";
+            const string column = "6";
+            
+            Assert.False(Validator.IsGridDimensionValid(row));
+            Assert.True(Validator.IsGridDimensionValid(column));
+        }
         
  
         

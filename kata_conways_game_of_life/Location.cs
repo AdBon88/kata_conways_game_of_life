@@ -1,34 +1,56 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.NetworkInformation;
+
 
 namespace kata_conways_game_of_life
 {
-    public class Location
+    public class Location : ILocation
     {
-        public Location(int rowNumber, int columnNumber, Cell cell)
+        public Location(int rowNumber, int columnNumber)
         {
             RowNumber = rowNumber;
             ColumnNumber = columnNumber;
-            Cell = cell;
         }
         
         public int RowNumber { get; }
         public int ColumnNumber { get; }
-        public Cell Cell { get; }
+        private ICell _cell;
 
-        
-        public State GetNextCellState(IEnumerable<Cell> neighbours)
+        public void AddCell(ICell cell)
         {
-            var liveNeighbours = neighbours.Count(neighbour => neighbour.State == State.Alive);
-
-            if (liveNeighbours == 3) return State.Alive;
+           _cell = cell;
+        }
+        
+        public State GetNextCellState(int liveNeighboursCount)
+        {
+            if (liveNeighboursCount == 3) return State.Alive;
             
-            if (Cell.State == State.Alive && liveNeighbours == 2) return State.Alive;
+            if (_cell.State == State.Alive && liveNeighboursCount == 2) return State.Alive;
             
             return State.Dead;
+        }
 
+        public void ChangeCellStateTo(State newState)
+        {
+            if (newState == State.Alive)
+            {
+                _cell.Revive();
+            }
+            else
+            {
+                _cell.Die();
+            }
+        }
+
+        public string GetDisplay()
+        {
+            return  _cell.State == State.Dead ? "[ ]" : "[#]";
+        }
+
+        public State GetCellState()
+        {
+            return _cell.State;
         }
         
     }

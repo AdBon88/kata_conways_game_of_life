@@ -16,21 +16,14 @@ namespace kata_conways_game_of_life
         
         private readonly int _numberOfRows;
         private readonly int _numberOfColumns;
-        private readonly IEnumerable<Location> _locations;
-
-
-        private IEnumerable<Location> GenerateGrid()
+        private readonly IEnumerable<ILocation> _locations;
+        
+        public void AddCellsToLocations()
         {
-            var gridLocations = new List<Location>();
-            for (var i = 1; i <= _numberOfRows; i++)
+            foreach (var location in _locations)
             {
-                for (var j = 1; j <= _numberOfColumns; j++)
-                {
-                    gridLocations.Add(new Location(i, j, new Cell()));
-                }
+                location.AddCell(new Cell());
             }
-
-            return gridLocations;
         }
 
         public string Display()
@@ -41,7 +34,7 @@ namespace kata_conways_game_of_life
                 var locationsInRow = _locations.Where(location => location.RowNumber == rowNumber);
                 foreach (var location in locationsInRow)
                 {
-                    gridDisplay.Append(location.Cell.GetDisplay());
+                    gridDisplay.Append(location.GetDisplay());
                 }
 
                 gridDisplay.AppendLine();
@@ -49,14 +42,80 @@ namespace kata_conways_game_of_life
 
             return gridDisplay.ToString();
         }
-
-        public IEnumerable<Location> GetNeighboursFor(int row, int column)
+        
+        public ILocation GetLocationAt(int rowNumber, int columnNumber)
         {
+            return _locations.FirstOrDefault(location =>
+                location.RowNumber == rowNumber && location.ColumnNumber == columnNumber);
+        }
+
+        public int GetLiveNeighboursCountFor(ILocation location)
+        {
+            var neighbours = GetNeighboursFor(location);
+            return neighbours.Count(neighbour => neighbour.GetCellState() == State.Alive);
+        }
+        
+        public IEnumerable<ILocation> GetLocationsToKillCells()
+        {
+            var cellDeathLocations = _locations.Where(l =>
+                l.GetCellState() == State.Alive &&
+                l.GetNextCellState(GetLiveNeighboursCountFor(l)) == State.Dead);
+            return cellDeathLocations;
+        }
+
+        public IEnumerable<ILocation> GetLocationsToReviveCells()
+        {
+            var cellReviveLocations = _locations.Where(l =>
+                l.GetCellState() == State.Dead &&
+                l.GetNextCellState(GetLiveNeighboursCountFor(l)) == State.Alive);
+            return cellReviveLocations;
+        }
+
+        public void KillCells(IEnumerable<ILocation> locationsForCellDeath)
+        {
+            foreach (var location in locationsForCellDeath)
+            {
+                location.ChangeCellStateTo(State.Dead);
+            }
+        }
+
+        public void ReviveCells(IEnumerable<ILocation> locationsToReviveCells)
+        {
+            foreach (var location in locationsToReviveCells)
+            {
+                location.ChangeCellStateTo(State.Alive);
+            }
+        }
+        
+        public bool WillAllCellsDieNext()
+        {
+            return _locations.All(location =>
+                location.GetNextCellState(GetLiveNeighboursCountFor(location)) == State.Dead);
+        }
+        
+        private IEnumerable<ILocation> GenerateGrid()
+        {
+            var gridLocations = new List<ILocation>();
+            for (var i = 1; i <= _numberOfRows; i++)
+            {
+                for (var j = 1; j <= _numberOfColumns; j++)
+                {
+                    gridLocations.Add(new Location(i, j));
+                }
+            }
+
+            return gridLocations;
+        }
+
+        private IEnumerable<ILocation> GetNeighboursFor(ILocation location)
+        {
+            var row = location.RowNumber;
+            var column = location.ColumnNumber;
             var leftColumn = column == 1 ? _numberOfColumns : column - 1;
             var rightColumn = column == _numberOfColumns ?  1 : column + 1;
             var aboveRow = row == 1 ? _numberOfRows : row - 1;
             var belowRow = row == _numberOfRows ? 1 : row + 1;
-            return new List<Location>()
+            return new List<ILocation>()
             {
                 GetLocationAt(aboveRow, leftColumn),
                 GetLocationAt(aboveRow, column),
@@ -70,10 +129,6 @@ namespace kata_conways_game_of_life
 
         }
         
-        private Location GetLocationAt(int rowNumber, int columnNumber)
-        {
-            return _locations.FirstOrDefault(location =>
-                location.RowNumber == rowNumber && location.ColumnNumber == columnNumber);
-        }
     }
+
 }
