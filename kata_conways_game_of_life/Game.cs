@@ -12,15 +12,14 @@ namespace kata_conways_game_of_life
         {
             _grid = grid;
         }
-
-
+        
         public void Run()
         {
-            while (true)
+            do
             {
                 Thread.Sleep(1000);
                 _grid.SetNextCellStateForAllLocations();
-                var nextLocationsWithCellDeath = _grid.GetLocationsToKillCells();
+                var nextLocationsWithCellDeath = _grid.GetLocationsToKillCells() ;
                 var nextLocationsToReviveCells = _grid.GetLocationsToReviveCells();
                 if (nextLocationsWithCellDeath.Any())
                 {
@@ -28,21 +27,20 @@ namespace kata_conways_game_of_life
                     {
                         location.ChangeCellStateTo(State.Dead);
                     }
-                    
                 }
+
                 if (nextLocationsToReviveCells.Any())
                 {
                     foreach (var location in nextLocationsToReviveCells)
                     {
                         location.ChangeCellStateTo(State.Alive);
                     }
-                    
                 }
-                
+
                 Console.Clear();
                 Console.WriteLine(_grid.Display());
-                if (_grid.AreAllCellsDead()) break;
-            }
+                
+            } while (!_grid.AreAllCellsDead());
         }
     }
 }

@@ -39,7 +39,6 @@ namespace kata_conways_game_of_life
 
                 gridDisplay.AppendLine();
             }
-
             return gridDisplay.ToString();
         }
         
@@ -49,7 +48,6 @@ namespace kata_conways_game_of_life
                 location.RowNumber == rowNumber && location.ColumnNumber == columnNumber);
         }
 
-        
         public void SetNextCellStateForAllLocations()
         {
             foreach (var location in _locations)
@@ -117,9 +115,6 @@ namespace kata_conways_game_of_life
                 GetLocationAt(belowRow, column),
                 GetLocationAt(belowRow, rightColumn)
             };
-
         }
-        
     }
-
 }
