@@ -40,7 +40,7 @@ namespace kata_conways_game_of_life
                 
                 Console.Clear();
                 Console.WriteLine(_grid.Display());
-                if (_grid.AreAllCellsDead()) return;
+                if (_grid.AreAllCellsDead()) break;
             }
         }
     }

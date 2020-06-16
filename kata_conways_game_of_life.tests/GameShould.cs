@@ -22,17 +22,18 @@ namespace kata_conways_game_of_life.tests
                 .Returns(testLocation1.Object);
             mockGrid.Setup(g => g.GetLocationAt(4, 5))
                 .Returns(testLocation2.Object);
-            mockGrid.SetupSequence(g => g.AreAllCellsDead())
-                .Returns(false)
+            mockGrid.Setup(g => g.GetLocationsToKillCells())
+                .Returns(new List<ILocation>() {testLocation1.Object, testLocation2.Object});
+            
+            mockGrid.Setup(g => g.AreAllCellsDead())
                 .Returns(true);
-
-
+            
             var sut = new Game(mockGrid.Object);
             sut.Run();
             
-            mockGrid.Verify(g => g.GetLocationsToKillCells(), Times.Exactly(2));
-            mockGrid.Verify(g => g.GetLocationsToReviveCells(), Times.Exactly(2));
-            mockGrid.Verify(g => g.AreAllCellsDead(), Times.Exactly(2));
+            mockGrid.Verify(g => g.GetLocationsToKillCells(), Times.Once);
+            mockGrid.Verify(g => g.GetLocationsToReviveCells(), Times.Once);
+            mockGrid.Verify(g => g.AreAllCellsDead(), Times.Once);
             testLocation1.Verify(l => l.ChangeCellStateTo(State.Dead), Times.Once);
             testLocation2.Verify(l => l.ChangeCellStateTo(State.Dead), Times.Once);
 
