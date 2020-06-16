@@ -13,7 +13,7 @@ namespace kata_conways_game_of_life
 
         public string GetStartingLiveLocation()
         {
-            Console.WriteLine("Enter a starting location in the form 'row number, column number (both starts at 1)'");
+            Console.WriteLine("Enter a starting location in the form 'row number, column number' (both starts at 1)");
             return Console.ReadLine();
         }
 

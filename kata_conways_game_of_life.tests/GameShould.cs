@@ -6,6 +6,20 @@ namespace kata_conways_game_of_life.tests
 {
     public class GameShould
     {
+        [Fact]
+        public void GetNextCellStateAtEachGameLoop()
+        {
+            var mockGrid = new Mock<IGrid>();
+            mockGrid.Setup(g => g.AreAllCellsDead())
+                .Returns(true);
+            
+            var sut = new Game(mockGrid.Object);
+            sut.Run();
+            
+            mockGrid.Verify(g => g.SetNextCellStateForAllLocations(), Times.Once);
+            
+        }
+        
        [Fact]
         public void UpdateGridAtEachGameLoop()
         {
@@ -38,6 +52,8 @@ namespace kata_conways_game_of_life.tests
             testLocation2.Verify(l => l.ChangeCellStateTo(State.Dead), Times.Once);
 
         }
+        
+        
 
     }
 }

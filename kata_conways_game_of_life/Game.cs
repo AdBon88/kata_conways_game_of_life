@@ -18,7 +18,8 @@ namespace kata_conways_game_of_life
         {
             while (true)
             {
-                Thread.Sleep(500);
+                Thread.Sleep(1000);
+                _grid.SetNextCellStateForAllLocations();
                 var nextLocationsWithCellDeath = _grid.GetLocationsToKillCells();
                 var nextLocationsToReviveCells = _grid.GetLocationsToReviveCells();
                 if (nextLocationsWithCellDeath.Any())

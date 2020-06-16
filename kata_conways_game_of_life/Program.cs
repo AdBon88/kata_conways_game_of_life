@@ -13,8 +13,10 @@ namespace kata_conways_game_of_life
             var gridRows = userInputParser.ParseGridDimension("rows");
             var gridColumns = userInputParser.ParseGridDimension("columns");
             var grid = SetUpGrid(gridRows, gridColumns, userInputParser);
-            var game = new Game(grid);
+            Console.Clear();
             Console.WriteLine(grid.Display());
+            GetStartingLiveCellLocations(userInputParser, gridRows, gridColumns, grid);
+            var game = new Game(grid);
             game.Run();
         }
 
@@ -22,27 +24,18 @@ namespace kata_conways_game_of_life
         {
             var grid = new Grid(gridRows, gridColumns);
             grid.AddCellsToLocations();
-            var locationList = new List<int[]>();
-            var startingLiveCellLocations = GetStartingLiveCellLocations(userInputParser, locationList, gridRows, gridColumns);
-            SetStartingCellStatesToLive(startingLiveCellLocations, grid);
             return grid;
         }
-
-        private static void SetStartingCellStatesToLive(IEnumerable<int[]> startingLocations, IGrid grid)
-        {
-            foreach (var coordinate in startingLocations)
-            {
-                var location = grid.GetLocationAt(coordinate[0], coordinate[1]);
-                location.ChangeCellStateTo(State.Alive);
-            }
-        }
-
-        private static IEnumerable<int[]> GetStartingLiveCellLocations(InputParser userInputParser, List<int[]> startingLocations, int gridRows, int gridColumns)
+        
+        private static IGrid GetStartingLiveCellLocations(InputParser userInputParser, int gridRows, int gridColumns, IGrid grid)
         {
             var startingLocation = userInputParser.GetStartingLiveLocation(gridRows, gridColumns);
-            startingLocations.Add(startingLocation);
+            var targetLocation = grid.GetLocationAt(startingLocation[0], startingLocation[1]);
+            targetLocation.ChangeCellStateTo(State.Alive);
+            Console.Clear();
+            Console.WriteLine(grid.Display());
             var getMoreLocations = userInputParser.GetAdditionalLocations();
-            return !getMoreLocations ? startingLocations : GetStartingLiveCellLocations(userInputParser, startingLocations, gridRows, gridColumns);
+            return !getMoreLocations ? grid : GetStartingLiveCellLocations(userInputParser, gridRows, gridColumns, grid);
         }
 
     }

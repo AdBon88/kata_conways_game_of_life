@@ -54,12 +54,20 @@ namespace kata_conways_game_of_life
             var neighbours = GetNeighboursFor(location);
             return neighbours.Count(neighbour => neighbour.GetCellState() == State.Alive);
         }
-        
+
+        public void SetNextCellStateForAllLocations()
+        {
+            foreach (var location in _locations)
+            {
+                var liveNeighboursCount = GetLiveNeighboursCountFor(location);
+                location.SetNextCellState(liveNeighboursCount);
+            }
+        }
         public IEnumerable<ILocation> GetLocationsToKillCells()
         {
             var cellDeathLocations = _locations.Where(l =>
                 l.GetCellState() == State.Alive &&
-                l.GetNextCellState(GetLiveNeighboursCountFor(l)) == State.Dead);
+                l.NextCellState == State.Dead);
             return cellDeathLocations;
         }
 
@@ -67,26 +75,9 @@ namespace kata_conways_game_of_life
         {
             var cellReviveLocations = _locations.Where(l =>
                 l.GetCellState() == State.Dead &&
-                l.GetNextCellState(GetLiveNeighboursCountFor(l)) == State.Alive);
+                l.NextCellState == State.Alive);
             return cellReviveLocations;
         }
-
-        // public void KillCells(IEnumerable<ILocation> locationsForCellDeath)
-        // {
-        //     foreach (var location in locationsForCellDeath)
-        //     {
-        //         location.ChangeCellStateTo(State.Dead);
-        //     }
-        // }
-        //
-        // public void ReviveCells(IEnumerable<ILocation> locationsToReviveCells)
-        // {
-        //     foreach (var location in locationsToReviveCells)
-        //     {
-        //         location.ChangeCellStateTo(State.Alive);
-        //     }
-        // }
-        
         public bool AreAllCellsDead()
         {
             return _locations.All(location =>
