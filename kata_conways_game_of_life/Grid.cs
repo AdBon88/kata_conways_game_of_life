@@ -49,12 +49,7 @@ namespace kata_conways_game_of_life
                 location.RowNumber == rowNumber && location.ColumnNumber == columnNumber);
         }
 
-        private int GetLiveNeighboursCountFor(ILocation location)
-        {
-            var neighbours = GetNeighboursFor(location);
-            return neighbours.Count(neighbour => neighbour.GetCellState() == State.Alive);
-        }
-
+        
         public void SetNextCellStateForAllLocations()
         {
             foreach (var location in _locations)
@@ -96,6 +91,11 @@ namespace kata_conways_game_of_life
             }
 
             return gridLocations;
+        }
+        private int GetLiveNeighboursCountFor(ILocation location)
+        {
+            var neighbours = GetNeighboursFor(location);
+            return neighbours.Count(neighbour => neighbour.GetCellState() == State.Alive);
         }
 
         private IEnumerable<ILocation> GetNeighboursFor(ILocation location)
