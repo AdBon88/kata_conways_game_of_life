@@ -12,9 +12,24 @@ namespace kata_conways_game_of_life.tests
         [Fact]
         public void EndWhenAllCellsAreDead()
         {
-            IGrid grid = new Grid(5, 5);
-            grid.AddCellsToLocations();
+            var mockGrid = new Mock<IGrid>();
+            mockGrid.SetupSequence(g => g.AreAllCellsDead())
+                .Returns(false)
+                .Returns(false)
+                .Returns(true);
+            
+            var sut = new Game(mockGrid.Object, new InputParser(Mock.Of<IInput>()));
+            sut.UpdateGridAtEachTick();
+            
+            mockGrid.Verify(g => g.SetNextCellStateForAllLocations(), Times.Exactly(3));
         }
+
+        [Fact]
+        public void EndWhenGridConfigurationIsInfinite()
+        {
+            
+        }
+        
         [Fact]
         public void GetNextCellStateAtEachGameLoop()
         {

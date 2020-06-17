@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -117,6 +118,11 @@ namespace kata_conways_game_of_life.Models
                 GetLocationAt(belowRow, column),
                 GetLocationAt(belowRow, rightColumn)
             };
+        }
+
+        public bool IsConfigurationInfinite()
+        {
+            return _locations.All(_location => _location.GetCellState() == _location.NextCellState);
         }
     }
 }

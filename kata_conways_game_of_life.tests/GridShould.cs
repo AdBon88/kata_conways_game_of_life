@@ -156,9 +156,13 @@ namespace kata_conways_game_of_life.tests
         }
 
         [Fact]
-        public void CheckIfAllLocationsContainDeadCellsNext()
+        public void DetectIfAllLocationsContainDeadCellsNext()
         {
             Assert.True(_sut.AreAllCellsDead());
+            
+            MakeCellLiveAtLocation(4, 4);
+            
+            Assert.False(_sut.AreAllCellsDead());
         }
         
         [Fact]
@@ -190,9 +194,15 @@ namespace kata_conways_game_of_life.tests
         [Fact]
         public void DetectWhenConfigurationIsInfinite()
         {
-            var targetLocation1 = _sut.GetLocationAt(2, 2);
-            targetLocation1.ChangeCellStateTo(State.Alive);
+            MakeCellLiveAtLocation(2, 3);
+            MakeCellLiveAtLocation(2, 4);
+            MakeCellLiveAtLocation(3, 3);
+            MakeCellLiveAtLocation(3, 4);
             
+            _sut.SetNextCellStateForAllLocations();
+            
+            Assert.True(_sut.IsConfigurationInfinite());
+
         }
         
         private void MakeCellLiveAtLocation(int row, int column)
