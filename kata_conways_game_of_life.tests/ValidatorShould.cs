@@ -1,3 +1,4 @@
+using kata_conways_game_of_life.InputOutput;
 using Xunit;
 
 namespace kata_conways_game_of_life.tests
@@ -42,11 +43,6 @@ namespace kata_conways_game_of_life.tests
             Assert.False(Validator.IsGridDimensionValid(row));
             Assert.True(Validator.IsGridDimensionValid(column));
         }
-        
-        
-        
-        
- 
-        
+
     }
 }

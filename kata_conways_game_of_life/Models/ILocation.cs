@@ -1,4 +1,4 @@
-namespace kata_conways_game_of_life
+namespace kata_conways_game_of_life.Models
 {
     public interface ILocation
     {

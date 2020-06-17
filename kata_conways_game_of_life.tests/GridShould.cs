@@ -1,7 +1,5 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata;
+using kata_conways_game_of_life.Models;
 using Xunit;
 using Moq;
 

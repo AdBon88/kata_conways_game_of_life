@@ -1,8 +1,7 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
-namespace kata_conways_game_of_life
+namespace kata_conways_game_of_life.InputOutput
 {
     public static class Validator
     {
@@ -10,7 +9,7 @@ namespace kata_conways_game_of_life
         {
             var splitCoordinates = coordinates.Split(",", StringSplitOptions.RemoveEmptyEntries);
             var isEachCoordinateValid = splitCoordinates.Select(coordinate => 
-                int.TryParse(coordinate, out var number));
+                int.TryParse((string?) coordinate, out var number));
             return isEachCoordinateValid.All(isValid => isValid);
             
         }

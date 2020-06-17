@@ -1,4 +1,5 @@
 using System;
+using kata_conways_game_of_life.InputOutput;
 using Moq;
 using Xunit;
 

@@ -1,9 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-
-
-namespace kata_conways_game_of_life
+namespace kata_conways_game_of_life.Models
 {
     public class Location : ILocation
     {

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using kata_conways_game_of_life.Models;
 using Moq;
 using Xunit;
 

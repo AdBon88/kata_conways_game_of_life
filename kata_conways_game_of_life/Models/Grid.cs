@@ -1,9 +1,8 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace kata_conways_game_of_life
+namespace kata_conways_game_of_life.Models
 {
     public class Grid : IGrid
     {

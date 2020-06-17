@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using kata_conways_game_of_life.Actions;
+using kata_conways_game_of_life.Models;
 using Moq;
 using Xunit;
 
@@ -6,6 +8,16 @@ namespace kata_conways_game_of_life.tests
 {
     public class GameShould
     {
+        [Fact]
+        public void EndWhenAllCellsAreDead()
+        {
+            IGrid grid = new Grid(5, 5);
+            grid.AddCellsToLocations();
+            
+            
+            
+            
+        }
         [Fact]
         public void GetNextCellStateAtEachGameLoop()
         {
@@ -50,7 +62,9 @@ namespace kata_conways_game_of_life.tests
 
         }
         
-        
+        //TODO: add test to make sure game ends when expected
+        // use concrete classes where possible
+        //mention when/why i use mocks for testing
 
     }
 }
