@@ -74,10 +74,10 @@ namespace kata_conways_game_of_life.Models
                 l.NextCellState == State.Alive);
             return cellReviveLocations;
         }
-        public bool AreAllCellsDead()
+        public bool HasLiveCells()
         {
-            return _locations.All(location =>
-                location.GetCellState() == State.Dead);
+            return _locations.Any(location =>
+                location.GetCellState() == State.Alive);
         }
         
         private IEnumerable<ILocation> GenerateGrid()
@@ -120,9 +120,9 @@ namespace kata_conways_game_of_life.Models
             };
         }
 
-        public bool IsConfigurationInfinite()
+        public bool ConfigurationIsChanging()
         {
-            return _locations.All(_location => _location.GetCellState() == _location.NextCellState);
+            return _locations.Any(_location => _location.GetCellState() != _location.NextCellState);
         }
     }
 }

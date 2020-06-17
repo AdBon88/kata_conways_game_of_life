@@ -28,7 +28,11 @@ namespace kata_conways_game_of_life.Actions
             Console.Clear();
             Console.WriteLine(_grid.Display());
             var getMoreLocations = _inputParser.GetAdditionalLocations();
-            return !getMoreLocations ? _grid : GetStartingLiveCellLocations();
+            
+            if (getMoreLocations) return GetStartingLiveCellLocations();
+            
+            _grid.SetNextCellStateForAllLocations();
+            return _grid;
         }
         
         public void UpdateGridAtEachTick()
@@ -37,22 +41,22 @@ namespace kata_conways_game_of_life.Actions
             {
                 Thread.Sleep(1000);
                 
-                _grid.SetNextCellStateForAllLocations();
-                if (_grid.IsConfigurationInfinite()) break;
-                
                 var nextLocationsWithCellDeath = _grid.GetLocationsToKillCells();
                 ChangeCellStateAtLocations(nextLocationsWithCellDeath, State.Dead);
                 
                 var nextLocationsToReviveCells = _grid.GetLocationsToReviveCells();
                 ChangeCellStateAtLocations(nextLocationsToReviveCells, State.Alive);
-
+                
+                _grid.SetNextCellStateForAllLocations();
+                
                 Console.Clear();
                 Console.WriteLine(_grid.Display());
                 
-            } while (!_grid.AreAllCellsDead());
+                
+            } while (_grid.HasLiveCells() && _grid.ConfigurationIsChanging());
 
         }
-
+        
         private static void ChangeCellStateAtLocations(IEnumerable<ILocation> locationsToChangeCellState, State state)
         {
             foreach (var location in locationsToChangeCellState)

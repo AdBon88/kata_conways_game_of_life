@@ -12,8 +12,8 @@ namespace kata_conways_game_of_life.Models
         void SetNextCellStateForAllLocations();
         IEnumerable<ILocation> GetLocationsToKillCells();
         IEnumerable<ILocation> GetLocationsToReviveCells();
-        bool AreAllCellsDead();
-        bool IsConfigurationInfinite();
+        bool HasLiveCells();
+        bool ConfigurationIsChanging();
         
     }
 }

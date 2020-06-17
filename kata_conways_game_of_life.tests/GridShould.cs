@@ -209,7 +209,7 @@ namespace kata_conways_game_of_life.tests
             
             _sut.SetNextCellStateForAllLocations();
             
-            Assert.True(_sut.IsConfigurationInfinite());
+            Assert.False(_sut.ConfigurationIsChanging());
         }
         
         [Fact]
@@ -222,17 +222,17 @@ namespace kata_conways_game_of_life.tests
             
             _sut.SetNextCellStateForAllLocations();
             
-            Assert.False(_sut.IsConfigurationInfinite());
+            Assert.True(_sut.ConfigurationIsChanging());
         }
         
         [Fact]
         public void DetectIfAllLocationsContainDeadCellsNext()
         {
-            Assert.True(_sut.AreAllCellsDead());
+            Assert.False(_sut.HasLiveCells());
             
             MakeCellLiveAtLocation(4, 4);
 
-            Assert.False(_sut.AreAllCellsDead());
+            Assert.True(_sut.HasLiveCells());
         }
 
         private void MakeCellLiveAtLocation(int row, int column)
