@@ -154,16 +154,6 @@ namespace kata_conways_game_of_life.tests
             Assert.Equal(State.Alive, targetLocation.NextCellState);
 
         }
-
-        [Fact]
-        public void DetectIfAllLocationsContainDeadCellsNext()
-        {
-            Assert.True(_sut.AreAllCellsDead());
-            
-            MakeCellLiveAtLocation(4, 4);
-            
-            Assert.False(_sut.AreAllCellsDead());
-        }
         
         [Fact]
         public void GetAListOfLocationsWhereCellStateChangesFromAliveToDead()
@@ -182,13 +172,51 @@ namespace kata_conways_game_of_life.tests
         [Fact]
         public void GetAListOfLocationsWhereCellStateChangesFromDeadToAlive()
         {
-            var targetLocation1 = _sut.GetLocationAt(3, 3);
-            targetLocation1.SetNextCellState(3);
-            var targetLocation2 = _sut.GetLocationAt(4, 1);
-            targetLocation2.SetNextCellState(3);
+            MakeCellLiveAtLocation(2,3);
+            MakeCellLiveAtLocation(2,4);
+            MakeCellLiveAtLocation(3,3);
+            MakeCellLiveAtLocation(4,1);
+            MakeCellLiveAtLocation(5,2);
+            MakeCellLiveAtLocation(1,1);
+
+            var expectedLocation1 = _sut.GetLocationAt(3, 4);
+            var expectedLocation2 = _sut.GetLocationAt(5, 1);
             
-            Assert.Contains(targetLocation1, _sut.GetLocationsToReviveCells());
-            Assert.Contains(targetLocation2, _sut.GetLocationsToReviveCells());
+
+            Assert.Contains(expectedLocation1, _sut.GetLocationsToReviveCells());
+            Assert.Contains(expectedLocation2, _sut.GetLocationsToReviveCells());
+        }
+
+        [Fact]
+        public void DetectIfGridConfigurationIsInfinite()
+        {
+            MakeCellLiveAtLocation(3, 3);
+            MakeCellLiveAtLocation(3,4);
+            MakeCellLiveAtLocation(4,3);
+            MakeCellLiveAtLocation(4,4);
+            
+            Assert.True(_sut.IsConfigurationInfinite());
+        }
+        
+        [Fact]
+        public void DetectIfGridConfigurationIsNotInfinite()
+        {
+            MakeCellLiveAtLocation(1, 3);
+            MakeCellLiveAtLocation(3,5);
+            MakeCellLiveAtLocation(4,3);
+            MakeCellLiveAtLocation(5,5);
+            
+            Assert.False(_sut.IsConfigurationInfinite());
+        }
+        
+        [Fact]
+        public void DetectIfAllLocationsContainDeadCellsNext()
+        {
+            Assert.True(_sut.AreAllCellsDead());
+            
+            MakeCellLiveAtLocation(4, 4);
+            
+            Assert.False(_sut.AreAllCellsDead());
         }
 
         private void MakeCellLiveAtLocation(int row, int column)
