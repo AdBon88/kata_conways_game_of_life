@@ -120,8 +120,8 @@ namespace kata_conways_game_of_life.tests
             
         }
         
-       [Fact(Skip = "not working")]
-        public void UpdateGridAtEachGameLoop() //TODO: use the grid display to test instead 
+       [Fact]
+        public void UpdateGridAtEachGameLoop()
         {
             IGrid grid = new Grid(5, 5);
             grid.AddDeadCellsToAllLocations();
@@ -136,22 +136,21 @@ namespace kata_conways_game_of_life.tests
                 .Returns("4,1")
                 .Returns("4,3")
                 .Returns("5,2");
-            
+
             var inputParser = new InputParser(mockInput.Object);
             var sut = new Game(grid,inputParser );
-            var randomTestLocation = grid.GetLocationAt(4, 2);
-            var mockCell = new Mock<ICell>();
-            mockCell.SetupSequence(c => c.State)
-                .Returns(State.Dead)
-                .Returns(State.Alive)
-                .Returns(State.Dead);
-            randomTestLocation.AddCell(mockCell.Object);
 
             sut.GetStartingLiveCellLocations();
             sut.UpdateGridAtEachTick();
             
-            mockCell.Verify(c => c.Revive(), Times.AtLeastOnce);
-            mockCell.Verify(c => c.Die(), Times.AtLeastOnce);
+            var expected = 
+                "[ ][ ][ ][ ][ ]" + Environment.NewLine +
+                "[ ][ ][ ][ ][ ]" + Environment.NewLine +
+                "[ ][ ][ ][ ][ ]" + Environment.NewLine +
+                "[ ][ ][ ][ ][ ]" + Environment.NewLine +
+                "[ ][ ][ ][ ][ ]" + Environment.NewLine;
+            
+            Assert.Equal(expected, grid.Display());
             
         }
         
