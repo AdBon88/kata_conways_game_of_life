@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using kata_conways_game_of_life.Actions;
+using kata_conways_game_of_life.InputOutput;
 using kata_conways_game_of_life.Models;
 using Moq;
 using Xunit;
@@ -13,10 +14,6 @@ namespace kata_conways_game_of_life.tests
         {
             IGrid grid = new Grid(5, 5);
             grid.AddCellsToLocations();
-            
-            
-            
-            
         }
         [Fact]
         public void GetNextCellStateAtEachGameLoop()
@@ -25,8 +22,8 @@ namespace kata_conways_game_of_life.tests
             mockGrid.Setup(g => g.AreAllCellsDead())
                 .Returns(true);
             
-            var sut = new Game(mockGrid.Object);
-            sut.Run();
+            var sut = new Game(mockGrid.Object, new InputParser(Mock.Of<IInput>()));
+            sut.UpdateGridAtEachTick();
             
             mockGrid.Verify(g => g.SetNextCellStateForAllLocations(), Times.Once);
             
@@ -54,8 +51,8 @@ namespace kata_conways_game_of_life.tests
             mockGrid.Setup(g => g.AreAllCellsDead())
                 .Returns(true);
             
-            var sut = new Game(mockGrid.Object);
-            sut.Run();
+            var sut = new Game(mockGrid.Object, new InputParser(Mock.Of<IInput>()));
+            sut.UpdateGridAtEachTick();
             
             testLocation1.Verify(l => l.ChangeCellStateTo(State.Dead), Times.Once);
             testLocation2.Verify(l => l.ChangeCellStateTo(State.Dead), Times.Once);
