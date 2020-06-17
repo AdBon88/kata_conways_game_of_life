@@ -9,7 +9,7 @@ namespace kata_conways_game_of_life.InputOutput
         {
             var splitCoordinates = coordinates.Split(",", StringSplitOptions.RemoveEmptyEntries);
             var isEachCoordinateValid = splitCoordinates.Select(coordinate => 
-                int.TryParse((string?) coordinate, out var number));
+                int.TryParse(coordinate, out var number));
             return isEachCoordinateValid.All(isValid => isValid);
             
         }
@@ -23,7 +23,7 @@ namespace kata_conways_game_of_life.InputOutput
 
         public static bool IsGridDimensionValid(string dimension)
         {
-            var isDimensionValid = int.TryParse(dimension, out int intDimension);
+            var isDimensionValid = int.TryParse(dimension, out var intDimension);
             return isDimensionValid && intDimension >= 5;
         }
     }

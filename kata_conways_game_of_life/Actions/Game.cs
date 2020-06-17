@@ -37,8 +37,8 @@ namespace kata_conways_game_of_life.Actions
             {
                 Thread.Sleep(1000);
                 _grid.SetNextCellStateForAllLocations();
-                var nextLocationsWithCellDeath = _grid.GetLocationsToKillCells() ;
-                var nextLocationsToReviveCells = _grid.GetLocationsToReviveCells();
+                var nextLocationsWithCellDeath = _grid.GetLocationsToKillCells().ToList() ;
+                var nextLocationsToReviveCells = _grid.GetLocationsToReviveCells().ToList();
                 if (nextLocationsWithCellDeath.Any())
                 {
                     ChangeCellStateAtLocations(nextLocationsWithCellDeath, State.Dead);
