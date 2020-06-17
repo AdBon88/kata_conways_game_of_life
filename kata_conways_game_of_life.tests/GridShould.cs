@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using kata_conways_game_of_life.Models;
 using Xunit;
 using Moq;
@@ -158,15 +159,24 @@ namespace kata_conways_game_of_life.tests
         [Fact]
         public void GetAListOfLocationsWhereCellStateChangesFromAliveToDead()
         {
-            var targetLocation1 = _sut.GetLocationAt(3, 3);
-            targetLocation1.ChangeCellStateTo(State.Alive);
-            targetLocation1.SetNextCellState(4);
-            var targetLocation2 = _sut.GetLocationAt(4, 1);
-            targetLocation2.ChangeCellStateTo(State.Alive);
-            targetLocation2.SetNextCellState(1);
+            MakeCellLiveAtLocation(1, 2);
+            MakeCellLiveAtLocation(2, 2);
+            MakeCellLiveAtLocation(2,3);
+            MakeCellLiveAtLocation(2,4);
+            MakeCellLiveAtLocation(3,3);
+            MakeCellLiveAtLocation(3,4);
+            MakeCellLiveAtLocation(1,5);
+            MakeCellLiveAtLocation(1,4);
             
-            Assert.Contains(targetLocation1, _sut.GetLocationsToKillCells());
-            Assert.Contains(targetLocation2, _sut.GetLocationsToKillCells());
+            _sut.SetNextCellStateForAllLocations();
+
+            var expectedLocation1 = _sut.GetLocationAt(2, 3);
+            var expectedLocation2 = _sut.GetLocationAt(2, 4);
+            
+
+            Assert.Contains(expectedLocation1, _sut.GetLocationsToKillCells());
+            Assert.Contains(expectedLocation2, _sut.GetLocationsToKillCells());
+            
         }
         
         [Fact]
@@ -178,6 +188,8 @@ namespace kata_conways_game_of_life.tests
             MakeCellLiveAtLocation(4,1);
             MakeCellLiveAtLocation(5,2);
             MakeCellLiveAtLocation(1,1);
+            
+            _sut.SetNextCellStateForAllLocations();
 
             var expectedLocation1 = _sut.GetLocationAt(3, 4);
             var expectedLocation2 = _sut.GetLocationAt(5, 1);
@@ -195,6 +207,8 @@ namespace kata_conways_game_of_life.tests
             MakeCellLiveAtLocation(4,3);
             MakeCellLiveAtLocation(4,4);
             
+            _sut.SetNextCellStateForAllLocations();
+            
             Assert.True(_sut.IsConfigurationInfinite());
         }
         
@@ -206,6 +220,8 @@ namespace kata_conways_game_of_life.tests
             MakeCellLiveAtLocation(4,3);
             MakeCellLiveAtLocation(5,5);
             
+            _sut.SetNextCellStateForAllLocations();
+            
             Assert.False(_sut.IsConfigurationInfinite());
         }
         
@@ -215,7 +231,7 @@ namespace kata_conways_game_of_life.tests
             Assert.True(_sut.AreAllCellsDead());
             
             MakeCellLiveAtLocation(4, 4);
-            
+
             Assert.False(_sut.AreAllCellsDead());
         }
 
