@@ -10,7 +10,7 @@ namespace kata_conways_game_of_life.tests
         public GridShould()
         {
             _sut = new Grid(5, 5);
-            _sut.AddCellsToLocations();
+            _sut.AddDeadCellsToAllLocations();
         }
 
         private readonly Grid _sut;
@@ -18,7 +18,7 @@ namespace kata_conways_game_of_life.tests
         [Fact]
         public void ContainCorrectNumberOfSquares()
         {
-            _sut.AddCellsToLocations();
+            _sut.AddDeadCellsToAllLocations();
             
             var expectedDisplay = 
                 "[ ][ ][ ][ ][ ]" + Environment.NewLine +
@@ -191,20 +191,6 @@ namespace kata_conways_game_of_life.tests
             Assert.Contains(targetLocation2, _sut.GetLocationsToReviveCells());
         }
 
-        [Fact]
-        public void DetectWhenConfigurationIsInfinite()
-        {
-            MakeCellLiveAtLocation(2, 3);
-            MakeCellLiveAtLocation(2, 4);
-            MakeCellLiveAtLocation(3, 3);
-            MakeCellLiveAtLocation(3, 4);
-            
-            _sut.SetNextCellStateForAllLocations();
-            
-            Assert.True(_sut.IsConfigurationInfinite());
-
-        }
-        
         private void MakeCellLiveAtLocation(int row, int column)
         {
             var targetLocation = _sut.GetLocationAt(row, column);

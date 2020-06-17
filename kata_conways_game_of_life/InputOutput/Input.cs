@@ -2,7 +2,7 @@ using System;
 
 namespace kata_conways_game_of_life.InputOutput
 {
-    public class Prompt : IInput
+    public class Input : IInput
     {
         public string GetGridDimension(string dimension)
         {

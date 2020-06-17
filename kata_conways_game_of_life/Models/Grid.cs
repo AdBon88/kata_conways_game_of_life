@@ -21,7 +21,7 @@ namespace kata_conways_game_of_life.Models
         private const int startingColumnNumber = 1;
         
         
-        public void AddCellsToLocations()
+        public void AddDeadCellsToAllLocations()
         {
             foreach (var location in _locations)
             {

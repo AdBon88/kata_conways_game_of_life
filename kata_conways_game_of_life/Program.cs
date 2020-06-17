@@ -9,12 +9,12 @@ namespace kata_conways_game_of_life
     {
         static void Main(string[] args)
         {
-            var prompt = new Prompt();
+            var prompt = new Input();
             var userInputParser = new InputParser(prompt);
             var numberOfRows = userInputParser.ParseGridDimension("rows");
             var numberOfColumns = userInputParser.ParseGridDimension("columns");
             IGrid grid = new Grid(numberOfRows, numberOfColumns);
-            grid.AddCellsToLocations();
+            grid.AddDeadCellsToAllLocations();
             Console.Clear();
             Console.WriteLine(grid.Display());
             var game = new Game(grid, userInputParser);

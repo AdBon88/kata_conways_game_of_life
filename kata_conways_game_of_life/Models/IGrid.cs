@@ -6,7 +6,7 @@ namespace kata_conways_game_of_life.Models
     {
         int NumberOfRows { get; }
         int NumberOfColumns { get; }
-        void AddCellsToLocations();
+        void AddDeadCellsToAllLocations();
         string Display();
         ILocation GetLocationAt(int rowNumber, int columnNumber);
         void SetNextCellStateForAllLocations();
