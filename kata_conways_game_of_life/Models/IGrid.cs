@@ -10,9 +10,10 @@ namespace kata_conways_game_of_life.Models
         string Display();
         ILocation GetLocationAt(int rowNumber, int columnNumber);
         void SetNextCellStateForAllLocations();
-        bool AreAllCellsDead();
         IEnumerable<ILocation> GetLocationsToKillCells();
         IEnumerable<ILocation> GetLocationsToReviveCells();
+        bool AreAllCellsDead();
+        bool IsConfigurationInfinite();
         
     }
 }
