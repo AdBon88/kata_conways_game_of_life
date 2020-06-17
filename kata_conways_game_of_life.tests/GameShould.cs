@@ -37,7 +37,6 @@ namespace kata_conways_game_of_life.tests
             Assert.Equal(State.Alive, expectedLocation1.GetCellState());
             Assert.Equal(State.Alive, expectedLocation2.GetCellState());
             Assert.Equal(State.Alive, expectedLocation3.GetCellState());
-
         }
         
         [Fact]
@@ -69,7 +68,6 @@ namespace kata_conways_game_of_life.tests
                 "[ ][ ][ ][ ][ ]" + Environment.NewLine;
             
             Assert.Equal(expected, grid.Display());
-            
         }
 
         [Fact]
@@ -103,7 +101,6 @@ namespace kata_conways_game_of_life.tests
                 "[ ][ ][ ][ ][ ]" + Environment.NewLine;
             
             Assert.Equal(expected, grid.Display());
-            
         }
         
         [Fact]
@@ -119,41 +116,6 @@ namespace kata_conways_game_of_life.tests
             mockGrid.Verify(g => g.SetNextCellStateForAllLocations(), Times.Once);
             
         }
-        
-       [Fact]
-        public void UpdateGridAtEachGameLoop()
-        {
-            IGrid grid = new Grid(5, 5);
-            grid.AddDeadCellsToAllLocations();
-            var mockInput = new Mock<IInput>();
-            mockInput.SetupSequence(i => i.GetAdditionalStartingLocations())
-                .Returns("y")
-                .Returns("y")
-                .Returns("y")
-                .Returns("n");
-            mockInput.SetupSequence(i => i.GetStartingLiveLocation())
-                .Returns("3,3")
-                .Returns("4,1")
-                .Returns("4,3")
-                .Returns("5,2");
-
-            var inputParser = new InputParser(mockInput.Object);
-            var sut = new Game(grid,inputParser );
-
-            sut.GetStartingLiveCellLocations();
-            sut.UpdateGridAtEachTick();
-            
-            var expected = 
-                "[ ][ ][ ][ ][ ]" + Environment.NewLine +
-                "[ ][ ][ ][ ][ ]" + Environment.NewLine +
-                "[ ][ ][ ][ ][ ]" + Environment.NewLine +
-                "[ ][ ][ ][ ][ ]" + Environment.NewLine +
-                "[ ][ ][ ][ ][ ]" + Environment.NewLine;
-            
-            Assert.Equal(expected, grid.Display());
-            
-        }
-        
         
     }
 }
