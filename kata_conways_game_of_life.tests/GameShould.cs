@@ -69,7 +69,7 @@ namespace kata_conways_game_of_life.tests
         }
 
         [Fact]
-        public void EndGameWhenGridConfigurationIsInfinite()
+        public void EndGameWhenGridConfigurationStopsChanging()
         {
             var mockInput = new Mock<IInput>();
             var inputParser = new InputParser(mockInput.Object);
