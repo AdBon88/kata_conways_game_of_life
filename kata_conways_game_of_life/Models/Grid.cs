@@ -20,7 +20,6 @@ namespace kata_conways_game_of_life.Models
         private const int startingRowNumber = 1;
         private const int startingColumnNumber = 1;
         
-        
         public void AddDeadCellsToAllLocations()
         {
             foreach (var location in _locations)
@@ -59,6 +58,7 @@ namespace kata_conways_game_of_life.Models
                 location.SetNextCellState(liveNeighboursCount);
             }
         }
+        
         public IEnumerable<ILocation> GetLocationsToKillCells()
         {
             var cellDeathLocations = _locations.Where(l =>
@@ -66,7 +66,7 @@ namespace kata_conways_game_of_life.Models
                 l.NextCellState == State.Dead);
             return cellDeathLocations;
         }
-
+        
         public IEnumerable<ILocation> GetLocationsToReviveCells()
         {
             var cellReviveLocations = _locations.Where(l =>
@@ -74,6 +74,12 @@ namespace kata_conways_game_of_life.Models
                 l.NextCellState == State.Alive);
             return cellReviveLocations;
         }
+        
+        public bool ConfigurationIsChanging()
+        {
+            return _locations.Any(_location => _location.GetCellState() != _location.NextCellState);
+        }
+        
         public bool HasLiveCells()
         {
             return _locations.Any(location =>
@@ -93,6 +99,7 @@ namespace kata_conways_game_of_life.Models
 
             return gridLocations;
         }
+        
         private int GetLiveNeighboursCountFor(ILocation location)
         {
             var neighbours = GetNeighboursFor(location);
@@ -118,11 +125,6 @@ namespace kata_conways_game_of_life.Models
                 GetLocationAt(belowRow, column),
                 GetLocationAt(belowRow, rightColumn)
             };
-        }
-
-        public bool ConfigurationIsChanging()
-        {
-            return _locations.Any(_location => _location.GetCellState() != _location.NextCellState);
         }
     }
 }
