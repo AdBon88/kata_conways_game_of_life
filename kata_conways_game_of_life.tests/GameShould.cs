@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using kata_conways_game_of_life.Actions;
 using kata_conways_game_of_life.InputOutput;
 using kata_conways_game_of_life.Models;

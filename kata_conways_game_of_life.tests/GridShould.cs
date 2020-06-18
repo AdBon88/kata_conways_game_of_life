@@ -1,8 +1,6 @@
 using System;
-using System.ComponentModel;
 using kata_conways_game_of_life.Models;
 using Xunit;
-using Moq;
 
 namespace kata_conways_game_of_life.tests
 {
