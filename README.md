@@ -44,6 +44,18 @@ If using the CLI:
 1. CD into the ```kata_conways_game_of_life``` project
 2. Enter ```dotnet run Program.cs``` and press Enter to run
 
+## How to use the application
+1. Enter a whole number of at least 5 for the rows and press Enter. Repeat for and columns.
+![Enter grid dimensions](images/app1.png)  
+2. Enter a coordinate in the form x,y to specify a starting live cell location
+![Enter grid dimensions](images/app2.png)  
+3. Enter ```y``` to add another starting live cell location  
+![Enter grid dimensions](images/app3.png)  
+4. Repeat steps 2 and 3 until you no longer wish to add more starting live cell locations
+5. Enter any key other than ```y``` to begin the game
+6. The grid configuration will automatically update every second
+7. Once all the cells are dead or no cells will change state at the next tick, the application will terminate.
+
 ## Running the tests
 
 Using the CLI:
@@ -69,9 +81,8 @@ The ```Validator``` class methods returns a boolean to indicate if the input dat
 The ```InputParser``` class methods are used to parse input data from string to either integer or boolean data types if the given input is valid. The tests are used to check that the recursive methods in the ```InputParser``` are working correctly, whereby only valid data is parsed.
 
 # Deployment
-Enter ```dotnet publish``` in the CLI
-
-## Application Design
+1. Enter ```dotnet publish``` in the CLI
+2. To run the resultant application, enter ```kata_conways_game_of_life.dll```
 
 
 ## Built With
