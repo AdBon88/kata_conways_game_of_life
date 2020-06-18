@@ -18,23 +18,24 @@ namespace kata_conways_game_of_life.Actions
             _inputParser = inputParser;
         }
 
-        public IGrid GetStartingLiveCellLocations()
+        public void SetUpStartingGridState()
         {
-            var startingLocation = _inputParser.GetStartingLiveLocation(_grid.NumberOfRows, _grid.NumberOfColumns);
-            var rowNumber = startingLocation[0];
-            var columnNumber = startingLocation[1];
-            var targetLocation = _grid.GetLocationAt(rowNumber, columnNumber);
-            targetLocation.ChangeCellStateTo(State.Alive);
-            Console.Clear();
-            Console.WriteLine(_grid.Display());
-            var getMoreLocations = _inputParser.GetAdditionalLocations();
+            bool isAddingLocation;
+            do
+            {
+                var startingLocation = _inputParser.GetStartingLiveLocation(_grid.NumberOfRows, _grid.NumberOfColumns);
+                var rowNumber = startingLocation[0];
+                var columnNumber = startingLocation[1];
+                var targetLocation = _grid.GetLocationAt(rowNumber, columnNumber);
+                targetLocation.ChangeCellStateTo(State.Alive);
+                _grid.SetNextCellStateForAllLocations();
             
-            if (getMoreLocations) return GetStartingLiveCellLocations();
-            
-            _grid.SetNextCellStateForAllLocations();
-            return _grid;
+                DisplayGrid();
+                
+                isAddingLocation = _inputParser.IsAddingLocation();
+                
+            } while (isAddingLocation);
         }
-        
         public void UpdateGridAtEachTick()
         {
             do
@@ -49,12 +50,9 @@ namespace kata_conways_game_of_life.Actions
                 
                 _grid.SetNextCellStateForAllLocations();
                 
-                Console.Clear();
-                Console.WriteLine(_grid.Display());
-                
-                
-            } while (_grid.HasLiveCells() && _grid.ConfigurationIsChanging());
+                DisplayGrid();
 
+            } while (_grid.HasLiveCells() && _grid.ConfigurationIsChanging());
         }
         
         private static void ChangeCellStateAtLocations(IEnumerable<ILocation> locationsToChangeCellState, State state)
@@ -63,6 +61,13 @@ namespace kata_conways_game_of_life.Actions
             {
                 location.ChangeCellStateTo(state);
             }
+        }
+        
+        private void DisplayGrid()
+        {
+            Console.Clear();
+            Console.WriteLine(_grid.Display());
+            Console.WriteLine(Environment.NewLine);
         }
     }
 }

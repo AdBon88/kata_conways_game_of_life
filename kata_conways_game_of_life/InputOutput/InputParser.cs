@@ -43,7 +43,7 @@ namespace kata_conways_game_of_life.InputOutput
         }
 
 
-        public bool GetAdditionalLocations()
+        public bool IsAddingLocation()
         {
             var input = _prompt.GetAdditionalStartingLocations().ToLower();
             return input == "y";

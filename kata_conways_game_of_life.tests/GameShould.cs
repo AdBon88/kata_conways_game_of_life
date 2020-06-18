@@ -11,9 +11,13 @@ namespace kata_conways_game_of_life.tests
     public class GameShould
     {
         [Fact]
-        public void SetCellStateToAliveAtSpecifiedLocations()
+        public void SetCellStateToAliveAtSpecifiedLocationsForGridSetUp()
         {
             var mockInput = new Mock<IInput>();
+            var inputParser = new InputParser(mockInput.Object);
+            var grid = new Grid(5, 5);
+            grid.AddDeadCellsToAllLocations();
+            var sut = new Game(grid, inputParser);
             mockInput.SetupSequence(i => i.GetAdditionalStartingLocations())
                 .Returns("y")
                 .Returns("y")
@@ -22,13 +26,8 @@ namespace kata_conways_game_of_life.tests
                 .Returns("2,2")
                 .Returns("3,3")
                 .Returns("4,4");
-
-            var inputParser = new InputParser(mockInput.Object);
-            var grid = new Grid(5, 5);
-            grid.AddDeadCellsToAllLocations();
-            var sut = new Game(grid, inputParser);
-
-            sut.GetStartingLiveCellLocations();
+            
+            sut.SetUpStartingGridState();
 
             var expectedLocation1 = grid.GetLocationAt(2, 2);
             var expectedLocation2 = grid.GetLocationAt(3, 3);
@@ -43,6 +42,10 @@ namespace kata_conways_game_of_life.tests
         public void EndWhenAllCellsAreDead()
         {
             var mockInput = new Mock<IInput>();
+            var inputParser = new InputParser(mockInput.Object);
+            var grid = new Grid(5, 5);
+            grid.AddDeadCellsToAllLocations();
+            var sut = new Game(grid, inputParser);
             mockInput.SetupSequence(i => i.GetAdditionalStartingLocations())
                 .Returns("y")
                 .Returns("y")
@@ -51,13 +54,8 @@ namespace kata_conways_game_of_life.tests
                 .Returns("2,2")
                 .Returns("1,1")
                 .Returns("4,4");
-
-            var inputParser = new InputParser(mockInput.Object);
-            var grid = new Grid(5, 5);
-            grid.AddDeadCellsToAllLocations();
-            var sut = new Game(grid, inputParser);
-
-            sut.GetStartingLiveCellLocations();
+            
+            sut.SetUpStartingGridState();
             sut.UpdateGridAtEachTick();
             
             var expected = 
@@ -74,6 +72,10 @@ namespace kata_conways_game_of_life.tests
         public void EndGameWhenGridConfigurationIsInfinite()
         {
             var mockInput = new Mock<IInput>();
+            var inputParser = new InputParser(mockInput.Object);
+            var grid = new Grid(5, 5);
+            grid.AddDeadCellsToAllLocations();
+            var sut = new Game(grid, inputParser);
             mockInput.SetupSequence(i => i.GetAdditionalStartingLocations())
                 .Returns("y")
                 .Returns("y")
@@ -84,13 +86,8 @@ namespace kata_conways_game_of_life.tests
                 .Returns("2,3")
                 .Returns("3,2")
                 .Returns("3,3");
-
-            var inputParser = new InputParser(mockInput.Object);
-            var grid = new Grid(5, 5);
-            grid.AddDeadCellsToAllLocations();
-            var sut = new Game(grid, inputParser);
-
-            sut.GetStartingLiveCellLocations();
+            
+            sut.SetUpStartingGridState();
             sut.UpdateGridAtEachTick();
             
             var expected = 
@@ -101,20 +98,6 @@ namespace kata_conways_game_of_life.tests
                 "[ ][ ][ ][ ][ ]" + Environment.NewLine;
             
             Assert.Equal(expected, grid.Display());
-        }
-        
-        [Fact]
-        public void GetNextCellStateAtEachGameLoop()
-        {
-            var mockGrid = new Mock<IGrid>();
-            mockGrid.Setup(g => g.HasLiveCells())
-                .Returns(true);
-            
-            var sut = new Game(mockGrid.Object, new InputParser(Mock.Of<IInput>()));
-            sut.UpdateGridAtEachTick();
-            
-            mockGrid.Verify(g => g.SetNextCellStateForAllLocations(), Times.Once);
-            
         }
         
     }

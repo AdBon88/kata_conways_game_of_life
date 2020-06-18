@@ -41,7 +41,7 @@ namespace kata_conways_game_of_life.tests
             mockUserInput.Setup(i => i.GetAdditionalStartingLocations()).Returns("n");
             var sut = new InputParser(mockUserInput.Object);
             
-            Assert.False(sut.GetAdditionalLocations());
+            Assert.False(sut.IsAddingLocation());
             
         }
 
