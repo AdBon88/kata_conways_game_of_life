@@ -9,6 +9,7 @@ namespace kata_conways_game_of_life.tests
         public GridShould()
         {
             _sut = new Grid(5, 5);
+            _sut.SetNeighboursForAllLocations();
             _sut.AddDeadCellsToAllLocations();
         }
 
