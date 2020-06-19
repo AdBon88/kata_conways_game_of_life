@@ -29,7 +29,7 @@ namespace kata_conways_game_of_life.tests
         }
 
         [Fact]
-        public void UseCorrectNeighboursToGetNextCellStateFor_NonBoundaryLocation()
+        public void SetsCorrectNeighboursFor_NonBoundaryLocation()
         {
             var targetLocation = _sut.GetLocationAt(3, 3);
             MakeCellLiveAtLocation(2, 2);
@@ -43,7 +43,7 @@ namespace kata_conways_game_of_life.tests
         }
 
         [Fact]
-        public void UseCorrectNeighboursToGetNextCellStateFor_BoundaryLeftColumnLocation()
+        public void SetsCorrectNeighboursFor_BoundaryLeftColumnLocation()
         {
             var targetLocation = _sut.GetLocationAt(3, 1);
             MakeCellLiveAtLocation(2, 5);
@@ -57,7 +57,7 @@ namespace kata_conways_game_of_life.tests
         }
         
         [Fact]
-        public void UseCorrectNeighboursToGetNextCellStateFor_BoundaryRightColumnLocation()
+        public void SetsCorrectNeighboursFor_BoundaryRightColumnLocation()
         {
             var targetLocation = _sut.GetLocationAt(3, 5);
             MakeCellLiveAtLocation(2, 1);
@@ -72,7 +72,7 @@ namespace kata_conways_game_of_life.tests
         }
         
         [Fact]
-        public void UseCorrectNeighboursToGetNextCellStateFor_BoundaryTopRowLocation()
+        public void SetsCorrectNeighboursFor_BoundaryTopRowLocation()
         {
             var targetLocation = _sut.GetLocationAt(1, 3);
             MakeCellLiveAtLocation(5, 3);
@@ -86,7 +86,7 @@ namespace kata_conways_game_of_life.tests
         }
         
         [Fact]
-        public void UseCorrectNeighboursToGetNextCellStateFor_BoundaryBottomRowLocation()
+        public void SetsCorrectNeighboursFor_BoundaryBottomRowLocation()
         {
             var targetLocation = _sut.GetLocationAt(5, 2);
             MakeCellLiveAtLocation(4, 1);
@@ -99,7 +99,7 @@ namespace kata_conways_game_of_life.tests
         }
         
         [Fact]
-        public void UseCorrectNeighboursToGetNextCellStateFor_BoundaryTopLeftCornerLocation()
+        public void SetsCorrectNeighboursFor_BoundaryTopLeftCornerLocation()
         {
             var targetLocation = _sut.GetLocationAt(1, 1);
             MakeCellLiveAtLocation(5, 5);
@@ -112,7 +112,7 @@ namespace kata_conways_game_of_life.tests
         }
 
         [Fact]
-        public void UseCorrectNeighboursToGetNextCellStateFor_BoundaryTopRightCornerLocation()
+        public void SetsCorrectNeighboursFor_BoundaryTopRightCornerLocation()
         {
             var targetLocation = _sut.GetLocationAt(1, 5);
             MakeCellLiveAtLocation(5, 4);
@@ -125,7 +125,7 @@ namespace kata_conways_game_of_life.tests
         }
 
         [Fact]
-        public void UseCorrectNeighboursToGetNextCellStateFor_BoundaryBottomLeftCornerLocation()
+        public void SetsCorrectNeighboursFor_BoundaryBottomLeftCornerLocation()
         {
             var targetLocation = _sut.GetLocationAt(5, 1);
             MakeCellLiveAtLocation(4, 5);
@@ -139,7 +139,7 @@ namespace kata_conways_game_of_life.tests
         }
         
         [Fact]
-        public void CalculateCorrectLiveNeighboursForBoundaryBottomRightCornerLocation()
+        public void SetsCorrectNeighboursFor_BoundaryBottomRightCornerLocation()
         {
             var targetLocation = _sut.GetLocationAt(5, 5);
             MakeCellLiveAtLocation(4, 1);
