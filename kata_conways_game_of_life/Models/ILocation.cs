@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace kata_conways_game_of_life.Models
 {
     public interface ILocation
@@ -6,7 +8,9 @@ namespace kata_conways_game_of_life.Models
         public int ColumnNumber { get; }
         State NextCellState { get; }
         void AddCell(ICell cell);
+        void SetNeighbours(IEnumerable<ILocation> neighbours);
         State GetCellState();
+        int GetLiveNeighboursCount();
         void SetNextCellState(int liveNeighboursCount);
         void ChangeCellStateTo(State newState);
         string GetDisplay();

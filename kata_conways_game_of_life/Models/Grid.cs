@@ -19,7 +19,16 @@ namespace kata_conways_game_of_life.Models
         private readonly IEnumerable<ILocation> _locations;
         private const int startingRowNumber = 1;
         private const int startingColumnNumber = 1;
-        
+
+        public void SetNeighboursForAllLocations()
+        {
+            foreach (var location in _locations)
+            {
+                var neighbours = GetNeighboursFor(location);
+                location.SetNeighbours(neighbours);
+            }
+        }
+
         public void AddDeadCellsToAllLocations()
         {
             foreach (var location in _locations)
@@ -54,8 +63,8 @@ namespace kata_conways_game_of_life.Models
         {
             foreach (var location in _locations)
             {
-                var liveNeighboursCount = GetLiveNeighboursCountFor(location);
-                location.SetNextCellState(liveNeighboursCount);
+                var liveNeighbourCount = location.GetLiveNeighboursCount();
+                location.SetNextCellState(liveNeighbourCount);
             }
         }
         

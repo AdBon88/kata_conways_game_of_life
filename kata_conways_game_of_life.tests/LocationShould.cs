@@ -25,27 +25,16 @@ namespace kata_conways_game_of_life.tests
             Assert.Equal("[#]", sut.GetDisplay());
         }
         [Fact]
-        public void HaveALiveCellNextIfHaveTwoLiveNeighboursAndCurrentLiveCell()
+        public void HaveALiveCellNextIfHaveTwoToThreeLiveNeighboursAndCurrentLiveCell()
         {
             var sut = new Location(2, 2);
             var cellStub = Mock.Of<ICell>(c => c.State == State.Alive);
             sut.AddCell(cellStub);
-            
             sut.SetNextCellState(2);
-            
             Assert.Equal(State.Alive, sut.NextCellState );
-        }
-        
-        [Fact]
-        public void HaveALiveCellNextIfHaveThreeLiveNeighboursAndCurrentLiveCell()
-        {
-            var sut = new Location(2, 2);
-            var cellStub = Mock.Of<ICell>(c => c.State == State.Alive);
-            sut.AddCell(cellStub);
-
             sut.SetNextCellState(3);
-            
             Assert.Equal(State.Alive, sut.NextCellState );
+
         }
 
         [Fact]
@@ -54,7 +43,6 @@ namespace kata_conways_game_of_life.tests
             var sut = new Location(2, 2);
             var cellStub = Mock.Of<ICell>(c => c.State == State.Dead);
             sut.AddCell(cellStub);
-            
             sut.SetNextCellState(3);
             
             Assert.Equal(State.Alive, sut.NextCellState);
@@ -66,7 +54,6 @@ namespace kata_conways_game_of_life.tests
             var sut = new Location(2, 2);
             var cellStub = Mock.Of<ICell>(c => c.State == State.Dead);
             sut.AddCell(cellStub);
-            
             sut.SetNextCellState(2);
             
             Assert.Equal(State.Dead, sut.NextCellState );
@@ -78,7 +65,6 @@ namespace kata_conways_game_of_life.tests
             var sut = new Location(2, 2);
             var cellStub = Mock.Of<ICell>(c => c.State == State.Alive);
             sut.AddCell(cellStub);
-            
             sut.SetNextCellState(1);
 
             Assert.Equal(State.Dead, sut.NextCellState);
@@ -90,10 +76,11 @@ namespace kata_conways_game_of_life.tests
             var sut = new Location(2, 2);
             var cellStub = Mock.Of<ICell>(c => c.State == State.Alive);
             sut.AddCell(cellStub);
-            
             sut.SetNextCellState(4);
             
             Assert.Equal(State.Dead, sut.NextCellState);
+            
         }
+        
     }
 }
