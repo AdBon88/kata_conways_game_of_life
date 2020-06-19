@@ -15,6 +15,7 @@ namespace kata_conways_game_of_life.tests
             var mockInput = new Mock<IInput>();
             var inputParser = new InputParser(mockInput.Object);
             var grid = new Grid(5, 5);
+            grid.SetNeighboursForAllLocations();
             grid.AddDeadCellsToAllLocations();
             var sut = new Game(grid, inputParser);
             mockInput.SetupSequence(i => i.GetAdditionalStartingLocations())
@@ -43,6 +44,7 @@ namespace kata_conways_game_of_life.tests
             var mockInput = new Mock<IInput>();
             var inputParser = new InputParser(mockInput.Object);
             var grid = new Grid(5, 5);
+            grid.SetNeighboursForAllLocations();
             grid.AddDeadCellsToAllLocations();
             var sut = new Game(grid, inputParser);
             mockInput.SetupSequence(i => i.GetAdditionalStartingLocations())
@@ -73,6 +75,7 @@ namespace kata_conways_game_of_life.tests
             var mockInput = new Mock<IInput>();
             var inputParser = new InputParser(mockInput.Object);
             var grid = new Grid(5, 5);
+            grid.SetNeighboursForAllLocations();
             grid.AddDeadCellsToAllLocations();
             var sut = new Game(grid, inputParser);
             mockInput.SetupSequence(i => i.GetAdditionalStartingLocations())
