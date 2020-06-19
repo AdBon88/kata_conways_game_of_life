@@ -27,8 +27,9 @@ namespace kata_conways_game_of_life.Models
             _neighbours = neighbours;
         }
 
-        public void SetNextCellState(int liveNeighboursCount)
+        public void SetNextCellState()
         {
+            var liveNeighboursCount = GetLiveNeighboursCount();
             if (liveNeighboursCount == 3)
             {
                 NextCellState = State.Alive;
@@ -43,7 +44,7 @@ namespace kata_conways_game_of_life.Models
             }
         }
 
-        public int GetLiveNeighboursCount()
+        private int GetLiveNeighboursCount()
         {
             return _neighbours.Count(neighbour => neighbour.GetCellState() == State.Alive);
         }

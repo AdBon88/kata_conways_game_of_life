@@ -63,8 +63,7 @@ namespace kata_conways_game_of_life.Models
         {
             foreach (var location in _locations)
             {
-                var liveNeighbourCount = location.GetLiveNeighboursCount();
-                location.SetNextCellState(liveNeighbourCount);
+                location.SetNextCellState();
             }
         }
         

@@ -10,8 +10,7 @@ namespace kata_conways_game_of_life.Models
         void AddCell(ICell cell);
         void SetNeighbours(IEnumerable<ILocation> neighbours);
         State GetCellState();
-        int GetLiveNeighboursCount();
-        void SetNextCellState(int liveNeighboursCount);
+        void SetNextCellState();
         void ChangeCellStateTo(State newState);
         string GetDisplay();
 
