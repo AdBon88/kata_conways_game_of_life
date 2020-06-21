@@ -28,9 +28,7 @@ namespace kata_conways_game_of_life.Actions
                 var targetLocation = _grid.GetLocationAt(rowNumber, columnNumber);
                 targetLocation.ChangeCellStateTo(State.Alive);
                 _grid.SetNextCellStateForAllLocations();
-            
                 DisplayGrid();
-                
                 isAddingLocation = _inputParser.IsAddingLocation();
                 
             } while (isAddingLocation);

@@ -28,14 +28,15 @@ namespace kata_conways_game_of_life.tests
                 .Returns("4,4");
             
             sut.SetUpStartingGridState();
-
-            var expectedLocation1 = grid.GetLocationAt(2, 2);
-            var expectedLocation2 = grid.GetLocationAt(3, 3);
-            var expectedLocation3 = grid.GetLocationAt(4, 4);
             
-            Assert.Equal(State.Alive, expectedLocation1.GetCellState());
-            Assert.Equal(State.Alive, expectedLocation2.GetCellState());
-            Assert.Equal(State.Alive, expectedLocation3.GetCellState());
+            var expected =
+                "[ ][ ][ ][ ][ ]" + Environment.NewLine +
+                "[ ][#][ ][ ][ ]" + Environment.NewLine +
+                "[ ][ ][#][ ][ ]" + Environment.NewLine +
+                "[ ][ ][ ][#][ ]" + Environment.NewLine +
+                "[ ][ ][ ][ ][ ]" + Environment.NewLine;
+            
+            Assert.Equal(expected, grid.Display());
         }
         
         [Fact]
