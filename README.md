@@ -30,8 +30,9 @@ The task is to implement Conway’s Game of Life which meets these requirements:
 
 ### System Requirements
 
-* [.Net Core 3.1 SDK](https://dotnet.microsoft.com/download) or later  
 * A command line interface (CLI) such as ```Command Prompt``` for Windows or ```Terminal``` for macOS
+* [.Net Core 3.1 SDK](https://dotnet.microsoft.com/download) or later.
+If you have ```homebrew``` you can install the latest version of the .NET Core SDK by running the command ```brew cask install dotnet-sdk``` in the CLI
 
 ### Installation
 
@@ -44,7 +45,13 @@ If using the CLI:
 1. CD into the ```kata_conways_game_of_life``` project
 2. Enter ```dotnet run Program.cs``` and press Enter to run
 
-## How to use the application
+# Deployment
+
+1. Enter ```dotnet publish``` in the CLI
+2. To run the resultant application, navigate into the ```publish``` folder. The folder can be found within the ```bin``` directory. The path may be similar to this: ```<solution directory>/bin/Debug/netcoreapp3.1/publish```.
+To run the published application, enter ```dotnet kata_conways_game_of_life.dll```
+
+## Usage
 1. Enter a whole number of at least 5 for the rows and press Enter. Repeat for and columns.
 ![Enter grid dimensions](images/app1.png)  
 2. Enter a coordinate in the form x,y to specify a starting live cell location
@@ -56,11 +63,10 @@ If using the CLI:
 6. The grid configuration will automatically update every second
 7. Once all the cells are dead or no cells will change state at the next tick, the application will terminate.
 
-## Running the tests
+## Unit tests
 
 Using the CLI:
-1. ```cd``` into the folder containing the solution file, or the ```kata_conways_game_of_life.tests```
-2. Enter ```dotnet test``` and press Enter to run all the tests in the solution
+From the solution folder, enter ```dotnet test``` and press Enter to run the unit tests in the solution
 
 ### Cell Tests  
 These tests checks that the state of a ```Cell``` object (dead or alive) is correct upon instantiation, death and revival.
@@ -80,14 +86,9 @@ The ```Validator``` class methods returns a boolean to indicate if the input dat
 ### InputParser tests  
 The ```InputParser``` class methods are used to parse input data from string to either integer or boolean data types if the given input is valid. The tests are used to check that the recursive methods in the ```InputParser``` are working correctly, whereby only valid data is parsed.
 
-# Deployment
-1. Enter ```dotnet publish``` in the CLI
-2. To run the resultant application, enter ```kata_conways_game_of_life.dll```
 
+## Dependencies
 
-## Built With
-
-* [.Net Core 3.1](https://dotnet.microsoft.com/download) - The framework used
-* [Nuget](https://www.nuget.org/) - Package Manager
+* [Figgle](https://www.nuget.org/packages/Figgle/) - Font package, installed via Nuget 
 * [XUnit](https://xunit.net/) - Testing framework
 * [Moq](https://github.com/Moq/moq4/wiki/Quickstart) - Mocking framework
