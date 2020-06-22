@@ -25,6 +25,7 @@ namespace kata_conways_game_of_life.tests
 
             Assert.Equal("[#]", sut.GetDisplay());
         }
+        
         [Fact]
         public void HaveALiveCellNextIfHaveTwoLiveNeighboursAndCurrentLiveCell()
         {
@@ -37,7 +38,6 @@ namespace kata_conways_game_of_life.tests
             sut.SetNextCellState();
             
             Assert.Equal(State.Alive, sut.NextCellState );
-            
         }
         
         [Fact]
@@ -53,7 +53,6 @@ namespace kata_conways_game_of_life.tests
             sut.SetNextCellState();
             
             Assert.Equal(State.Alive, sut.NextCellState );
-            
         }
 
         [Fact]
