@@ -17,6 +17,16 @@ namespace kata_conways_game_of_life.Models
         private ICell _cell;
         private IEnumerable<ILocation> _neighbours;
 
+        public string GetDisplay()
+        {
+            return  _cell.State == State.Dead ? "[ ]" : "[#]";
+        }
+
+        public State GetCellState()
+        {
+            return _cell.State;
+        }
+        
         public void AddCell(ICell cell)
         {
            _cell = cell;
@@ -44,11 +54,6 @@ namespace kata_conways_game_of_life.Models
             }
         }
 
-        private int GetLiveNeighboursCount()
-        {
-            return _neighbours.Count(neighbour => neighbour.GetCellState() == State.Alive);
-        }
-
         public void ChangeCellStateTo(State newState)
         {
             if (newState == State.Alive)
@@ -60,15 +65,10 @@ namespace kata_conways_game_of_life.Models
                 _cell.Die();
             }
         }
-
-        public string GetDisplay()
+        
+        private int GetLiveNeighboursCount()
         {
-            return  _cell.State == State.Dead ? "[ ]" : "[#]";
-        }
-
-        public State GetCellState()
-        {
-            return _cell.State;
+            return _neighbours.Count(neighbour => neighbour.GetCellState() == State.Alive);
         }
         
     }
