@@ -8,8 +8,7 @@ The "game" is a zero-player game, meaning that its evolution is determined by it
 * Each cell has two states: living or dead
 * Every cell has 8 neighbours. If the cells are at the boundary of the grid the neighbours laps over to the other side.
 
-![Neighbours for non-boundary location](images/cell-neighbours-1.png)
-![Neighbours for boundary location](images/cell-neighbours-boundary.png)
+![Neighbours for non-boundary location](images/cell-neighbours-1.png)  ![Neighbours for boundary location](images/cell-neighbours-boundary.png)
 
 At each step in time (called a tick), the following transitions occur:  
 * Any live cell with fewer than two live neighbours dies, as if caused by underpopulation.
