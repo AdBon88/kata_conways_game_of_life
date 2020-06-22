@@ -39,18 +39,18 @@ namespace kata_conways_game_of_life.Models
 
         public string Display()
         {
-            var gridDisplay = new StringBuilder();
+            var gridDisplay = "";
             for (var rowNumber = StartingRowNumber; rowNumber <= NumberOfRows; rowNumber++)
             {
                 var locationsInRow = _locations.Where(location => location.RowNumber == rowNumber);
                 foreach (var location in locationsInRow)
                 {
-                    gridDisplay.Append(location.GetDisplay());
+                    gridDisplay += location.GetDisplay();
                 }
 
-                gridDisplay.AppendLine();
+                gridDisplay += Environment.NewLine;
             }
-            return gridDisplay.ToString();
+            return gridDisplay;
         }
         
         public ILocation GetLocationAt(int rowNumber, int columnNumber)
