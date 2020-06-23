@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using System.Linq;
+
 namespace kata_conways_game_of_life.Models
 {
     public class Location : ILocation
@@ -12,14 +15,31 @@ namespace kata_conways_game_of_life.Models
         public int ColumnNumber { get; }
         public State NextCellState { get; private set; }
         private ICell _cell;
+        private IEnumerable<ILocation> _neighbours;
 
+        public string GetDisplay()
+        {
+            return  _cell.State == State.Dead ? "[ ]" : "[#]";
+        }
+
+        public State GetCellState()
+        {
+            return _cell.State;
+        }
+        
         public void AddCell(ICell cell)
         {
            _cell = cell;
         }
-        
-        public void SetNextCellState(int liveNeighboursCount)
+
+        public void SetNeighbours(IEnumerable<ILocation> neighbours)
         {
+            _neighbours = neighbours;
+        }
+
+        public void SetNextCellState()
+        {
+            var liveNeighboursCount = GetLiveNeighboursCount();
             if (liveNeighboursCount == 3)
             {
                 NextCellState = State.Alive;
@@ -45,15 +65,10 @@ namespace kata_conways_game_of_life.Models
                 _cell.Die();
             }
         }
-
-        public string GetDisplay()
+        
+        private int GetLiveNeighboursCount()
         {
-            return  _cell.State == State.Dead ? "[ ]" : "[#]";
-        }
-
-        public State GetCellState()
-        {
-            return _cell.State;
+            return _neighbours.Count(neighbour => neighbour.GetCellState() == State.Alive);
         }
         
     }
