@@ -1,9 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-
-
-namespace kata_conways_game_of_life
+namespace kata_conways_game_of_life.Models
 {
     public class Location : ILocation
     {
@@ -15,8 +10,8 @@ namespace kata_conways_game_of_life
         
         public int RowNumber { get; }
         public int ColumnNumber { get; }
-        private ICell _cell;
         public State NextCellState { get; private set; }
+        private ICell _cell;
 
         public void AddCell(ICell cell)
         {

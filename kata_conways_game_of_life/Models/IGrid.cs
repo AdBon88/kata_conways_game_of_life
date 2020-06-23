@@ -1,16 +1,19 @@
 using System.Collections.Generic;
 
-namespace kata_conways_game_of_life
+namespace kata_conways_game_of_life.Models
 {
     public interface IGrid
     {
-        void AddCellsToLocations();
+        int NumberOfRows { get; }
+        int NumberOfColumns { get; }
+        void AddDeadCellsToAllLocations();
         string Display();
         ILocation GetLocationAt(int rowNumber, int columnNumber);
         void SetNextCellStateForAllLocations();
-        bool AreAllCellsDead();
         IEnumerable<ILocation> GetLocationsToKillCells();
         IEnumerable<ILocation> GetLocationsToReviveCells();
+        bool HasLiveCells();
+        bool ConfigurationIsChanging();
         
     }
 }

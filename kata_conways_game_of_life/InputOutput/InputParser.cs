@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 
-namespace kata_conways_game_of_life
+namespace kata_conways_game_of_life.InputOutput
 {
     public class InputParser
     {
@@ -43,7 +43,7 @@ namespace kata_conways_game_of_life
         }
 
 
-        public bool GetAdditionalLocations()
+        public bool IsAddingLocation()
         {
             var input = _prompt.GetAdditionalStartingLocations().ToLower();
             return input == "y";

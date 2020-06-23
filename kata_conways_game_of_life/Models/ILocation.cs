@@ -1,4 +1,4 @@
-namespace kata_conways_game_of_life
+namespace kata_conways_game_of_life.Models
 {
     public interface ILocation
     {
@@ -6,7 +6,6 @@ namespace kata_conways_game_of_life
         public int ColumnNumber { get; }
         State NextCellState { get; }
         void AddCell(ICell cell);
-
         State GetCellState();
         void SetNextCellState(int liveNeighboursCount);
         void ChangeCellStateTo(State newState);
