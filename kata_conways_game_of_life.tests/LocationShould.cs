@@ -7,11 +7,18 @@ namespace kata_conways_game_of_life.tests
 {
     public class LocationShould
     {
+        public LocationShould()
+        {
+            _cell = new Cell();
+        }
+
+        private readonly ICell _cell;
+        
         [Fact]
         public void DisplayAsABlankSquareIfContainsDeadCell()
         {
             var sut = new Location(2, 5);
-            sut.AddCell(Mock.Of<ICell>(c => c.State == State.Dead));
+            sut.AddCell(_cell);
             
             Assert.Equal("[ ]", sut.GetDisplay());
         }
@@ -20,18 +27,22 @@ namespace kata_conways_game_of_life.tests
         public void DisplayAsFilledSquareIfContainsLiveCell()
         {
             var sut = new Location(2, 5);
-            sut.AddCell(Mock.Of<ICell>(c => c.State == State.Alive));
+            _cell.Revive();
+            sut.AddCell(_cell);
 
             Assert.Equal("[#]", sut.GetDisplay());
         }
         
-        [Fact]
-        public void HaveALiveCellNextIfHaveTwoLiveNeighboursAndCurrentLiveCell()
+        [Theory]
+        [InlineData(2)]
+        [InlineData(3)]
+        public void HaveALiveCellNextIfHaveTwoOrThreeLiveNeighboursAndCurrentLiveCell(int numOfLiveNeighbours)
         {
             var sut = new Location(2, 2);
-            var neighbours = CreateNeighboursWithLiveNeighbourCountOf(2);
+            var neighbours = TestHelper.CreateNeighboursWithLiveNeighbourCountOf(numOfLiveNeighbours);
             sut.SetNeighbours(neighbours);
-            sut.AddCell(Mock.Of<ICell>(c => c.State == State.Alive));
+            _cell.Revive();
+            sut.AddCell(_cell);
 
             sut.SetNextCellState();
             
@@ -39,25 +50,12 @@ namespace kata_conways_game_of_life.tests
         }
         
         [Fact]
-        public void HaveALiveCellNextIfHaveTThreeLiveNeighboursAndCurrentLiveCell()
-        {
-            var sut = new Location(2, 2);
-            var neighbours = CreateNeighboursWithLiveNeighbourCountOf(3);
-            sut.SetNeighbours(neighbours);
-            sut.AddCell(Mock.Of<ICell>(c => c.State == State.Alive));
-            
-            sut.SetNextCellState();
-            
-            Assert.Equal(State.Alive, sut.NextCellState );
-        }
-
-        [Fact]
         public void HaveALiveCellNextIfCurrentlyHasDeadCellAndExactly3LiveNeighbours()
         {
             var sut = new Location(2, 2);
-            var neighbours = CreateNeighboursWithLiveNeighbourCountOf(3);
+            var neighbours = TestHelper.CreateNeighboursWithLiveNeighbourCountOf(3);
             sut.SetNeighbours(neighbours);
-            sut.AddCell(Mock.Of<ICell>(c => c.State == State.Dead));
+            sut.AddCell(_cell);
             
             sut.SetNextCellState();
             
@@ -68,9 +66,9 @@ namespace kata_conways_game_of_life.tests
         public void HaveADeadCellNextIfCurrentlyHasDeadCellAndNot3LiveNeighbours()
         {
             var sut = new Location(2, 2);
-            var neighbours = CreateNeighboursWithLiveNeighbourCountOf(2);
+            var neighbours = TestHelper.CreateNeighboursWithLiveNeighbourCountOf(2);
             sut.SetNeighbours(neighbours);
-            sut.AddCell(Mock.Of<ICell>(c => c.State == State.Dead));
+            sut.AddCell(_cell);
             
             sut.SetNextCellState();
             
@@ -81,9 +79,10 @@ namespace kata_conways_game_of_life.tests
         public void HaveADeadCellNextIfCurrentlyHasLiveCellAndLessThan2LiveNeighbours()
         {
             var sut = new Location(2, 2);
-            var neighbours = CreateNeighboursWithLiveNeighbourCountOf(1);
+            var neighbours = TestHelper.CreateNeighboursWithLiveNeighbourCountOf(1);
             sut.SetNeighbours(neighbours);
-            sut.AddCell(Mock.Of<ICell>(c => c.State == State.Alive));
+            _cell.Revive();
+            sut.AddCell(_cell);
             
             sut.SetNextCellState();
 
@@ -94,59 +93,38 @@ namespace kata_conways_game_of_life.tests
         public void HaveADeadCellNextIfCurrentlyHasLiveCellAndMoreThan3LiveNeighbours()
         {
             var sut = new Location(2, 2);
-            var neighbours = CreateNeighboursWithLiveNeighbourCountOf(4);
+            var neighbours = TestHelper.CreateNeighboursWithLiveNeighbourCountOf(4);
             sut.SetNeighbours(neighbours);
-            sut.AddCell(Mock.Of<ICell>(c => c.State == State.Alive));
+            _cell.Revive();
+            sut.AddCell(_cell);
             
             sut.SetNextCellState();
             
             Assert.Equal(State.Dead, sut.NextCellState);
-            
         }
 
         [Fact]
         public void ReviveCellIfChangeCellStateToAlive()
         {
-            var testCell = new Cell();
             var sut = new Location(2, 3);
-            sut.AddCell(testCell);
+            sut.AddCell(_cell);
             
             sut.ChangeCellStateTo(State.Alive);
             
-            Assert.Equal(State.Alive, testCell.State);
+            Assert.Equal(State.Alive, _cell.State);
         }
         
         [Fact]
         public void KillCellIfChangeCellStateToDead()
         {
-            var testCell = new Cell();
-            testCell.Revive();
+
             var sut = new Location(2, 3);
-            sut.AddCell(testCell);
+            _cell.Revive();
+            sut.AddCell(_cell);
             
             sut.ChangeCellStateTo(State.Dead);
             
-            Assert.Equal(State.Dead, testCell.State);
+            Assert.Equal(State.Dead, _cell.State);
         }
-
-        private static IEnumerable<ILocation> CreateNeighboursWithLiveNeighbourCountOf(int numberOfLiveNeighbours)
-        {
-            var neighbours = new List<ILocation>();
-            for (var i = 0; i < numberOfLiveNeighbours; i++)
-            {
-                var mockLocation = Mock.Of<ILocation>(l => l.GetCellState() == State.Alive);
-                neighbours.Add(mockLocation);
-            }
-
-            var numberOfDeadNeighbours = 8 - numberOfLiveNeighbours;
-
-            for (var i = 0; i < numberOfDeadNeighbours; i++)
-            {
-                var mockLocation = Mock.Of<ILocation>(l => l.GetCellState() == State.Dead);
-                neighbours.Add(mockLocation);
-            }
-            return neighbours;
-        }
-        
     }
 }
