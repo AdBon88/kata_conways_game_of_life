@@ -6,26 +6,40 @@ namespace kata_conways_game_of_life.tests
 {
     public static class TestHelper
     {
-        public static IEnumerable<ILocation> CreateNeighboursWithLiveNeighbourCountOf(int numberOfLiveNeighbours)
+        public static IEnumerable<ILocation> SetUpNeighbours(int liveNeighbourCount)
         {
-            //TODO: use real location and cell objects, rename this method to make it clearer that it's a helper method
-            //refactor this to not use for loops
-            //TODO: google best practice for helper method
+            var neighbours = SetUpDeadNeighbours();
+            for (var neighbourIndex = 0; neighbourIndex < liveNeighbourCount; neighbourIndex++)
+            {
+                neighbours[neighbourIndex].ChangeCellStateTo(State.Alive);
+            }
+            return neighbours;
+        }
+        
+        private static List<ILocation> SetUpDeadNeighbours()
+        {
+            var neighbour1 = new Location(1, 1);
+            neighbour1.AddCell(new Cell());
+            var neighbour2 = new Location(1, 2);
+            neighbour2.AddCell(new Cell());
+            var neighbour3 = new Location(1, 3);
+            neighbour3.AddCell(new Cell());
+            var neighbour4 = new Location(2, 1);
+            neighbour4.AddCell(new Cell());
+            var neighbour5 = new Location(2, 3);
+            neighbour5.AddCell(new Cell());
+            var neighbour6 = new Location(3, 1);
+            neighbour6.AddCell(new Cell());
+            var neighbour7 = new Location(3, 2);
+            neighbour7.AddCell(new Cell());
+            var neighbour8 = new Location(3, 3);
+            neighbour8.AddCell(new Cell());
+
+            var neighbours = new List<ILocation>
+            {
+                neighbour1, neighbour2, neighbour3, neighbour4, neighbour5, neighbour6, neighbour7, neighbour8
+            };
             
-            var neighbours = new List<ILocation>();
-            for (var i = 0; i < numberOfLiveNeighbours; i++)
-            {
-                var mockLocation = Mock.Of<ILocation>(l => l.GetCellState() == State.Alive);
-                neighbours.Add(mockLocation);
-            }
-
-            var numberOfDeadNeighbours = 8 - numberOfLiveNeighbours;
-
-            for (var i = 0; i < numberOfDeadNeighbours; i++)
-            {
-                var mockLocation = Mock.Of<ILocation>(l => l.GetCellState() == State.Dead);
-                neighbours.Add(mockLocation);
-            }
             return neighbours;
         }
     }

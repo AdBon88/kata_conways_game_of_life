@@ -39,7 +39,7 @@ namespace kata_conways_game_of_life.tests
         public void HaveALiveCellNextIfHaveTwoOrThreeLiveNeighboursAndCurrentLiveCell(int numOfLiveNeighbours)
         {
             var sut = new Location(2, 2);
-            var neighbours = TestHelper.CreateNeighboursWithLiveNeighbourCountOf(numOfLiveNeighbours);
+            var neighbours = TestHelper.SetUpNeighbours(numOfLiveNeighbours);
             sut.SetNeighbours(neighbours);
             _cell.Revive();
             sut.AddCell(_cell);
@@ -53,7 +53,7 @@ namespace kata_conways_game_of_life.tests
         public void HaveALiveCellNextIfCurrentlyHasDeadCellAndExactly3LiveNeighbours()
         {
             var sut = new Location(2, 2);
-            var neighbours = TestHelper.CreateNeighboursWithLiveNeighbourCountOf(3);
+            var neighbours = TestHelper.SetUpNeighbours(3);
             sut.SetNeighbours(neighbours);
             sut.AddCell(_cell);
             
@@ -66,7 +66,7 @@ namespace kata_conways_game_of_life.tests
         public void HaveADeadCellNextIfCurrentlyHasDeadCellAndNot3LiveNeighbours()
         {
             var sut = new Location(2, 2);
-            var neighbours = TestHelper.CreateNeighboursWithLiveNeighbourCountOf(2);
+            var neighbours = TestHelper.SetUpNeighbours(2);
             sut.SetNeighbours(neighbours);
             sut.AddCell(_cell);
             
@@ -79,7 +79,7 @@ namespace kata_conways_game_of_life.tests
         public void HaveADeadCellNextIfCurrentlyHasLiveCellAndLessThan2LiveNeighbours()
         {
             var sut = new Location(2, 2);
-            var neighbours = TestHelper.CreateNeighboursWithLiveNeighbourCountOf(1);
+            var neighbours = TestHelper.SetUpNeighbours(1);
             sut.SetNeighbours(neighbours);
             _cell.Revive();
             sut.AddCell(_cell);
@@ -93,7 +93,7 @@ namespace kata_conways_game_of_life.tests
         public void HaveADeadCellNextIfCurrentlyHasLiveCellAndMoreThan3LiveNeighbours()
         {
             var sut = new Location(2, 2);
-            var neighbours = TestHelper.CreateNeighboursWithLiveNeighbourCountOf(4);
+            var neighbours = TestHelper.SetUpNeighbours(4);
             sut.SetNeighbours(neighbours);
             _cell.Revive();
             sut.AddCell(_cell);

@@ -229,6 +229,7 @@ namespace kata_conways_game_of_life.tests
         }
 
         private void ReviveCellAtLocation(int row, int column)
+        //TODO: rename this to make it clearer it's a helper method & move it to helper method class
         {
             var targetLocation = _sut.GetLocationAt(row, column);
             targetLocation.ChangeCellStateTo(State.Alive);
