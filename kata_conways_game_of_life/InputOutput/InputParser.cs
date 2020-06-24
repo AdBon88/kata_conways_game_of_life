@@ -39,11 +39,5 @@ namespace kata_conways_game_of_life.InputOutput
             return coordinates;
         }
         
-        public bool IsAddingLocation()
-        {
-            //TODO: remove this method and fix up tests
-            var input = _input.GetAdditionalStartingLocations().ToLower();
-            return input == "y";
-        }
     }
 }

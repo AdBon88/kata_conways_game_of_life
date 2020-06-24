@@ -42,13 +42,5 @@ namespace kata_conways_game_of_life.tests
           //  Assert.Equal(new int[] {4, 5}, actual);
         }
 
-        [Fact]
-        public void ReturnABooleanToIndicateIfUserWantsToEnterMoreStartingLocations()
-        {
-            _mockInput.Setup(i => i.GetAdditionalStartingLocations())
-                         .Returns("n");
-            
-            Assert.False(_sut.IsAddingLocation());
-        }
     }
 }
