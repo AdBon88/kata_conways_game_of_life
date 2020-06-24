@@ -5,15 +5,15 @@ namespace kata_conways_game_of_life.InputOutput
 {
     public class InputParser
     {
-        public InputParser(IInput prompt)
+        public InputParser(IInput input)
         {
-            _prompt = prompt;
+            _input = input;
         }
         
-        private readonly IInput _prompt;
+        private readonly IInput _input;
         public int ParseGridDimension(string dimensionType)
         {
-            var input = _prompt.GetGridDimension(dimensionType);
+            var input = _input.GetGridDimension(dimensionType);
             var dimension = 0;
             var isDimensionValid = false;
             try
@@ -21,11 +21,11 @@ namespace kata_conways_game_of_life.InputOutput
                 dimension = int.Parse(input);
                 isDimensionValid = Validator.IsDimensionValid(dimension);
                 if (!isDimensionValid)
-                    throw new ArgumentException("Number of " + dimensionType + " must be at least 5");
+                    throw new ArgumentException(dimensionType + " " + Messages.DimensionError);
             }
             catch (Exception e)
             {
-                Console.WriteLine("Error: " + e.Message);
+                Output.ErrorMessage(e.Message);
             }
 
             return isDimensionValid ? dimension : ParseGridDimension(dimensionType);
@@ -33,7 +33,7 @@ namespace kata_conways_game_of_life.InputOutput
 
         public int[] GetStartingLiveLocation(int maxRow, int maxColumn)
         {
-            var input = _prompt.GetStartingLiveLocation();
+            var input = _input.GetStartingLiveLocation();
             var coordinatesString = input.Split(",", StringSplitOptions.RemoveEmptyEntries);
             var coordinates = new int[2];
             var isLocationInGrid = false;
@@ -43,11 +43,11 @@ namespace kata_conways_game_of_life.InputOutput
                 isLocationInGrid  =
                     Validator.IsLocationInGrid(coordinates, maxRow, maxColumn);
                 if (!isLocationInGrid) 
-                    throw new ArgumentException("Location does not exist!");
+                    throw new ArgumentException(Messages.LocationError);
             }
             catch (Exception e)
             {
-                Console.WriteLine("Error: " + e.Message);
+                Output.ErrorMessage(e.Message);
             }
 
             return isLocationInGrid ? coordinates : GetStartingLiveLocation(maxRow, maxColumn);
@@ -55,7 +55,7 @@ namespace kata_conways_game_of_life.InputOutput
         
         public bool IsAddingLocation()
         {
-            var input = _prompt.GetAdditionalStartingLocations().ToLower();
+            var input = _input.GetAdditionalStartingLocations().ToLower();
             return input == "y";
         }
     }
