@@ -15,7 +15,7 @@ namespace kata_conways_game_of_life.tests
         }
 
         private readonly ICell _cell;
-        private readonly ILocation _sut;
+        private readonly Location _sut;
         
         [Fact]
         public void DisplayAsABlankSquareIfContainsDeadCell()
