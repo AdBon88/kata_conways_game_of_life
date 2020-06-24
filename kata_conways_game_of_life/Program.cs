@@ -15,11 +15,11 @@ namespace kata_conways_game_of_life
             var userInputParser = new InputParser(prompt);
             var numberOfRows = userInputParser.ParseGridDimension("rows");
             var numberOfColumns = userInputParser.ParseGridDimension("columns");
-            IGrid grid = new Grid(numberOfRows, numberOfColumns);
+            var grid = new Grid(numberOfRows, numberOfColumns);
             grid.SetNeighboursForAllLocations();
             grid.AddDeadCellsToAllLocations();
             Console.Clear();
-            Console.WriteLine(grid.Display());
+            Console.WriteLine(grid.GetFormattedGrid());
             var game = new Game(grid, userInputParser);
             game.SetUpStartingGrid();
             game.UpdateGridAtEachTick();

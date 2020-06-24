@@ -5,7 +5,7 @@ using System.Text;
 
 namespace kata_conways_game_of_life.Models
 {
-    public class Grid : IGrid
+    public class Grid
     {
         public Grid(int numberOfRows, int numberOfColumns)
         {
@@ -37,7 +37,7 @@ namespace kata_conways_game_of_life.Models
             }
         }
 
-        public string Display()
+        public string GetFormattedGrid()
         {
             var gridDisplay = "";
             for (var rowNumber = StartingRowNumber; rowNumber <= NumberOfRows; rowNumber++)

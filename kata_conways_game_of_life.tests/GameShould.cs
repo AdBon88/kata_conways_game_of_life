@@ -20,7 +20,7 @@ namespace kata_conways_game_of_life.tests
         }
 
         private readonly Mock<IInput> _mockInput;
-        private readonly IGrid _grid;
+        private readonly Grid _grid;
         private readonly Game _sut;
         
         [Fact]
@@ -44,7 +44,7 @@ namespace kata_conways_game_of_life.tests
                 "[ ][ ][ ][#][ ]" + Environment.NewLine +
                 "[ ][ ][ ][ ][ ]" + Environment.NewLine;
             
-            Assert.Equal(expected, _grid.Display());
+            Assert.Equal(expected, _grid.GetFormattedGrid());
         }
         
         [Fact]
@@ -69,7 +69,7 @@ namespace kata_conways_game_of_life.tests
                 "[ ][ ][ ][ ][ ]" + Environment.NewLine +
                 "[ ][ ][ ][ ][ ]" + Environment.NewLine;
             
-            Assert.Equal(expected, _grid.Display());
+            Assert.Equal(expected, _grid.GetFormattedGrid());
         }
 
         [Fact]
@@ -96,7 +96,7 @@ namespace kata_conways_game_of_life.tests
                 "[ ][ ][ ][ ][ ]" + Environment.NewLine +
                 "[ ][ ][ ][ ][ ]" + Environment.NewLine;
             
-            Assert.Equal(expected, _grid.Display());
+            Assert.Equal(expected, _grid.GetFormattedGrid());
         }
         
     }

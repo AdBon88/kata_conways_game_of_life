@@ -18,7 +18,7 @@ namespace kata_conways_game_of_life.tests
             return neighbours;
         }
         
-        public static void SetUpLiveCellAt(IGrid grid, int row, int column)
+        public static void SetUpLiveCellAt(Grid grid, int row, int column)
         {
             var targetLocation = grid.GetLocationAt(row, column);
             targetLocation.ChangeCellStateTo(State.Alive);

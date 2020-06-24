@@ -8,10 +8,10 @@ namespace kata_conways_game_of_life.Actions
 {
     public class Game
     {
-        private readonly IGrid _grid;
+        private readonly Grid _grid;
         private readonly InputParser _inputParser;
 
-        public Game(IGrid grid, InputParser inputParser)
+        public Game(Grid grid, InputParser inputParser)
         {
             _grid = grid;
             _inputParser = inputParser;
@@ -63,7 +63,7 @@ namespace kata_conways_game_of_life.Actions
         private void DisplayGrid()
         {
             Console.Clear();
-            Console.WriteLine(_grid.Display());
+            Console.WriteLine(_grid.GetFormattedGrid());
             Console.WriteLine(Environment.NewLine);
         }
     }
