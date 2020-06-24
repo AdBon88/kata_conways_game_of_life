@@ -29,6 +29,16 @@ namespace kata_conways_game_of_life.tests
         }
 
         [Fact]
+        public void RetrieveLocationObjectAtGivenRowAndColumn()
+        {
+            var actual = _sut.GetLocationAt(3, 4);
+            
+            Assert.IsType(typeof(Location), actual);
+            Assert.Equal(3, actual.RowNumber);
+            Assert.Equal(4, actual.ColumnNumber);
+        }
+
+        [Fact]
         public void SetsCorrectNeighboursFor_NonBoundaryLocation()
         {
             var targetLocation = _sut.GetLocationAt(3, 3);
