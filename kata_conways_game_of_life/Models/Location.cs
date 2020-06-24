@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace kata_conways_game_of_life.Models
 {
-    public class Location : ILocation
+    public class Location
     {
         public Location(int rowNumber, int columnNumber)
         {
@@ -14,8 +14,8 @@ namespace kata_conways_game_of_life.Models
         public int RowNumber { get; }
         public int ColumnNumber { get; }
         public State NextCellState { get; private set; }
-        private ICell _cell;
-        private IEnumerable<ILocation> _neighbours;
+        private Cell _cell;
+        private IEnumerable<Location> _neighbours;
 
         public string GetDisplay()
         {
@@ -27,12 +27,12 @@ namespace kata_conways_game_of_life.Models
             return _cell.State;
         }
         
-        public void AddCell(ICell cell)
+        public void AddCell(Cell cell)
         {
            _cell = cell;
         }
 
-        public void SetNeighbours(IEnumerable<ILocation> neighbours)
+        public void SetNeighbours(IEnumerable<Location> neighbours)
         {
             _neighbours = neighbours;
         }

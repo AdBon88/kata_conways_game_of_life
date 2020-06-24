@@ -52,7 +52,7 @@ namespace kata_conways_game_of_life.Actions
             } while (_grid.HasLiveCells() && _grid.ConfigurationIsChanging());
         }
         
-        private static void ChangeCellStateAtLocations(IEnumerable<ILocation> locationsToChangeCellState, State state)
+        private static void ChangeCellStateAtLocations(IEnumerable<Location> locationsToChangeCellState, State state)
         {
             foreach (var location in locationsToChangeCellState)
             {
