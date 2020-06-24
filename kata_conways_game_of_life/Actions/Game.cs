@@ -34,7 +34,6 @@ namespace kata_conways_game_of_life.Actions
                         Validator.IsLocationInGrid(coordinates, _grid.NumberOfRows, _grid.NumberOfColumns);
                     if (!isLocationInGrid) 
                         throw new ArgumentException(Messages.LocationError);
-                    
                 }
                 catch (Exception e)
                 {

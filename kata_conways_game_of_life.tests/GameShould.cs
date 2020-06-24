@@ -26,10 +26,6 @@ namespace kata_conways_game_of_life.tests
         [Fact]
         public void SetCellStateToAliveAtSpecifiedLocationsForGridSetUp()
         {
-            _mockInput.SetupSequence(i => i.GetAdditionalStartingLocations())
-                .Returns("y")
-                .Returns("y")
-                .Returns("n");
             _mockInput.SetupSequence(i => i.GetStartingLiveLocation())
                 .Returns("2,2")
                 .Returns("3,3")
@@ -50,10 +46,6 @@ namespace kata_conways_game_of_life.tests
         [Fact]
         public void EndWhenAllCellsAreDead()
         {
-            _mockInput.SetupSequence(i => i.GetAdditionalStartingLocations())
-                .Returns("y")
-                .Returns("y")
-                .Returns("n");
             _mockInput.SetupSequence(i => i.GetStartingLiveLocation())
                 .Returns("2,2")
                 .Returns("1,1")
@@ -75,11 +67,6 @@ namespace kata_conways_game_of_life.tests
         [Fact]
         public void EndWhenGridConfigurationStopsChanging()
         {
-            _mockInput.SetupSequence(i => i.GetAdditionalStartingLocations())
-                .Returns("y")
-                .Returns("y")
-                .Returns("y")
-                .Returns("n");
             _mockInput.SetupSequence(i => i.GetStartingLiveLocation())
                 .Returns("2,2")
                 .Returns("2,3")
