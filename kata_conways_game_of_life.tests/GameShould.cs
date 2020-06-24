@@ -27,7 +27,7 @@ namespace kata_conways_game_of_life.tests
                 .Returns("3,3")
                 .Returns("4,4");
             
-            sut.SetUpStartingGridState();
+            sut.SetUpStartingGrid();
             
             var expected =
                 "[ ][ ][ ][ ][ ]" + Environment.NewLine +
@@ -57,7 +57,7 @@ namespace kata_conways_game_of_life.tests
                 .Returns("1,1")
                 .Returns("4,4");
             
-            sut.SetUpStartingGridState();
+            sut.SetUpStartingGrid();
             sut.UpdateGridAtEachTick();
             
             var expected = 
@@ -90,7 +90,7 @@ namespace kata_conways_game_of_life.tests
                 .Returns("3,2")
                 .Returns("3,3");
             
-            sut.SetUpStartingGridState();
+            sut.SetUpStartingGrid();
             sut.UpdateGridAtEachTick();
             
             var expected = 
