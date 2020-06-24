@@ -12,6 +12,7 @@ namespace kata_conways_game_of_life.tests
         }
 
         private readonly Cell _sut;
+        
         [Fact]
         public void BeDeadOnCreation()
         {

@@ -12,15 +12,14 @@ namespace kata_conways_game_of_life.tests
         public GameShould()
         {
             _mockInput = new Mock<IInput>();
-            _inputParser = new InputParser(_mockInput.Object);
+            var inputParser = new InputParser(_mockInput.Object);
             _grid = new Grid(5, 5);
-            _sut = new Game(_grid, _inputParser);
             _grid.SetNeighboursForAllLocations();
             _grid.AddDeadCellsToAllLocations();
+            _sut = new Game(_grid, inputParser);
         }
 
         private readonly Mock<IInput> _mockInput;
-        private readonly InputParser _inputParser;
         private readonly IGrid _grid;
         private readonly Game _sut;
         

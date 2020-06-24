@@ -9,10 +9,12 @@ namespace kata_conways_game_of_life.tests
         public static IEnumerable<ILocation> SetUpNeighbours(int liveNeighbourCount)
         {
             var neighbours = SetUpDeadNeighbours();
+            
             for (var neighbourIndex = 0; neighbourIndex < liveNeighbourCount; neighbourIndex++)
             {
                 neighbours[neighbourIndex].ChangeCellStateTo(State.Alive);
             }
+            
             return neighbours;
         }
         
