@@ -7,41 +7,48 @@ namespace kata_conways_game_of_life.tests
 {
     public class InputParserShould
     {
+        public InputParserShould()
+        {
+            _mockInput = new Mock<IInput>();
+            _sut = new InputParser(_mockInput.Object);
+        }
+
+        private readonly Mock<IInput> _mockInput;
+        private readonly InputParser _sut;
+        
         [Fact]
         public void ConvertStringDimensionToIntegerIfValidNumberAbove4()
         {
-            var mockUserInput = new Mock<IInput>();
-            var sut = new InputParser(mockUserInput.Object);
-            mockUserInput.SetupSequence(i => i.GetGridDimension("row"))
+            _mockInput.SetupSequence(i => i.GetGridDimension("row"))
                 .Returns("a")
                 .Returns("2")
                 .Returns("5");
+
+            var actual = _sut.ParseGridDimension("row");
             
-            Assert.Equal(5, sut.ParseGridDimension("row"));
+            Assert.Equal(5, actual);
         }
 
         [Fact]
         public void ConvertStringLocationToIntegerArrayIfValidNumbersWithinGridBoundaries()
         {
-            var mockUserInput = new Mock<IInput>();
-            var sut = new InputParser(mockUserInput.Object);
-            mockUserInput.SetupSequence(i => i.GetStartingLiveLocation())
+            _mockInput.SetupSequence(i => i.GetStartingLiveLocation())
                 .Returns("a, 4")
                 .Returns("7, 3")
                 .Returns("4, 5");
+
+            var actual = _sut.GetStartingLiveLocation(5, 5);
             
-            Assert.Equal(new int[] {4, 5}, sut.GetStartingLiveLocation(5, 5));
+            Assert.Equal(new int[] {4, 5}, actual);
         }
 
         [Fact]
         public void ReturnABooleanToIndicateIfUserWantsToEnterMoreStartingLocations()
         {
-            var mockUserInput = new Mock<IInput>();
-            var sut = new InputParser(mockUserInput.Object);
-            mockUserInput.Setup(i => i.GetAdditionalStartingLocations())
+            _mockInput.Setup(i => i.GetAdditionalStartingLocations())
                          .Returns("n");
             
-            Assert.False(sut.IsAddingLocation());
+            Assert.False(_sut.IsAddingLocation());
         }
     }
 }

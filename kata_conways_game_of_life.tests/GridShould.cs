@@ -29,13 +29,23 @@ namespace kata_conways_game_of_life.tests
         }
 
         [Fact]
+        public void RetrieveLocationObjectAtGivenRowAndColumn()
+        {
+            var actual = _sut.GetLocationAt(3, 4);
+            
+            Assert.IsType(typeof(Location), actual);
+            Assert.Equal(3, actual.RowNumber);
+            Assert.Equal(4, actual.ColumnNumber);
+        }
+
+        [Fact]
         public void SetsCorrectNeighboursFor_NonBoundaryLocation()
         {
             var targetLocation = _sut.GetLocationAt(3, 3);
-            ReviveCellAtLocation(2, 2);
-            ReviveCellAtLocation(2,4);
-            ReviveCellAtLocation(4, 3);
-            ReviveCellAtLocation(5, 5);
+            TestHelper.SetUpLiveCellAt(_sut,2, 2);
+            TestHelper.SetUpLiveCellAt(_sut,2,4);
+            TestHelper.SetUpLiveCellAt(_sut,4, 3);
+            TestHelper.SetUpLiveCellAt(_sut,5, 5);
             
             _sut.SetNextCellStateForAllLocations();
             
@@ -46,10 +56,10 @@ namespace kata_conways_game_of_life.tests
         public void SetsCorrectNeighboursFor_BoundaryLeftColumnLocation()
         {
             var targetLocation = _sut.GetLocationAt(3, 1);
-            ReviveCellAtLocation(2, 5);
-            ReviveCellAtLocation(4, 1);
-            ReviveCellAtLocation(3, 5);
-            ReviveCellAtLocation(1, 1);
+            TestHelper.SetUpLiveCellAt(_sut,2, 5);
+            TestHelper.SetUpLiveCellAt(_sut,4, 1);
+            TestHelper.SetUpLiveCellAt(_sut,3, 5);
+            TestHelper.SetUpLiveCellAt(_sut,1, 1);
             
             _sut.SetNextCellStateForAllLocations();
             
@@ -60,10 +70,10 @@ namespace kata_conways_game_of_life.tests
         public void SetsCorrectNeighboursFor_BoundaryRightColumnLocation()
         {
             var targetLocation = _sut.GetLocationAt(3, 5);
-            ReviveCellAtLocation(2, 1);
-            ReviveCellAtLocation(3, 4);
-            ReviveCellAtLocation(4, 1);
-            ReviveCellAtLocation(1, 1);
+            TestHelper.SetUpLiveCellAt(_sut,2, 1);
+            TestHelper.SetUpLiveCellAt(_sut,3, 4);
+            TestHelper.SetUpLiveCellAt(_sut,4, 1);
+            TestHelper.SetUpLiveCellAt(_sut,1, 1);
             
             _sut.SetNextCellStateForAllLocations();
             
@@ -75,9 +85,9 @@ namespace kata_conways_game_of_life.tests
         public void SetsCorrectNeighboursFor_BoundaryTopRowLocation()
         {
             var targetLocation = _sut.GetLocationAt(1, 3);
-            ReviveCellAtLocation(5, 3);
-            ReviveCellAtLocation(1, 2);
-            ReviveCellAtLocation(2, 2);
+            TestHelper.SetUpLiveCellAt(_sut,5, 3);
+            TestHelper.SetUpLiveCellAt(_sut,1, 2);
+            TestHelper.SetUpLiveCellAt(_sut,2, 2);
             
             _sut.SetNextCellStateForAllLocations();
             
@@ -89,9 +99,9 @@ namespace kata_conways_game_of_life.tests
         public void SetsCorrectNeighboursFor_BoundaryBottomRowLocation()
         {
             var targetLocation = _sut.GetLocationAt(5, 2);
-            ReviveCellAtLocation(4, 1);
-            ReviveCellAtLocation(5, 3);
-            ReviveCellAtLocation(1, 1);
+            TestHelper.SetUpLiveCellAt(_sut,4, 1);
+            TestHelper.SetUpLiveCellAt(_sut,5, 3);
+            TestHelper.SetUpLiveCellAt(_sut,1, 1);
             
             _sut.SetNextCellStateForAllLocations();
             
@@ -102,9 +112,9 @@ namespace kata_conways_game_of_life.tests
         public void SetsCorrectNeighboursFor_BoundaryTopLeftCornerLocation()
         {
             var targetLocation = _sut.GetLocationAt(1, 1);
-            ReviveCellAtLocation(5, 5);
-            ReviveCellAtLocation(1, 2);
-            ReviveCellAtLocation(2, 5);
+            TestHelper.SetUpLiveCellAt(_sut,5, 5);
+            TestHelper.SetUpLiveCellAt(_sut,1, 2);
+            TestHelper.SetUpLiveCellAt(_sut,2, 5);
             
             _sut.SetNextCellStateForAllLocations();
             
@@ -115,9 +125,9 @@ namespace kata_conways_game_of_life.tests
         public void SetsCorrectNeighboursFor_BoundaryTopRightCornerLocation()
         {
             var targetLocation = _sut.GetLocationAt(1, 5);
-            ReviveCellAtLocation(5, 4);
-            ReviveCellAtLocation(1, 1);
-            ReviveCellAtLocation(2, 1);
+            TestHelper.SetUpLiveCellAt(_sut,5, 4);
+            TestHelper.SetUpLiveCellAt(_sut,1, 1);
+            TestHelper.SetUpLiveCellAt(_sut,2, 1);
             
             _sut.SetNextCellStateForAllLocations();
             
@@ -128,9 +138,9 @@ namespace kata_conways_game_of_life.tests
         public void SetsCorrectNeighboursFor_BoundaryBottomLeftCornerLocation()
         {
             var targetLocation = _sut.GetLocationAt(5, 1);
-            ReviveCellAtLocation(4, 5);
-            ReviveCellAtLocation(5, 2);
-            ReviveCellAtLocation(1, 5);
+            TestHelper.SetUpLiveCellAt(_sut,4, 5);
+            TestHelper.SetUpLiveCellAt(_sut,5, 2);
+            TestHelper.SetUpLiveCellAt(_sut,1, 5);
             
             _sut.SetNextCellStateForAllLocations();
             
@@ -142,9 +152,9 @@ namespace kata_conways_game_of_life.tests
         public void SetsCorrectNeighboursFor_BoundaryBottomRightCornerLocation()
         {
             var targetLocation = _sut.GetLocationAt(5, 5);
-            ReviveCellAtLocation(4, 1);
-            ReviveCellAtLocation(1, 4);
-            ReviveCellAtLocation(1, 1);
+            TestHelper.SetUpLiveCellAt(_sut,4, 1);
+            TestHelper.SetUpLiveCellAt(_sut,1, 4);
+            TestHelper.SetUpLiveCellAt(_sut,1, 1);
             
             _sut.SetNextCellStateForAllLocations();
             
@@ -157,14 +167,14 @@ namespace kata_conways_game_of_life.tests
         {
             var expectedLocation1 = _sut.GetLocationAt(2, 3);
             var expectedLocation2 = _sut.GetLocationAt(2, 4);
-            ReviveCellAtLocation(1,2);
-            ReviveCellAtLocation(1,4);
-            ReviveCellAtLocation(1,5);
-            ReviveCellAtLocation(2,2);
-            ReviveCellAtLocation(2,3);
-            ReviveCellAtLocation(2,4);
-            ReviveCellAtLocation(3,3);
-            ReviveCellAtLocation(3,4);
+            TestHelper.SetUpLiveCellAt(_sut,1,2);
+            TestHelper.SetUpLiveCellAt(_sut,1,4);
+            TestHelper.SetUpLiveCellAt(_sut,1,5);
+            TestHelper.SetUpLiveCellAt(_sut,2,2);
+            TestHelper.SetUpLiveCellAt(_sut,2,3);
+            TestHelper.SetUpLiveCellAt(_sut,2,4);
+            TestHelper.SetUpLiveCellAt(_sut,3,3);
+            TestHelper.SetUpLiveCellAt(_sut,3,4);
 
             
             _sut.SetNextCellStateForAllLocations();
@@ -179,12 +189,12 @@ namespace kata_conways_game_of_life.tests
         {
             var expectedLocation1 = _sut.GetLocationAt(3, 4);
             var expectedLocation2 = _sut.GetLocationAt(5, 1);
-            ReviveCellAtLocation(2,3);
-            ReviveCellAtLocation(2,4);
-            ReviveCellAtLocation(3,3);
-            ReviveCellAtLocation(4,1);
-            ReviveCellAtLocation(5,2);
-            ReviveCellAtLocation(1,1);
+            TestHelper.SetUpLiveCellAt(_sut,2,3);
+            TestHelper.SetUpLiveCellAt(_sut,2,4);
+            TestHelper.SetUpLiveCellAt(_sut,3,3);
+            TestHelper.SetUpLiveCellAt(_sut,4,1);
+            TestHelper.SetUpLiveCellAt(_sut,5,2);
+            TestHelper.SetUpLiveCellAt(_sut,1,1);
             
             _sut.SetNextCellStateForAllLocations();
             
@@ -195,10 +205,10 @@ namespace kata_conways_game_of_life.tests
         [Fact]
         public void DetectWhenGridConfigurationStopsChanging()
         {
-            ReviveCellAtLocation(3, 3);
-            ReviveCellAtLocation(3,4);
-            ReviveCellAtLocation(4,3);
-            ReviveCellAtLocation(4,4);
+            TestHelper.SetUpLiveCellAt(_sut,3, 3);
+            TestHelper.SetUpLiveCellAt(_sut,3,4);
+            TestHelper.SetUpLiveCellAt(_sut,4,3);
+            TestHelper.SetUpLiveCellAt(_sut,4,4);
             
             _sut.SetNextCellStateForAllLocations();
             
@@ -208,10 +218,10 @@ namespace kata_conways_game_of_life.tests
         [Fact]
         public void DetectIfGridConfigurationIsChanging()
         {
-            ReviveCellAtLocation(1, 3);
-            ReviveCellAtLocation(3,5);
-            ReviveCellAtLocation(4,3);
-            ReviveCellAtLocation(5,5);
+            TestHelper.SetUpLiveCellAt(_sut,1, 3);
+            TestHelper.SetUpLiveCellAt(_sut,3,5);
+            TestHelper.SetUpLiveCellAt(_sut,4,3);
+            TestHelper.SetUpLiveCellAt(_sut,5,5);
             
             _sut.SetNextCellStateForAllLocations();
             
@@ -223,16 +233,10 @@ namespace kata_conways_game_of_life.tests
         {
             Assert.False(_sut.HasLiveCells());
             
-            ReviveCellAtLocation(4, 4);
+            TestHelper.SetUpLiveCellAt(_sut,4, 4);
 
             Assert.True(_sut.HasLiveCells());
         }
-
-        private void ReviveCellAtLocation(int row, int column)
-        {
-            var targetLocation = _sut.GetLocationAt(row, column);
-            targetLocation.ChangeCellStateTo(State.Alive);
-        }
-
+        
     }
 }

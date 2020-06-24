@@ -5,44 +5,54 @@ namespace kata_conways_game_of_life.InputOutput
 {
     public class InputParser
     {
-        private readonly IInput _prompt;
-
         public InputParser(IInput prompt)
         {
             _prompt = prompt;
         }
-        public int ParseGridDimension(string dimension)
+        
+        private readonly IInput _prompt;
+        public int ParseGridDimension(string dimensionType)
         {
-            var input = _prompt.GetGridDimension(dimension);
-            var isInputValid = Validator.IsGridDimensionValid(input);
-            if (isInputValid) return int.Parse(input);
-            Console.WriteLine("Error: Invalid dimension!");
-            return ParseGridDimension(dimension);
+            var input = _prompt.GetGridDimension(dimensionType);
+            var dimension = 0;
+            var isDimensionValid = false;
+            try
+            {
+                dimension = int.Parse(input);
+                isDimensionValid = Validator.IsDimensionValid(dimension);
+                if (!isDimensionValid)
+                    throw new ArgumentException("Number of " + dimensionType + " must be at least 5");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error: " + e.Message);
+            }
+
+            return isDimensionValid ? dimension : ParseGridDimension(dimensionType);
         }
 
         public int[] GetStartingLiveLocation(int maxRow, int maxColumn)
         {
             var input = _prompt.GetStartingLiveLocation();
-            var isInputValid = Validator.AreCoordinatesValidNumbers(input);
-            if (isInputValid)
+            var coordinatesString = input.Split(",", StringSplitOptions.RemoveEmptyEntries);
+            var coordinates = new int[2];
+            var isLocationInGrid = false;
+            try
             {
-                var coordinates = input.Split(",", StringSplitOptions.RemoveEmptyEntries)
-                    .Select(int.Parse)
-                    .ToArray();
-                var isInputWithinGridBoundaries =
-                    Validator.AreCoordinatesWithinGridBoundaries(coordinates, maxRow, maxColumn);
-                if (isInputWithinGridBoundaries) return coordinates;
-                Console.WriteLine("Error! Coordinates are not within grid boundaries");
+                coordinates = coordinatesString.Select(int.Parse).ToArray();
+                isLocationInGrid  =
+                    Validator.IsLocationInGrid(coordinates, maxRow, maxColumn);
+                if (!isLocationInGrid) 
+                    throw new ArgumentException("Location does not exist!");
             }
-            else
+            catch (Exception e)
             {
-                Console.WriteLine("Error! Coordinates are not valid numbers");
+                Console.WriteLine("Error: " + e.Message);
             }
 
-            return GetStartingLiveLocation(maxRow, maxColumn);
+            return isLocationInGrid ? coordinates : GetStartingLiveLocation(maxRow, maxColumn);
         }
-
-
+        
         public bool IsAddingLocation()
         {
             var input = _prompt.GetAdditionalStartingLocations().ToLower();

@@ -17,7 +17,7 @@ namespace kata_conways_game_of_life.Actions
             _inputParser = inputParser;
         }
 
-        public void SetUpStartingGridState()
+        public void SetUpStartingGrid()
         {
             bool isAddingLocation;
             do

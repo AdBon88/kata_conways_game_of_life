@@ -21,7 +21,7 @@ namespace kata_conways_game_of_life
             Console.Clear();
             Console.WriteLine(grid.Display());
             var game = new Game(grid, userInputParser);
-            game.SetUpStartingGridState();
+            game.SetUpStartingGrid();
             game.UpdateGridAtEachTick();
         }
 
