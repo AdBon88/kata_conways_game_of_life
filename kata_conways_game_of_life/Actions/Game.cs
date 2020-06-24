@@ -10,29 +10,47 @@ namespace kata_conways_game_of_life.Actions
     {
         private readonly Grid _grid;
         private readonly InputParser _inputParser;
+        private readonly IInput _input;
 
-        public Game(Grid grid, InputParser inputParser)
+        public Game(Grid grid, InputParser inputParser, IInput input)
         {
             _grid = grid;
             _inputParser = inputParser;
+            _input = input;
         }
 
         public void SetUpStartingGrid()
         {
-            bool isAddingLocation;
+            string input;
             do
             {
-                var startingLocation = _inputParser.GetStartingLiveLocation(_grid.NumberOfRows, _grid.NumberOfColumns);
-                var rowNumber = startingLocation[0];
-                var columnNumber = startingLocation[1];
-                var targetLocation = _grid.GetLocationAt(rowNumber, columnNumber);
-                targetLocation.ChangeCellStateTo(State.Alive);
-                _grid.SetNextCellStateForAllLocations();
-                DisplayGrid();
-                isAddingLocation = _inputParser.IsAddingLocation();
+                input = _input.GetStartingLiveLocation();
+                if (string.IsNullOrWhiteSpace(input)) continue;
+                int[] coordinates;
+                try
+                { 
+                    coordinates = _inputParser.ParseInputCoordinates(input);
+                    var isLocationInGrid  =
+                        Validator.IsLocationInGrid(coordinates, _grid.NumberOfRows, _grid.NumberOfColumns);
+                    if (!isLocationInGrid) 
+                        throw new ArgumentException(Messages.LocationError);
+                    
+                }
+                catch (Exception e)
+                {
+                    Output.ErrorMessage(e.Message);
+                    continue;
+                }
                 
-            } while (isAddingLocation);
+                MakeCellLiveAtLocation(coordinates);
+                
+                _grid.SetNextCellStateForAllLocations();
+                
+                Output.GridDisplay(_grid.GetFormattedString());
+                
+            } while (!string.IsNullOrWhiteSpace(input));
         }
+        
         public void UpdateGridAtEachTick()
         {
             do
@@ -47,9 +65,17 @@ namespace kata_conways_game_of_life.Actions
                 
                 _grid.SetNextCellStateForAllLocations();
                 
-                DisplayGrid();
+                Output.GridDisplay(_grid.GetFormattedString());
 
             } while (_grid.HasLiveCells() && _grid.ConfigurationIsChanging());
+        }
+        
+        private void MakeCellLiveAtLocation(int[] coordinates)
+        {
+            var rowNumber = coordinates[0];
+            var columnNumber = coordinates[1];
+            var targetLocation = _grid.GetLocationAt(rowNumber, columnNumber);
+            targetLocation.ChangeCellStateTo(State.Alive);
         }
         
         private static void ChangeCellStateAtLocations(IEnumerable<Location> locationsToChangeCellState, State state)
@@ -59,12 +85,6 @@ namespace kata_conways_game_of_life.Actions
                 location.ChangeCellStateTo(state);
             }
         }
-        
-        private void DisplayGrid()
-        {
-            Console.Clear();
-            Console.WriteLine(_grid.GetFormattedGrid());
-            Console.WriteLine(Environment.NewLine);
-        }
+
     }
 }

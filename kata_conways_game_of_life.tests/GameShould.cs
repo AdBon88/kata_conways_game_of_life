@@ -16,7 +16,7 @@ namespace kata_conways_game_of_life.tests
             _grid = new Grid(5, 5);
             _grid.SetNeighboursForAllLocations();
             _grid.AddDeadCellsToAllLocations();
-            _sut = new Game(_grid, inputParser);
+            _sut = new Game(_grid, inputParser, _mockInput.Object);
         }
 
         private readonly Mock<IInput> _mockInput;
@@ -44,7 +44,7 @@ namespace kata_conways_game_of_life.tests
                 "[ ][ ][ ][#][ ]" + Environment.NewLine +
                 "[ ][ ][ ][ ][ ]" + Environment.NewLine;
             
-            Assert.Equal(expected, _grid.GetFormattedGrid());
+            Assert.Equal(expected, _grid.GetFormattedString());
         }
         
         [Fact]
@@ -69,7 +69,7 @@ namespace kata_conways_game_of_life.tests
                 "[ ][ ][ ][ ][ ]" + Environment.NewLine +
                 "[ ][ ][ ][ ][ ]" + Environment.NewLine;
             
-            Assert.Equal(expected, _grid.GetFormattedGrid());
+            Assert.Equal(expected, _grid.GetFormattedString());
         }
 
         [Fact]
@@ -96,7 +96,7 @@ namespace kata_conways_game_of_life.tests
                 "[ ][ ][ ][ ][ ]" + Environment.NewLine +
                 "[ ][ ][ ][ ][ ]" + Environment.NewLine;
             
-            Assert.Equal(expected, _grid.GetFormattedGrid());
+            Assert.Equal(expected, _grid.GetFormattedString());
         }
         
     }

@@ -25,7 +25,7 @@ namespace kata_conways_game_of_life.tests
                 "[ ][ ][ ][ ][ ]" + Environment.NewLine +
                 "[ ][ ][ ][ ][ ]" + Environment.NewLine;
             
-            Assert.Equal(expectedDisplay, _sut.GetFormattedGrid());
+            Assert.Equal(expectedDisplay, _sut.GetFormattedString());
         }
 
         [Fact]

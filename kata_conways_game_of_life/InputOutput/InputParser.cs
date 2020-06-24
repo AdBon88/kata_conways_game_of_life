@@ -12,6 +12,7 @@ namespace kata_conways_game_of_life.InputOutput
         
         private readonly IInput _input;
         public int ParseGridDimension(string dimensionType)
+        //TODO: move try-catch block out into main program
         {
             var input = _input.GetGridDimension(dimensionType);
             var dimension = 0;
@@ -31,30 +32,16 @@ namespace kata_conways_game_of_life.InputOutput
             return isDimensionValid ? dimension : ParseGridDimension(dimensionType);
         }
 
-        public int[] GetStartingLiveLocation(int maxRow, int maxColumn)
+        public int[] ParseInputCoordinates(string input)
         {
-            var input = _input.GetStartingLiveLocation();
             var coordinatesString = input.Split(",", StringSplitOptions.RemoveEmptyEntries);
-            var coordinates = new int[2];
-            var isLocationInGrid = false;
-            try
-            {
-                coordinates = coordinatesString.Select(int.Parse).ToArray();
-                isLocationInGrid  =
-                    Validator.IsLocationInGrid(coordinates, maxRow, maxColumn);
-                if (!isLocationInGrid) 
-                    throw new ArgumentException(Messages.LocationError);
-            }
-            catch (Exception e)
-            {
-                Output.ErrorMessage(e.Message);
-            }
-
-            return isLocationInGrid ? coordinates : GetStartingLiveLocation(maxRow, maxColumn);
+            var coordinates = coordinatesString.Select(int.Parse).ToArray();
+            return coordinates;
         }
         
         public bool IsAddingLocation()
         {
+            //TODO: remove this method and fix up tests
             var input = _input.GetAdditionalStartingLocations().ToLower();
             return input == "y";
         }

@@ -37,7 +37,7 @@ namespace kata_conways_game_of_life.Models
             }
         }
 
-        public string GetFormattedGrid()
+        public string GetFormattedString()
         {
             var gridDisplay = "";
             for (var rowNumber = StartingRowNumber; rowNumber <= NumberOfRows; rowNumber++)

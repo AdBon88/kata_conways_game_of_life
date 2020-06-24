@@ -6,7 +6,9 @@ namespace kata_conways_game_of_life.InputOutput
     {
         public static void GridDisplay(string formattedGridString)
         {
+            Console.Clear();
             Console.WriteLine(formattedGridString);
+            Console.WriteLine(Environment.NewLine);
         }
 
         public static void ErrorMessage(string message)
