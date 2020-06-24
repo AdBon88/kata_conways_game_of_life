@@ -5,12 +5,12 @@ namespace kata_conways_game_of_life.InputOutput
 {
     public class InputParser
     {
-        private readonly IInput _prompt;
-
         public InputParser(IInput prompt)
         {
             _prompt = prompt;
         }
+        
+        private readonly IInput _prompt;
         public int ParseGridDimension(string dimensionType)
         {
             var input = _prompt.GetGridDimension(dimensionType);
@@ -52,8 +52,7 @@ namespace kata_conways_game_of_life.InputOutput
 
             return isLocationInGrid ? coordinates : GetStartingLiveLocation(maxRow, maxColumn);
         }
-
-
+        
         public bool IsAddingLocation()
         {
             var input = _prompt.GetAdditionalStartingLocations().ToLower();
