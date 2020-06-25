@@ -18,20 +18,16 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-    <data name="Welcome">
-        <value>Conway's Game of Life</value>
-        <comment>Banner message</comment>
+    <data name="GridRows">
+        <value>Enter the number of rows for the grid</value>
+        <comment>Getting the number of grid rows</comment>
     </data>
-    <data name="DimensionError">
-        <value>must be at least 5</value>
-        <comment>Rows and columns must be at least 5</comment>
+    <data name="GridColumns">
+        <value>Enter the number of columns for the grid</value>
+        <comment>Getting the number of grid columns</comment>
     </data>
-    <data name="CoordinateError">
-        <value>Coordinates must have 2 numbers and be in the form x,y</value>
-        <comment>Coordinates are not in the correct format</comment>
-    </data>
-    <data name="LocationError">
-        <value>Location does not exist</value>
-        <comment>Location entered is outside of grid boundaries</comment>
+    <data name="StartingLocation">
+        <value>Enter a starting live location in the form 'row number, column number' or press Enter to start the game</value>
+        <comment>Getting a starting live location</comment>
     </data>
 </root>

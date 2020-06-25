@@ -4,11 +4,9 @@ namespace kata_conways_game_of_life.InputOutput
 {
     public static class Output
     {
-        public static void GridDisplay(string formattedGridString)
+        public static void DisplayString(string contents)
         {
-            Console.Clear();
-            Console.WriteLine(formattedGridString);
-            Console.WriteLine(Environment.NewLine);
+            Console.WriteLine(contents);
         }
 
         public static void ErrorMessage(string message)

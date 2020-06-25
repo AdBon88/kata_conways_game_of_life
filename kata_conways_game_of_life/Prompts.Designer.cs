@@ -14,21 +14,21 @@ namespace kata_conways_game_of_life {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Messages {
+    internal class Prompts {
         
         private static System.Resources.ResourceManager resourceMan;
         
         private static System.Globalization.CultureInfo resourceCulture;
         
         [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Messages() {
+        internal Prompts() {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         internal static System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.Equals(null, resourceMan)) {
-                    System.Resources.ResourceManager temp = new System.Resources.ResourceManager("kata_conways_game_of_life.Messages", typeof(Messages).Assembly);
+                    System.Resources.ResourceManager temp = new System.Resources.ResourceManager("kata_conways_game_of_life.Prompts", typeof(Prompts).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -45,27 +45,21 @@ namespace kata_conways_game_of_life {
             }
         }
         
-        internal static string Welcome {
+        internal static string GridRows {
             get {
-                return ResourceManager.GetString("Welcome", resourceCulture);
+                return ResourceManager.GetString("GridRows", resourceCulture);
             }
         }
         
-        internal static string DimensionError {
+        internal static string GridColumns {
             get {
-                return ResourceManager.GetString("DimensionError", resourceCulture);
+                return ResourceManager.GetString("GridColumns", resourceCulture);
             }
         }
         
-        internal static string CoordinateError {
+        internal static string StartingLocation {
             get {
-                return ResourceManager.GetString("CoordinateError", resourceCulture);
-            }
-        }
-        
-        internal static string LocationError {
-            get {
-                return ResourceManager.GetString("LocationError", resourceCulture);
+                return ResourceManager.GetString("StartingLocation", resourceCulture);
             }
         }
     }

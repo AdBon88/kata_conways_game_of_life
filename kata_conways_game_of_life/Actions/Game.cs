@@ -9,43 +9,36 @@ namespace kata_conways_game_of_life.Actions
     public class Game
     {
         private readonly Grid _grid;
-        private readonly InputParser _inputParser;
         private readonly IInput _input;
 
-        public Game(Grid grid, InputParser inputParser, IInput input)
+        public Game(Grid grid, IInput input)
         {
             _grid = grid;
-            _inputParser = inputParser;
             _input = input;
         }
 
-        public void SetUpStartingGrid()
+        public void SetInitialLiveCells()
         {
             string input;
             do
             {
-                input = _input.GetStartingLiveLocation();
+                Output.DisplayString(Prompts.StartingLocation);
+                input = _input.ReadInput();
                 if (string.IsNullOrWhiteSpace(input)) continue;
                 int[] coordinates;
                 try
                 { 
-                    coordinates = _inputParser.ParseInputCoordinates(input);
-                    var isLocationInGrid  =
-                        Validator.IsLocationInGrid(coordinates, _grid.NumberOfRows, _grid.NumberOfColumns);
-                    if (!isLocationInGrid) 
-                        throw new ArgumentException(Messages.LocationError);
+                    coordinates = InputParser.ParseInputCoordinates(input);
+                    Validator.ValidateCoordinates(coordinates, _grid.NumberOfRows, _grid.NumberOfColumns);
                 }
                 catch (Exception e)
                 {
                     Output.ErrorMessage(e.Message);
                     continue;
                 }
-                
-                MakeCellLiveAtLocation(coordinates);
-                
+                MakeCellLiveAt(coordinates);
                 _grid.SetNextCellStateForAllLocations();
-                
-                Output.GridDisplay(_grid.GetFormattedString());
+                Output.DisplayString(_grid.GetFormattedString());
                 
             } while (!string.IsNullOrWhiteSpace(input));
         }
@@ -55,21 +48,17 @@ namespace kata_conways_game_of_life.Actions
             do
             {
                 Thread.Sleep(1000);
-                
                 var nextLocationsWithCellDeath = _grid.GetLocationsToKillCells();
                 ChangeCellStateAtLocations(nextLocationsWithCellDeath, State.Dead);
-                
                 var nextLocationsToReviveCells = _grid.GetLocationsToReviveCells();
                 ChangeCellStateAtLocations(nextLocationsToReviveCells, State.Alive);
-                
                 _grid.SetNextCellStateForAllLocations();
-                
-                Output.GridDisplay(_grid.GetFormattedString());
+                Output.DisplayString(_grid.GetFormattedString());
 
             } while (_grid.HasLiveCells() && _grid.ConfigurationIsChanging());
         }
         
-        private void MakeCellLiveAtLocation(int[] coordinates)
+        private void MakeCellLiveAt(int[] coordinates)
         {
             var rowNumber = coordinates[0];
             var columnNumber = coordinates[1];

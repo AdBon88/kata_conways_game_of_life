@@ -14,6 +14,10 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>Messages.Designer.cs</LastGenOutput>
       </EmbeddedResource>
+      <EmbeddedResource Update="Prompts.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>Prompts.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
@@ -24,6 +28,11 @@
       </Compile>
       <Compile Update="Messages.Designer.cs">
         <DependentUpon>Messages.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Prompts.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>Prompts.resx</DependentUpon>
       </Compile>
     </ItemGroup>
 
