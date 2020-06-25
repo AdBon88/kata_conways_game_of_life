@@ -31,9 +31,10 @@ namespace kata_conways_game_of_life.Actions
             catch (Exception e)
             {
                 Output.ErrorMessage(e.Message);
+                return dimension;
             }
 
-            return dimension > 0 ? dimension : GetGridDimension(input, dimensionType);
+            return dimension > 5 ? dimension : GetGridDimension(input, dimensionType);
         }
     }
 }
