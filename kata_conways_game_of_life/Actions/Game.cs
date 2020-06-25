@@ -38,6 +38,7 @@ namespace kata_conways_game_of_life.Actions
                 }
                 MakeCellLiveAt(coordinates);
                 _grid.SetNextCellStateForAllLocations();
+                Console.Clear();
                 Output.DisplayString(_grid.GetFormattedString());
                 
             } while (!string.IsNullOrWhiteSpace(input));
@@ -53,6 +54,7 @@ namespace kata_conways_game_of_life.Actions
                 var nextLocationsToReviveCells = _grid.GetLocationsToReviveCells();
                 ChangeCellStateAtLocations(nextLocationsToReviveCells, State.Alive);
                 _grid.SetNextCellStateForAllLocations();
+                Console.Clear();
                 Output.DisplayString(_grid.GetFormattedString());
 
             } while (_grid.HasLiveCells() && _grid.ConfigurationIsChanging());
