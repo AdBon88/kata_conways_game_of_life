@@ -84,6 +84,7 @@ namespace kata_conways_game_of_life.tests
             
             Assert.Equal(expected, _grid.GetFormattedString());
         }
+
         
     }
 }

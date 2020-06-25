@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using kata_conways_game_of_life.InputOutput;
 using kata_conways_game_of_life.Models;
@@ -25,17 +26,8 @@ namespace kata_conways_game_of_life.Actions
                 Output.DisplayString(Prompts.StartingLocation);
                 input = _input.ReadInput();
                 if (string.IsNullOrWhiteSpace(input)) continue;
-                int[] coordinates;
-                try
-                { 
-                    coordinates = InputParser.ParseInputCoordinates(input);
-                    Validator.ValidateCoordinates(coordinates, _grid.NumberOfRows, _grid.NumberOfColumns);
-                }
-                catch (Exception e)
-                {
-                    Output.ErrorMessage(e.Message);
-                    continue;
-                }
+                var coordinates = TryGetCoordinates(input);
+                if (coordinates == null || coordinates.Length == 0) continue;
                 MakeCellLiveAt(coordinates);
                 _grid.SetNextCellStateForAllLocations();
                 Console.Clear();
@@ -43,7 +35,7 @@ namespace kata_conways_game_of_life.Actions
                 
             } while (!string.IsNullOrWhiteSpace(input));
         }
-        
+
         public void UpdateGridAtEachTick()
         {
             do
@@ -58,6 +50,23 @@ namespace kata_conways_game_of_life.Actions
                 Output.DisplayString(_grid.GetFormattedString());
 
             } while (_grid.HasLiveCells() && _grid.ConfigurationIsChanging());
+        }
+        
+        private int[] TryGetCoordinates(string input)
+        {
+            int[] coordinates;
+            try
+            {
+                coordinates = InputParser.ParseInputCoordinates(input);
+                Validator.ValidateCoordinates(coordinates, _grid.NumberOfRows, _grid.NumberOfColumns);
+            }
+            catch (Exception e)
+            {
+                Output.ErrorMessage(e.Message);
+                return null;
+            }
+
+            return coordinates;
         }
         
         private void MakeCellLiveAt(int[] coordinates)
