@@ -68,9 +68,9 @@ namespace kata_conways_game_of_life.Actions
             targetLocation.ChangeCellStateTo(State.Alive);
         }
         
-        private static void ChangeCellStateAtLocations(IEnumerable<Location> locationsToChangeCellState, State state)
+        private static void ChangeCellStateAtLocations(IEnumerable<Location> locations, State state)
         {
-            foreach (var location in locationsToChangeCellState)
+            foreach (var location in locations)
             {
                 location.ChangeCellStateTo(state);
             }
