@@ -10,20 +10,20 @@ namespace kata_conways_game_of_life
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(FiggleFonts.Bubble.Render("Conway's Game of Life"));
-            var prompt = new Input();
-            var userInputParser = new InputParser(prompt);
-            var numberOfRows = userInputParser.ParseGridDimension("rows");
-            var numberOfColumns = userInputParser.ParseGridDimension("columns");
-            IGrid grid = new Grid(numberOfRows, numberOfColumns);
-            grid.SetNeighboursForAllLocations();
-            grid.AddDeadCellsToAllLocations();
-            Console.Clear();
-            Console.WriteLine(grid.Display());
-            var game = new Game(grid, userInputParser);
-            game.SetUpStartingGrid();
-            game.UpdateGridAtEachTick();
-        }
+            Console.WriteLine(FiggleFonts.Bubble.Render(Messages.Welcome));
+            
+            var input = new Input();
+            
+            var grid = GridSetUp.SetUpGrid(input);
 
+            Console.Clear();
+            Output.DisplayString(grid.GetFormattedString());
+            
+            var game = new Game(grid, input);
+            game.SetInitialLiveCells();
+            game.UpdateGridAtEachTick();
+            
+        }
+        
     }
 }

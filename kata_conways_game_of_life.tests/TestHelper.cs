@@ -6,7 +6,7 @@ namespace kata_conways_game_of_life.tests
 {
     public static class TestHelper
     {
-        public static IEnumerable<ILocation> SetUpNeighbours(int liveNeighbourCount)
+        public static IEnumerable<Location> SetUpNeighbours(int liveNeighbourCount)
         {
             var neighbours = SetUpDeadNeighbours();
             
@@ -18,13 +18,13 @@ namespace kata_conways_game_of_life.tests
             return neighbours;
         }
         
-        public static void SetUpLiveCellAt(IGrid grid, int row, int column)
+        public static void SetUpLiveCellAt(Grid grid, int row, int column)
         {
             var targetLocation = grid.GetLocationAt(row, column);
             targetLocation.ChangeCellStateTo(State.Alive);
         }
         
-        private static List<ILocation> SetUpDeadNeighbours()
+        private static List<Location> SetUpDeadNeighbours()
         {
             var neighbour1 = new Location(1, 1);
             neighbour1.AddCell(new Cell());
@@ -43,7 +43,7 @@ namespace kata_conways_game_of_life.tests
             var neighbour8 = new Location(3, 3);
             neighbour8.AddCell(new Cell());
 
-            var neighbours = new List<ILocation>
+            var neighbours = new List<Location>
             {
                 neighbour1, neighbour2, neighbour3, neighbour4, neighbour5, neighbour6, neighbour7, neighbour8
             };

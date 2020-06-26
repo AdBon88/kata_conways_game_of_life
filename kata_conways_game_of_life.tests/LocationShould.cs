@@ -14,7 +14,7 @@ namespace kata_conways_game_of_life.tests
             _sut.AddCell(_cell);
         }
 
-        private readonly ICell _cell;
+        private readonly Cell _cell;
         private readonly Location _sut;
         
         [Fact]

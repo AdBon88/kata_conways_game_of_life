@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using kata_conways_game_of_life.InputOutput;
 using kata_conways_game_of_life.Models;
@@ -8,63 +9,81 @@ namespace kata_conways_game_of_life.Actions
 {
     public class Game
     {
-        private readonly IGrid _grid;
-        private readonly InputParser _inputParser;
+        private readonly Grid _grid;
+        private readonly IInput _input;
 
-        public Game(IGrid grid, InputParser inputParser)
+        public Game(Grid grid, IInput input)
         {
             _grid = grid;
-            _inputParser = inputParser;
+            _input = input;
         }
 
-        public void SetUpStartingGrid()
+        public void SetInitialLiveCells()
         {
-            bool isAddingLocation;
+            string input;
             do
             {
-                var startingLocation = _inputParser.GetStartingLiveLocation(_grid.NumberOfRows, _grid.NumberOfColumns);
-                var rowNumber = startingLocation[0];
-                var columnNumber = startingLocation[1];
-                var targetLocation = _grid.GetLocationAt(rowNumber, columnNumber);
-                targetLocation.ChangeCellStateTo(State.Alive);
+                Output.DisplayString(Prompts.StartingLocation);
+                input = _input.ReadInput();
+                if (string.IsNullOrWhiteSpace(input)) continue;
+                var coordinates = TryGetCoordinates(input);
+                if (coordinates == null || coordinates.Length == 0) continue;
+                MakeCellLiveAt(coordinates);
                 _grid.SetNextCellStateForAllLocations();
-                DisplayGrid();
-                isAddingLocation = _inputParser.IsAddingLocation();
+                Console.Clear();
+                Output.DisplayString(_grid.GetFormattedString());
                 
-            } while (isAddingLocation);
+            } while (!string.IsNullOrWhiteSpace(input));
         }
+
         public void UpdateGridAtEachTick()
         {
             do
             {
                 Thread.Sleep(1000);
-                
                 var nextLocationsWithCellDeath = _grid.GetLocationsToKillCells();
                 ChangeCellStateAtLocations(nextLocationsWithCellDeath, State.Dead);
-                
                 var nextLocationsToReviveCells = _grid.GetLocationsToReviveCells();
                 ChangeCellStateAtLocations(nextLocationsToReviveCells, State.Alive);
-                
                 _grid.SetNextCellStateForAllLocations();
-                
-                DisplayGrid();
+                Console.Clear();
+                Output.DisplayString(_grid.GetFormattedString());
 
             } while (_grid.HasLiveCells() && _grid.ConfigurationIsChanging());
         }
         
-        private static void ChangeCellStateAtLocations(IEnumerable<ILocation> locationsToChangeCellState, State state)
+        private int[] TryGetCoordinates(string input)
         {
-            foreach (var location in locationsToChangeCellState)
+            int[] coordinates;
+            try
+            {
+                coordinates = InputParser.ParseInputCoordinates(input);
+                Validator.ValidateCoordinates(coordinates, _grid.NumberOfRows, _grid.NumberOfColumns);
+            }
+            catch (Exception e)
+            {
+                Output.ErrorMessage(e.Message);
+                return null;
+            }
+
+            return coordinates;
+        }
+        
+        private void MakeCellLiveAt(int[] coordinates)
+        {
+            var rowNumber = coordinates[0];
+            var columnNumber = coordinates[1];
+            var targetLocation = _grid.GetLocationAt(rowNumber, columnNumber);
+            targetLocation.ChangeCellStateTo(State.Alive);
+        }
+        
+        private static void ChangeCellStateAtLocations(IEnumerable<Location> locations, State state)
+        {
+            foreach (var location in locations)
             {
                 location.ChangeCellStateTo(state);
             }
         }
-        
-        private void DisplayGrid()
-        {
-            Console.Clear();
-            Console.WriteLine(_grid.Display());
-            Console.WriteLine(Environment.NewLine);
-        }
+
     }
 }

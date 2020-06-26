@@ -7,48 +7,21 @@ namespace kata_conways_game_of_life.tests
 {
     public class InputParserShould
     {
-        public InputParserShould()
+        [Theory]
+        [InlineData("4, 5")]
+        public void ConvertStringLocationToInteger(string input)
         {
-            _mockInput = new Mock<IInput>();
-            _sut = new InputParser(_mockInput.Object);
-        }
-
-        private readonly Mock<IInput> _mockInput;
-        private readonly InputParser _sut;
-        
-        [Fact]
-        public void ConvertStringDimensionToIntegerIfValidNumberAbove4()
-        {
-            _mockInput.SetupSequence(i => i.GetGridDimension("row"))
-                .Returns("a")
-                .Returns("2")
-                .Returns("5");
-
-            var actual = _sut.ParseGridDimension("row");
+            var actual = InputParser.ParseInputCoordinates(input);
             
-            Assert.Equal(5, actual);
+          Assert.Equal(new int[] {4, 5}, actual);
         }
 
-        [Fact]
-        public void ConvertStringLocationToIntegerArrayIfValidNumbersWithinGridBoundaries()
+        [Theory]
+        [InlineData("a, 4")]
+        public void ThrowErrorIfInputCoordinatesAreInvalid(string input)
         {
-            _mockInput.SetupSequence(i => i.GetStartingLiveLocation())
-                .Returns("a, 4")
-                .Returns("7, 3")
-                .Returns("4, 5");
-
-            var actual = _sut.GetStartingLiveLocation(5, 5);
-            
-            Assert.Equal(new int[] {4, 5}, actual);
+            Assert.ThrowsAny<Exception>(() => InputParser.ParseInputCoordinates(input));
         }
 
-        [Fact]
-        public void ReturnABooleanToIndicateIfUserWantsToEnterMoreStartingLocations()
-        {
-            _mockInput.Setup(i => i.GetAdditionalStartingLocations())
-                         .Returns("n");
-            
-            Assert.False(_sut.IsAddingLocation());
-        }
     }
 }

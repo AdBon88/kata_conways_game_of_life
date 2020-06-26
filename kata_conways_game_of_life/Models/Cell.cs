@@ -1,6 +1,6 @@
 namespace kata_conways_game_of_life.Models
 {
-    public class Cell : ICell
+    public class Cell
     {
         public Cell()
         {

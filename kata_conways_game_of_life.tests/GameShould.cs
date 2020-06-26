@@ -12,30 +12,25 @@ namespace kata_conways_game_of_life.tests
         public GameShould()
         {
             _mockInput = new Mock<IInput>();
-            var inputParser = new InputParser(_mockInput.Object);
             _grid = new Grid(5, 5);
             _grid.SetNeighboursForAllLocations();
             _grid.AddDeadCellsToAllLocations();
-            _sut = new Game(_grid, inputParser);
+            _sut = new Game(_grid, _mockInput.Object);
         }
 
         private readonly Mock<IInput> _mockInput;
-        private readonly IGrid _grid;
+        private readonly Grid _grid;
         private readonly Game _sut;
         
         [Fact]
         public void SetCellStateToAliveAtSpecifiedLocationsForGridSetUp()
         {
-            _mockInput.SetupSequence(i => i.GetAdditionalStartingLocations())
-                .Returns("y")
-                .Returns("y")
-                .Returns("n");
-            _mockInput.SetupSequence(i => i.GetStartingLiveLocation())
+            _mockInput.SetupSequence(i => i.ReadInput())
                 .Returns("2,2")
                 .Returns("3,3")
                 .Returns("4,4");
             
-            _sut.SetUpStartingGrid();
+            _sut.SetInitialLiveCells();
             
             var expected =
                 "[ ][ ][ ][ ][ ]" + Environment.NewLine +
@@ -44,22 +39,18 @@ namespace kata_conways_game_of_life.tests
                 "[ ][ ][ ][#][ ]" + Environment.NewLine +
                 "[ ][ ][ ][ ][ ]" + Environment.NewLine;
             
-            Assert.Equal(expected, _grid.Display());
+            Assert.Equal(expected, _grid.GetFormattedString());
         }
         
         [Fact]
         public void EndWhenAllCellsAreDead()
         {
-            _mockInput.SetupSequence(i => i.GetAdditionalStartingLocations())
-                .Returns("y")
-                .Returns("y")
-                .Returns("n");
-            _mockInput.SetupSequence(i => i.GetStartingLiveLocation())
+            _mockInput.SetupSequence(i => i.ReadInput())
                 .Returns("2,2")
                 .Returns("1,1")
                 .Returns("4,4");
             
-            _sut.SetUpStartingGrid();
+            _sut.SetInitialLiveCells();
             _sut.UpdateGridAtEachTick();
             
             var expected = 
@@ -69,24 +60,19 @@ namespace kata_conways_game_of_life.tests
                 "[ ][ ][ ][ ][ ]" + Environment.NewLine +
                 "[ ][ ][ ][ ][ ]" + Environment.NewLine;
             
-            Assert.Equal(expected, _grid.Display());
+            Assert.Equal(expected, _grid.GetFormattedString());
         }
 
         [Fact]
         public void EndWhenGridConfigurationStopsChanging()
         {
-            _mockInput.SetupSequence(i => i.GetAdditionalStartingLocations())
-                .Returns("y")
-                .Returns("y")
-                .Returns("y")
-                .Returns("n");
-            _mockInput.SetupSequence(i => i.GetStartingLiveLocation())
+            _mockInput.SetupSequence(i => i.ReadInput())
                 .Returns("2,2")
                 .Returns("2,3")
                 .Returns("3,2")
                 .Returns("3,3");
             
-            _sut.SetUpStartingGrid();
+            _sut.SetInitialLiveCells();
             _sut.UpdateGridAtEachTick();
             
             var expected = 
@@ -96,8 +82,9 @@ namespace kata_conways_game_of_life.tests
                 "[ ][ ][ ][ ][ ]" + Environment.NewLine +
                 "[ ][ ][ ][ ][ ]" + Environment.NewLine;
             
-            Assert.Equal(expected, _grid.Display());
+            Assert.Equal(expected, _grid.GetFormattedString());
         }
+
         
     }
 }
