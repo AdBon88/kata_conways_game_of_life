@@ -5,21 +5,6 @@ namespace kata_conways_game_of_life.InputOutput
 {
     public static class Validator
     {
-        private static ValidationResult TryParseCoordinates(string input)
-        {
-            int[] coordinates;
-            try
-            {
-                coordinates = InputParser.ParseInputCoordinates(input);
-            }
-            catch (Exception e)
-            {
-                return ValidationResult.Error(e.Message);
-            }
-            
-            return ValidationResult.Success(coordinates);
-        }
-        
         public static ValidationResult ValidateCoordinates(string input, int maxGridRow, int maxGridColumn)
         {
             var inputParsedResult = TryParseCoordinates(input);
@@ -42,6 +27,21 @@ namespace kata_conways_game_of_life.InputOutput
             return dimension >= 5
                 ? ValidationResult.Success(dimension)
                 : ValidationResult.Error(Messages.DimensionError);
+        }
+        
+        private static ValidationResult TryParseCoordinates(string input)
+        {
+            int[] coordinates;
+            try
+            {
+                coordinates = InputParser.ParseInputCoordinates(input);
+            }
+            catch (Exception e)
+            {
+                return ValidationResult.Error(e.Message);
+            }
+            
+            return ValidationResult.Success(coordinates);
         }
         
         private static bool IsFormatValid(int[] coordinates)
