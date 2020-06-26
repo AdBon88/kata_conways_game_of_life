@@ -23,7 +23,7 @@
         <comment>Banner message</comment>
     </data>
     <data name="DimensionError">
-        <value>must be at least 5</value>
+        <value>Rows and Columns must be at least 5</value>
         <comment>Rows and columns must be at least 5</comment>
     </data>
     <data name="StringToIntError">
