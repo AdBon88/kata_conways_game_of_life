@@ -33,6 +33,7 @@ namespace kata_conways_game_of_life.InputOutput
                 ? ValidationResult.Success(coordinates)
                 : ValidationResult.Error(Messages.LocationError);
         }
+        
         public static ValidationResult ValidateDimension(string input)
         {
             var isInputValid = int.TryParse(input, out var dimension);
