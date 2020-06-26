@@ -29,6 +29,8 @@ namespace kata_conways_game_of_life.tests
 
            var actual= Validator.ValidateCoordinates(coordinates, maxGridRow, maxGridColumn);
            
+           Assert.False(actual.IsValid);
+           
         }
 
         [Fact]
