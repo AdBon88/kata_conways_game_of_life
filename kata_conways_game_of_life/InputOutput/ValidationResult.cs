@@ -2,15 +2,12 @@ namespace kata_conways_game_of_life.InputOutput
 {
     public class ValidationResult
     {
-        public bool IsValid { get; set; }
-        
-        public int Dimension { get; set; }
-        
-        public int[] Coordinates { get; set; }
-        
-        public string ErrorMessage { get; set; }
+        public bool IsValid { get; private set; }
+        public int Dimension { get; private set; }
+        public int[] Coordinates { get; private set; }
+        public string ErrorMessage { get; private set; }
 
-        internal static ValidationResult CreateError(string errorMessage)
+        internal static ValidationResult Error(string errorMessage)
         {
             return new ValidationResult
             {
@@ -19,7 +16,7 @@ namespace kata_conways_game_of_life.InputOutput
             };
         }
 
-        internal static ValidationResult CreateSuccess(int dimension)
+        internal static ValidationResult Success(int dimension)
         {
             return new ValidationResult
             {
@@ -28,7 +25,7 @@ namespace kata_conways_game_of_life.InputOutput
             };
         }
 
-        internal static ValidationResult CreateSuccess(int[] coordinates)
+        internal static ValidationResult Success(int[] coordinates)
         {
             return new ValidationResult
             {
