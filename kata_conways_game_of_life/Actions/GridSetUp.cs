@@ -5,7 +5,7 @@ using kata_conways_game_of_life.Models;
 
 namespace kata_conways_game_of_life.Actions
 {
-    public class GridSetUp
+    public static class GridSetUp
     {
         public static Grid SetUpGrid(IInput input)
         {
