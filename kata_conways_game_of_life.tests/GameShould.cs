@@ -1,4 +1,7 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Threading;
 using kata_conways_game_of_life.Actions;
 using kata_conways_game_of_life.InputOutput;
 using kata_conways_game_of_life.Models;
@@ -11,16 +14,12 @@ namespace kata_conways_game_of_life.tests
     {
         public GameShould()
         {
-           // _mockInput = new MockInput();
             _grid = new Grid(5, 5);
             _grid.SetNeighboursForAllLocations();
             _grid.AddDeadCellsToAllLocations();
-            _sut = new Game(_grid, _mockInput);
         }
-
-        private readonly IInput _mockInput = new MockInput();
+        
         private readonly Grid _grid;
-        private readonly Game _sut;
         
         [Fact]
         public void SetCellStateToAliveAtSpecifiedLocationsForGridSetUp()
@@ -29,8 +28,16 @@ namespace kata_conways_game_of_life.tests
             //     .Returns("2,2")
             //     .Returns("3,3")
             //     .Returns("4,4");
+            var testInput = new Queue<string>();
+            testInput.Enqueue("2,2");
+            testInput.Enqueue("3,3");
+            testInput.Enqueue("4,4");
+            testInput.Enqueue("");
             
-            _sut.SetInitialLiveCells();
+            var mockInput = new MockInput(testInput);
+            var sut = new Game(_grid, mockInput);
+            
+            sut.SetInitialLiveCells();
             
             var expected =
                 "[ ][ ][ ][ ][ ]" + Environment.NewLine +
@@ -50,8 +57,17 @@ namespace kata_conways_game_of_life.tests
             //     .Returns("1,1")
             //     .Returns("4,4");
             
-            _sut.SetInitialLiveCells();
-            _sut.UpdateGridAtEachTick();
+            var testInput = new Queue<string>();
+            testInput.Enqueue("2,2");
+            testInput.Enqueue("1,1");
+            testInput.Enqueue("4,4");
+            testInput.Enqueue("");
+            
+            var mockInput = new MockInput(testInput);
+            var sut = new Game(_grid, mockInput);
+
+            sut.SetInitialLiveCells();
+            sut.UpdateGridAtEachTick();
             
             var expected = 
                 "[ ][ ][ ][ ][ ]" + Environment.NewLine +
@@ -72,8 +88,18 @@ namespace kata_conways_game_of_life.tests
             //     .Returns("3,2")
             //     .Returns("3,3");
             
-            _sut.SetInitialLiveCells();
-            _sut.UpdateGridAtEachTick();
+            var testInput = new Queue<string>();
+            testInput.Enqueue("2,2");
+            testInput.Enqueue("2,3");
+            testInput.Enqueue("3,2");
+            testInput.Enqueue("3,3");
+            testInput.Enqueue("");
+            
+            var mockInput = new MockInput(testInput);
+            var sut = new Game(_grid, mockInput);
+            
+            sut.SetInitialLiveCells();
+            sut.UpdateGridAtEachTick();
             
             var expected = 
                 "[ ][ ][ ][ ][ ]" + Environment.NewLine +
