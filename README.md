@@ -44,7 +44,7 @@ If using the CLI:
 1. CD into the ```kata_conways_game_of_life``` project
 2. Enter ```dotnet run Program.cs``` and press Enter to run
 
-# Deployment
+# Local Deployment
 
 1. Enter ```dotnet publish``` in the CLI
 2. To run the resultant application, navigate into the ```publish``` folder. The folder can be found within the ```bin``` directory. The path may be similar to this: ```<solution directory>/bin/Debug/netcoreapp3.1/publish```.
@@ -55,12 +55,10 @@ To run the published application, enter ```dotnet kata_conways_game_of_life.dll`
 ![Enter grid dimensions](images/app1.png)  
 2. Enter a coordinate in the form x,y to specify a starting live cell location
 ![Enter grid dimensions](images/app2.png)  
-3. Enter ```y``` to add another starting live cell location  
-![Enter grid dimensions](images/app3.png)  
-4. Repeat steps 2 and 3 until you no longer wish to add more starting live cell locations
-5. Enter any key other than ```y``` to begin the game
-6. The grid configuration will automatically update every second
-7. Once all the cells are dead or no cells will change state at the next tick, the application will terminate.
+3. Repeat step 2 to add additional coordinates
+4. Press Enter to begin the game
+5. The grid configuration will automatically update every second
+6. Once all the cells are dead or no cells will change state at the next tick, the application will terminate.
 
 ## Unit tests
 
@@ -80,10 +78,10 @@ The grid tests makes use of concrete ```Cell``` and ```Location``` objects to ch
 The ```Game``` tests uses concrete ```Grid```, ```Location``` and ```Cell``` objects to test the interaction of these different classes together. The final grid display ```string``` is used to check that the game loop has been executed correctly and that the resultant grid configuration is correct when given a starting configuration. The starting configuration is obtained by using a Mock IInput object to specify the starting live locations. 
 
 ### Validator tests  
-The ```Validator``` class methods returns a boolean to indicate if the input data is valid. The validator tests are used to verify that the validator methods' conditions are correct.  
+The ```Validator``` class methods returns a ```ValidationResult``` object to indicate if the input data is valid. If the parsed input is invalid, an error message will be stored. If the input is valid, the result will be stored. The validator tests are used to verify that the validator is returning either a result or error message as expected. 
 
 ### InputParser tests  
-The ```InputParser``` class methods are used to parse input data from string to either integer or boolean data types if the given input is valid. The tests are used to check that the recursive methods in the ```InputParser``` are working correctly, whereby only valid data is parsed.
+The ```InputParser``` class methods are used to parse input data from string to an integer array if the input coordinates are valid numbers. The tests are used to check that valid input can be parsed from string to integer, and if not, an exception is thrown.
 
 
 ## Dependencies
