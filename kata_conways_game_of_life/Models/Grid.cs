@@ -112,10 +112,10 @@ namespace kata_conways_game_of_life.Models
         {
             var row = location.RowNumber;
             var column = location.ColumnNumber;
-            var leftColumn = column == StartingColumnNumber ? NumberOfColumns : column - 1;
-            var rightColumn = column == NumberOfColumns ?  StartingColumnNumber : column + 1;
-            var aboveRow = row == StartingRowNumber ? NumberOfRows : row - 1;
-            var belowRow = row == NumberOfRows ? StartingRowNumber : row + 1;
+            var leftColumn = GetLeftColumnNumber(column);
+            var rightColumn = GetRightColumnNumber(column);
+            var aboveRow = GetAboveRowNumber(row);
+            var belowRow = GetBelowRowNumber(row);
             return new List<Location>()
             {
                 GetLocationAt(aboveRow, leftColumn),
@@ -127,6 +127,26 @@ namespace kata_conways_game_of_life.Models
                 GetLocationAt(belowRow, column),
                 GetLocationAt(belowRow, rightColumn)
             };
+        }
+
+        private int GetBelowRowNumber(int row)
+        {
+            return row == NumberOfRows ? StartingRowNumber : row + 1;
+        }
+
+        private int GetAboveRowNumber(int row)
+        {
+            return row == StartingRowNumber ? NumberOfRows : row - 1;
+        }
+
+        private int GetRightColumnNumber(int column)
+        {
+            return column == NumberOfColumns ?  StartingColumnNumber : column + 1;
+        }
+
+        private int GetLeftColumnNumber(int column)
+        {
+            return column == StartingColumnNumber ? NumberOfColumns : column - 1;
         }
     }
 }
