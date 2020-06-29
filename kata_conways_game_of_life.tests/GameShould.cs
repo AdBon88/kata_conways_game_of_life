@@ -11,24 +11,24 @@ namespace kata_conways_game_of_life.tests
     {
         public GameShould()
         {
-            _mockInput = new Mock<IInput>();
+           // _mockInput = new MockInput();
             _grid = new Grid(5, 5);
             _grid.SetNeighboursForAllLocations();
             _grid.AddDeadCellsToAllLocations();
-            _sut = new Game(_grid, _mockInput.Object);
+            _sut = new Game(_grid, _mockInput);
         }
 
-        private readonly Mock<IInput> _mockInput;
+        private readonly IInput _mockInput = new MockInput();
         private readonly Grid _grid;
         private readonly Game _sut;
         
         [Fact]
         public void SetCellStateToAliveAtSpecifiedLocationsForGridSetUp()
         {
-            _mockInput.SetupSequence(i => i.ReadInput())
-                .Returns("2,2")
-                .Returns("3,3")
-                .Returns("4,4");
+            // _mockInput.ReadInput()
+            //     .Returns("2,2")
+            //     .Returns("3,3")
+            //     .Returns("4,4");
             
             _sut.SetInitialLiveCells();
             
@@ -45,10 +45,10 @@ namespace kata_conways_game_of_life.tests
         [Fact]
         public void EndWhenAllCellsAreDead()
         {
-            _mockInput.SetupSequence(i => i.ReadInput())
-                .Returns("2,2")
-                .Returns("1,1")
-                .Returns("4,4");
+            // _mockInput.SetupSequence(i => i.ReadInput())
+            //     .Returns("2,2")
+            //     .Returns("1,1")
+            //     .Returns("4,4");
             
             _sut.SetInitialLiveCells();
             _sut.UpdateGridAtEachTick();
@@ -66,11 +66,11 @@ namespace kata_conways_game_of_life.tests
         [Fact]
         public void EndWhenGridConfigurationStopsChanging()
         {
-            _mockInput.SetupSequence(i => i.ReadInput())
-                .Returns("2,2")
-                .Returns("2,3")
-                .Returns("3,2")
-                .Returns("3,3");
+            // _mockInput.SetupSequence(i => i.ReadInput())
+            //     .Returns("2,2")
+            //     .Returns("2,3")
+            //     .Returns("3,2")
+            //     .Returns("3,3");
             
             _sut.SetInitialLiveCells();
             _sut.UpdateGridAtEachTick();
