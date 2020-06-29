@@ -19,7 +19,7 @@
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
     <data name="GridRows">
-        <value>Enter the number of rows for the grid</value>
+        <value>Enter the number of rows for the grid (minimum 5)</value>
         <comment>Getting the number of grid rows</comment>
     </data>
     <data name="GridColumns">

@@ -57,6 +57,12 @@ namespace kata_conways_game_of_life {
             }
         }
         
+        internal static string StringToIntError {
+            get {
+                return ResourceManager.GetString("StringToIntError", resourceCulture);
+            }
+        }
+        
         internal static string CoordinateError {
             get {
                 return ResourceManager.GetString("CoordinateError", resourceCulture);

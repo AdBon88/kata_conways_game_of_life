@@ -23,8 +23,12 @@
         <comment>Banner message</comment>
     </data>
     <data name="DimensionError">
-        <value>must be at least 5</value>
+        <value>Rows and Columns must be at least 5</value>
         <comment>Rows and columns must be at least 5</comment>
+    </data>
+    <data name="StringToIntError">
+        <value>Input is not a valid number</value>
+        <comment>Cannot parse string to integer</comment>
     </data>
     <data name="CoordinateError">
         <value>Coordinates must have 2 numbers and be in the form x,y</value>

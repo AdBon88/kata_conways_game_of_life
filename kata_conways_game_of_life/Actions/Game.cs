@@ -20,31 +20,28 @@ namespace kata_conways_game_of_life.Actions
 
         public void SetInitialLiveCells()
         {
-            string input;
+            int[] coordinates;
             do
             {
-                Output.DisplayString(Prompts.StartingLocation);
-                input = _input.ReadInput();
-                if (string.IsNullOrWhiteSpace(input)) continue;
-                var coordinates = TryGetCoordinates(input);
-                if (coordinates == null || coordinates.Length == 0) continue;
+                coordinates = GetCoordinates();
+                if (coordinates is null) continue;
                 MakeCellLiveAt(coordinates);
                 _grid.SetNextCellStateForAllLocations();
                 Console.Clear();
                 Output.DisplayString(_grid.GetFormattedString());
                 
-            } while (!string.IsNullOrWhiteSpace(input));
+            } while (coordinates != null);
         }
-
+        
         public void UpdateGridAtEachTick()
         {
             do
             {
                 Thread.Sleep(1000);
-                var nextLocationsWithCellDeath = _grid.GetLocationsToKillCells();
-                ChangeCellStateAtLocations(nextLocationsWithCellDeath, State.Dead);
-                var nextLocationsToReviveCells = _grid.GetLocationsToReviveCells();
-                ChangeCellStateAtLocations(nextLocationsToReviveCells, State.Alive);
+                var cellDeathLocations = _grid.GetLocationsToKillCells();
+                ChangeCellStateAtLocations(cellDeathLocations, State.Dead);
+                var liveCellLocations = _grid.GetLocationsToReviveCells();
+                ChangeCellStateAtLocations(liveCellLocations, State.Alive);
                 _grid.SetNextCellStateForAllLocations();
                 Console.Clear();
                 Output.DisplayString(_grid.GetFormattedString());
@@ -52,21 +49,17 @@ namespace kata_conways_game_of_life.Actions
             } while (_grid.HasLiveCells() && _grid.ConfigurationIsChanging());
         }
         
-        private int[] TryGetCoordinates(string input)
+        private int[] GetCoordinates()
         {
-            int[] coordinates;
-            try
-            {
-                coordinates = InputParser.ParseInputCoordinates(input);
-                Validator.ValidateCoordinates(coordinates, _grid.NumberOfRows, _grid.NumberOfColumns);
-            }
-            catch (Exception e)
-            {
-                Output.ErrorMessage(e.Message);
+            Output.DisplayString(Prompts.StartingLocation);
+            var input = _input.ReadInput();
+            if (string.IsNullOrWhiteSpace(input))
                 return null;
-            }
-
-            return coordinates;
+            var validationResult = Validator.ValidateCoordinates(input, _grid.NumberOfRows, _grid.NumberOfColumns);
+            if (validationResult.IsValid)
+                return validationResult.Coordinates;
+            Output.ErrorMessage(validationResult.ErrorMessage);
+            return GetCoordinates();
         }
         
         private void MakeCellLiveAt(int[] coordinates)

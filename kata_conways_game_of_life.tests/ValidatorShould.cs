@@ -7,35 +7,43 @@ namespace kata_conways_game_of_life.tests
     public class ValidatorShould
     {
         [Fact]
-        public void ThrowErrorIfCoordinatesExceedBoundary()
+        public void CreateInvalidValidationResult_IfCoordinatesExceedBoundary()
         {
-            var coordinates = new int[] {1, 4};
+            const string coordinates = "1, 4";
             const int maxGridRow = 3;
             const int maxGridColumn = 3;
 
-            Assert.ThrowsAny<Exception>(() => Validator.ValidateCoordinates(coordinates, maxGridRow, maxGridColumn));
-
+            var actual = Validator.ValidateCoordinates(coordinates, maxGridRow, maxGridColumn);
+            
+            Assert.False(actual.IsValid);
+            
         }
 
         [Theory]
-        [InlineData(new int[]{2, 3, 4})]
-        [InlineData(new int[] {2})]
-        public void ThrowsErrorIfCoordinatesDoNotHaveTwoIntegers(int[] coordinates)
+        [InlineData("2, 3, 4")]
+        [InlineData("2")]
+        public void CreatesInvalidValidationResult_IfCoordinatesDoNotHaveTwoIntegers(string coordinates)
         {
             const int maxGridRow = 3;
             const int maxGridColumn = 3;
 
-            Assert.ThrowsAny<Exception>(() => Validator.ValidateCoordinates(coordinates, maxGridRow, maxGridColumn));
+           var actual= Validator.ValidateCoordinates(coordinates, maxGridRow, maxGridColumn);
+           
+           Assert.False(actual.IsValid);
+           
         }
 
         [Fact]
-        public void ThrowErrorIfRowsAndColumnsAreNotGreaterThan5()
+        public void CreatesInvalidValidationResult_IfRowsAndColumnsAreNotGreaterThan5()
         {
-            const int row = 3;
-            const int column = 2;
+            const string row = "3";
+            const string column = "2";
 
-            Assert.ThrowsAny<Exception>(() => Validator.ValidateDimension(row));
-            Assert.ThrowsAny<Exception>(() => Validator.ValidateDimension(column));
+            var actualRow = Validator.ValidateDimension(row);
+            var actualColumn = Validator.ValidateDimension(column);
+            
+            Assert.False(actualRow.IsValid);
+            Assert.False(actualColumn.IsValid);
         }
     }
 }

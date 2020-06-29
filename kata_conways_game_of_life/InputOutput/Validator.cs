@@ -5,19 +5,48 @@ namespace kata_conways_game_of_life.InputOutput
 {
     public static class Validator
     {
-        public static void ValidateCoordinates(int[] coordinates, int maxGridRow, int maxGridColumn)
+        public static ValidationResult ValidateCoordinates(string input, int maxGridRow, int maxGridColumn)
         {
-            if (coordinates.Length != 2)
-                throw new ArgumentException(Messages.CoordinateError);
+            var inputParsedResult = TryParseCoordinates(input);
+            if (!inputParsedResult.IsValid) 
+                return inputParsedResult;
+            var coordinates = inputParsedResult.Coordinates;
+            if (!IsFormatValid(coordinates)) 
+                return ValidationResult.Error(Messages.CoordinateError);
             var isLocationInGrid  = IsLocationInGrid(coordinates, maxGridRow, maxGridColumn);
-            if (!isLocationInGrid) 
-                throw new ArgumentException(Messages.LocationError);
+            return isLocationInGrid
+                ? ValidationResult.Success(coordinates)
+                : ValidationResult.Error(Messages.LocationError);
         }
         
-        public static void ValidateDimension(int dimension)
+        public static ValidationResult ValidateDimension(string input)
         {
-            if (dimension < 5)
-                throw new ArgumentException(Messages.DimensionError);
+            var isInputValid = int.TryParse(input, out var dimension);
+            if (!isInputValid) 
+                return ValidationResult.Error(Messages.StringToIntError);
+            return dimension >= 5
+                ? ValidationResult.Success(dimension)
+                : ValidationResult.Error(Messages.DimensionError);
+        }
+        
+        private static ValidationResult TryParseCoordinates(string input)
+        {
+            int[] coordinates;
+            try
+            {
+                coordinates = InputParser.ParseInputCoordinates(input);
+            }
+            catch (Exception e)
+            {
+                return ValidationResult.Error(e.Message);
+            }
+            
+            return ValidationResult.Success(coordinates);
+        }
+        
+        private static bool IsFormatValid(int[] coordinates)
+        {
+            return coordinates.Length == 2;
         }
         
         private static bool IsLocationInGrid(int[] coordinates, int maxGridRow, int maxGridColumn)

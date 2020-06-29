@@ -34,7 +34,7 @@ namespace kata_conways_game_of_life.tests
         [Theory]
         [InlineData(2)]
         [InlineData(3)]
-        public void HaveALiveCellNextIfHaveTwoOrThreeLiveNeighboursAndCurrentLiveCell(int numOfLiveNeighbours)
+        public void HaveALiveCellNext_IfHasLiveCell_AndTwoOrThreeLiveNeighbours(int numOfLiveNeighbours)
         {
             var neighbours = TestHelper.SetUpNeighbours(numOfLiveNeighbours);
             _sut.SetNeighbours(neighbours);
@@ -46,7 +46,7 @@ namespace kata_conways_game_of_life.tests
         }
         
         [Fact]
-        public void HaveALiveCellNextIfCurrentlyHasDeadCellAndExactly3LiveNeighbours()
+        public void HaveALiveCellNext_IfHasDeadCell_AndExactly3LiveNeighbours()
         {
             var neighbours = TestHelper.SetUpNeighbours(3);
             _sut.SetNeighbours(neighbours);
@@ -57,7 +57,7 @@ namespace kata_conways_game_of_life.tests
         }
         
         [Fact]
-        public void HaveADeadCellNextIfCurrentlyHasDeadCellAndNot3LiveNeighbours()
+        public void HaveADeadCellNext_IfHasDeadCell_AndDoesNotHave3LiveNeighbours()
         {
             var neighbours = TestHelper.SetUpNeighbours(2);
             _sut.SetNeighbours(neighbours);
@@ -68,7 +68,7 @@ namespace kata_conways_game_of_life.tests
         }
 
         [Fact]
-        public void HaveADeadCellNextIfCurrentlyHasLiveCellAndLessThan2LiveNeighbours()
+        public void HaveADeadCellNext_IfHasLiveCell_AndLessThan2LiveNeighbours()
         {
             var neighbours = TestHelper.SetUpNeighbours(1);
             _sut.SetNeighbours(neighbours);
@@ -80,7 +80,7 @@ namespace kata_conways_game_of_life.tests
         }
 
         [Fact]
-        public void HaveADeadCellNextIfCurrentlyHasLiveCellAndMoreThan3LiveNeighbours()
+        public void HaveADeadCellNext_IfHasLiveCell_AndMoreThan3LiveNeighbours()
         {
             var neighbours = TestHelper.SetUpNeighbours(4);
             _sut.SetNeighbours(neighbours);
