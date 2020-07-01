@@ -38,4 +38,7 @@
         <value>Location does not exist</value>
         <comment>Location entered is outside of grid boundaries</comment>
     </data>
+    <data name="Error" xml:space="preserve">
+        <value>Error! </value>
+    </data>
 </root>

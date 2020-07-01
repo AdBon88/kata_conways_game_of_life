@@ -11,7 +11,7 @@ namespace kata_conways_game_of_life.InputOutput
 
         public static void ErrorMessage(string message)
         {
-            Console.WriteLine("Error! " + message);
+            Console.WriteLine(Messages.Error + message);
         }
     }
 }

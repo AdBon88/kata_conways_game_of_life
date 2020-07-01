@@ -74,5 +74,11 @@ namespace kata_conways_game_of_life {
                 return ResourceManager.GetString("LocationError", resourceCulture);
             }
         }
+        
+        internal static string Error {
+            get {
+                return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
     }
 }
